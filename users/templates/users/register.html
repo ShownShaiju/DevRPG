@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevRPG - Join the Guild</title>
+<!-- Tailwind CSS v3 CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts for Gamer/Tech aesthetic -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&amp;family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            devBlue: '#0d59f2',
+            devDark: '#101622',
+            devSurface: '#1a2234',
+            devBorder: '#222f49',
+            xpGold: '#fbbf24',
+            manaPurple: '#8b5cf6',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            gamer: ['"Press Start 2P"', 'cursive'],
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(13, 89, 242, 0.5), 0 0 20px rgba(13, 89, 242, 0.3); }
+      50% { text-shadow: 0 0 20px rgba(13, 89, 242, 0.8), 0 0 40px rgba(13, 89, 242, 0.5); }
+    }
+    .logo-glow {
+      animation: glow 3s ease-in-out infinite;
+    }
+    .grid-bg {
+      background-image: linear-gradient(rgba(34, 47, 73, 0.5) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(34, 47, 73, 0.5) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .code-texture {
+      opacity: 0.05;
+      font-family: monospace;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-devDark text-gray-100 font-sans min-h-screen flex items-center justify-center">
+<main class="w-full min-h-screen flex flex-col md:flex-row">
+<!-- BEGIN: Left Branding Section -->
+<section class="w-full md:w-1/2 bg-devDark relative overflow-hidden flex flex-col items-center justify-center p-8 lg:p-16" data-purpose="branding-side">
+<!-- Background Grid and Decoration -->
+<div class="absolute inset-0 grid-bg"></div>
+<div class="absolute inset-0 code-texture p-4 overflow-hidden select-none">
+        &lt;script&gt; const levelUp = () =&gt; { xp += 100; guild.join(); } &lt;/script&gt;<br/>
+        function initQuest() { const player = new Developer(); player.start(); }<br/>
+        git commit -m "initial career quest"<br/>
+        // Your journey begins here...<br/>
+        npm install motivation --save-dev
+      </div>
+<div class="relative z-10 text-center">
+<!-- Logo -->
+<h1 class="font-gamer text-4xl md:text-5xl lg:text-6xl text-devBlue logo-glow mb-8 tracking-tighter">
+          DevRPG
+        </h1>
+<!-- Quote -->
+<p class="font-bold text-xl md:text-2xl lg:text-3xl max-w-md leading-relaxed">
+          "Your career growth <span class="text-xpGold">starts</span> with a single step."
+        </p>
+<!-- Subtle HUD Elements -->
+<div class="mt-12 flex space-x-4 justify-center opacity-60">
+<div class="h-1 w-24 bg-devBlue rounded-full shadow-[0_0_8px_rgba(13,89,242,1)]"></div>
+<div class="h-1 w-12 bg-manaPurple rounded-full shadow-[0_0_8px_rgba(139,92,246,1)]"></div>
+</div>
+</div>
+</section>
+<!-- END: Left Branding Section -->
+<!-- BEGIN: Right Registration Section -->
+<section class="w-full md:w-1/2 bg-devSurface flex items-center justify-center p-8 lg:p-20 border-l border-devBorder" data-purpose="registration-side">
+<div class="w-full max-w-md">
+<!-- Header -->
+<header class="mb-10">
+<h2 class="text-3xl font-bold uppercase tracking-wider text-white mb-2">
+            Join the Guild
+          </h2>
+<p class="text-gray-400 text-sm">
+            Create your player profile to start your quest.
+          </p>
+</header>
+<!-- Registration Form -->
+<form action="#" class="space-y-6" method="POST">
+<!-- Username Field -->
+<div class="group">
+<label class="block text-xs font-bold uppercase text-gray-500 mb-2 group-focus-within:text-devBlue transition-colors" for="username">
+              Username
+            </label>
+<input class="w-full bg-devDark border-devBorder rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:ring-2 focus:ring-devBlue focus:border-devBlue focus:outline-none transition-all shadow-sm" id="username" name="username" placeholder="Player123" required="" type="text"/>
+</div>
+<!-- Email Field -->
+<div class="group">
+<label class="block text-xs font-bold uppercase text-gray-500 mb-2 group-focus-within:text-devBlue transition-colors" for="email">
+              Email Address
+            </label>
+<input class="w-full bg-devDark border-devBorder rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:ring-2 focus:ring-devBlue focus:border-devBlue focus:outline-none transition-all shadow-sm" id="email" name="email" placeholder="dev@guild.com" required="" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="group">
+<label class="block text-xs font-bold uppercase text-gray-500 mb-2 group-focus-within:text-devBlue transition-colors" for="password">
+              Password
+            </label>
+<input class="w-full bg-devDark border-devBorder rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:ring-2 focus:ring-devBlue focus:border-devBlue focus:outline-none transition-all shadow-sm" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<!-- Confirm Password Field -->
+<div class="group">
+<label class="block text-xs font-bold uppercase text-gray-500 mb-2 group-focus-within:text-devBlue transition-colors" for="confirm-password">
+              Confirm Password
+            </label>
+<input class="w-full bg-devDark border-devBorder rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:ring-2 focus:ring-devBlue focus:border-devBlue focus:outline-none transition-all shadow-sm" id="confirm-password" name="confirm-password" placeholder="••••••••" required="" type="password"/>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+<button class="w-full bg-devBlue hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-[0_0_15px_rgba(13,89,242,0.4)] uppercase tracking-widest text-sm" type="submit">
+              Sign Up / Begin Quest
+            </button>
+</div>
+</form>
+<!-- Footer -->
+<footer class="mt-8 text-center">
+<p class="text-gray-400 text-sm">
+            Already a member? 
+            <a class="text-devBlue hover:text-blue-400 font-bold ml-1 transition-colors" href="#">
+              Sign In
+            </a>
+</p>
+</footer>
+</div>
+</section>
+<!-- END: Right Registration Section -->
+</main>
+</body></html>

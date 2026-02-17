@@ -1,14 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>DevRPG - {{ user.username }}</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Hero Profile - RPG Character Sheet</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -33,362 +37,204 @@
             },
         }
     </script>
-<style>
-        .neon-shadow {
-            box-shadow: 0 0 10px rgba(19, 91, 236, 0.5), 0 0 20px rgba(19, 91, 236, 0.3);
-        }
-        .neon-text {
-            text-shadow: 0 0 5px rgba(19, 91, 236, 0.5);
-        }
-        .accent-shadow {
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3);
-        }
-        .hexagon {
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .bg-grid-fade {
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        }
+    <style>
+        .neon-shadow { box-shadow: 0 0 10px rgba(19, 91, 236, 0.5), 0 0 20px rgba(19, 91, 236, 0.3); }
+        .neon-text { text-shadow: 0 0 5px rgba(19, 91, 236, 0.5); }
+        .accent-shadow { box-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3); }
+        .hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .bg-grid-fade { mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-200 min-h-screen flex flex-col overflow-x-hidden">
-<!-- Top Navbar -->
+
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-white/10 bg-surface-darker/90 backdrop-blur-md px-6 py-3 lg:px-10">
-<div class="flex items-center gap-4 text-white">
-<div class="size-8 text-primary neon-text">
-<span class="material-symbols-outlined text-[32px]">swords</span>
-</div>
-<h2 class="text-white text-xl font-bold leading-tight tracking-wider uppercase neon-text">DevRPG</h2>
-</div>
-<nav class="hidden md:flex flex-1 justify-center gap-8">
-<a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Quests</a>
-<a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Guilds</a>
-<a class="text-white neon-text text-sm font-bold uppercase tracking-widest border-b-2 border-primary" href="#">Hero Profile</a>
-<a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Map</a>
-<a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Inventory</a>
-</nav>
-<div class="flex items-center gap-3">
-<button class="flex size-10 items-center justify-center rounded-lg bg-surface-dark hover:bg-surface-dark/80 text-white transition-colors border border-white/5 relative">
-<span class="absolute top-2 right-2 size-2 rounded-full bg-red-500 animate-pulse"></span>
-<span class="material-symbols-outlined text-[20px]">notifications</span>
-</button>
-<button class="flex size-10 items-center justify-center rounded-lg bg-surface-dark hover:bg-surface-dark/80 text-white transition-colors border border-white/5">
-<span class="material-symbols-outlined text-[20px]">settings</span>
-</button>
-<div class="md:hidden">
-<button class="flex size-10 items-center justify-center rounded-lg bg-primary text-white">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</div>
+    <div class="flex items-center gap-4 text-white">
+        <div class="size-8 text-primary neon-text">
+            <span class="material-symbols-outlined text-[32px]">swords</span>
+        </div>
+        <h2 class="text-white text-xl font-bold leading-tight tracking-wider uppercase neon-text">DevRPG</h2>
+    </div>
+    <nav class="hidden md:flex flex-1 justify-center gap-8">
+        <a class="text-white neon-text text-sm font-bold uppercase tracking-widest border-b-2 border-primary" href="#">Hero Profile</a>
+        <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Job Board</a>
+        <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Guilds</a>
+    </nav>
+    <div class="flex items-center gap-3">
+        <a href="{% url 'logout' %}" class="flex size-10 items-center justify-center rounded-lg bg-surface-dark hover:bg-red-900/30 text-white transition-colors border border-white/5 relative" title="Logout">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+        </a>
+        <div class="md:hidden">
+            <button class="flex size-10 items-center justify-center rounded-lg bg-primary text-white">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </div>
 </header>
-<!-- Main Content -->
+
 <main class="flex-1 w-full max-w-[1400px] mx-auto p-4 md:p-6 lg:p-8 relative">
-<!-- Background Grid Effect -->
-<div class="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-10 pointer-events-none bg-grid-fade z-0"></div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
-<!-- Left Column: Identity Card -->
-<section class="lg:col-span-3 flex flex-col gap-6">
-<!-- Avatar & Core Info -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group">
-<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
-<div class="relative mb-4">
-<div class="hexagon w-40 h-44 bg-surface-dark p-1 relative z-10 neon-shadow">
-<img alt="Profile picture of a professional man in tech" class="hexagon w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArtSR8RoeoK8YIOSUuotjFAlk51vbdgn2BATzkrsSBtOd-nN-zsHXjVaAzRv0z6_E8ICiI8wxTRxlHxFEeZAYT28_E46jI6EltMshbzvKr-hDLhA2mLHEbPHuD2KCWa8S7UprrjMZT7EaAbFpKWryOlSV8SHbNRgSsqmqDszJ3tZ1cFarl5iYkb5vzmX8KejADqOyaRh9MXN0wXDRhDlfs122P3JHPj8IkYN6c-tjUR6dPJWxgQrLidREQtsUxLy2Q_dsjWu5QQI0V"/>
-</div>
-<div class="absolute -bottom-3 -right-3 bg-primary text-white font-bold text-sm py-1 px-3 rounded-md border border-white/20 shadow-lg z-20 neon-shadow">
-                            LV. 52
-                        </div>
-</div>
-<h1 class="text-2xl font-bold text-white text-center mt-2 tracking-tight">Alex Chen</h1>
-<p class="text-primary font-medium text-sm uppercase tracking-widest mt-1 mb-4 neon-text">Staff Architect</p>
-<div class="w-full flex gap-2 mb-6">
-<button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow">Connect</button>
-<button class="bg-surface-dark hover:bg-slate-700 text-white border border-white/10 p-2 rounded-lg transition-all">
-<span class="material-symbols-outlined text-[20px]">mail</span>
-</button>
-</div>
-<!-- XP Progress -->
-<div class="w-full space-y-2">
-<div class="flex justify-between text-xs text-slate-400 uppercase tracking-wider font-bold">
-<span>Level Progress</span>
-<span>8,450 / 10,000 XP</span>
-</div>
-<div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden border border-white/5">
-<div class="h-full bg-gradient-to-r from-blue-600 to-purple-500 w-[84%] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-</div>
-<div class="text-right text-[10px] text-slate-500">Next Rank: Principal Architect</div>
-</div>
-</div>
-<!-- Attributes / Bio -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6">
-<h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">history_edu</span>
-                        Character Backstory
+    <div class="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-10 pointer-events-none bg-grid-fade z-0"></div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+        
+        <section class="lg:col-span-3 flex flex-col gap-6">
+            <div class="bg-surface-darker border border-white/10 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+                <div class="relative mb-4">
+                    <div class="hexagon w-40 h-44 bg-surface-dark p-1 relative z-10 neon-shadow">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Profile" class="hexagon w-full h-full object-cover"/>
+                    </div>
+                    <div class="absolute -bottom-3 -right-3 bg-primary text-white font-bold text-sm py-1 px-3 rounded-md border border-white/20 shadow-lg z-20 neon-shadow">
+                        LV. {{ user.profile.level|default:"1" }}
+                    </div>
+                </div>
+                
+                <h1 class="text-2xl font-bold text-white text-center mt-2 tracking-tight">{{ user.first_name|default:user.username }}</h1>
+                <p class="text-primary font-medium text-sm uppercase tracking-widest mt-1 mb-4 neon-text">
+                    {{ user.profile.job_title|default:"Novice Developer" }}
+                </p>
+                
+                <div class="w-full flex gap-2 mb-6">
+                    <button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow">Edit Profile</button>
+                </div>
+                
+                <div class="w-full space-y-2">
+                    <div class="flex justify-between text-xs text-slate-400 uppercase tracking-wider font-bold">
+                        <span>XP Progress</span>
+                        <span>{{ user.profile.total_xp|default:"0" }} / 1000 XP</span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden border border-white/5">
+                        <div class="h-full bg-gradient-to-r from-blue-600 to-purple-500 w-[60%] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface-darker border border-white/10 rounded-xl p-6">
+                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">history_edu</span>
+                    Character Backstory
+                </h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4 italic">
+                    {% if user.profile.bio %}
+                        "{{ user.profile.bio|truncatechars:150 }}"
+                    {% else %}
+                        "No backstory recorded yet. The pages of history await your input..."
+                    {% endif %}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">Human</span>
+                    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">AP-South-1</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-6 flex flex-col gap-6">
+            
+            <div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative overflow-hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white text-lg font-bold uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">radar</span>
+                        Ability Stats
                     </h3>
-<p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        Veteran code-weaver specializing in distributed systems and cloud infrastructure. Currently questing at <span class="text-white font-bold">TechCorp Guild</span>. Seeking alliances for open-source raids.
-                    </p>
-<div class="flex flex-wrap gap-2">
-<span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">NA-East Server</span>
-<span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">Human</span>
-<span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">Chaotic Good</span>
-</div>
-</div>
-<!-- Guild Info -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-4 flex items-center gap-4">
-<div class="size-12 rounded bg-gradient-to-br from-indigo-900 to-slate-900 flex items-center justify-center border border-indigo-500/30">
-<span class="material-symbols-outlined text-indigo-400">cloud_circle</span>
-</div>
-<div>
-<p class="text-xs text-slate-500 uppercase font-bold">Current Guild</p>
-<p class="text-white font-bold text-sm">Cloud Architects</p>
-<p class="text-xs text-indigo-400">Officer Rank</p>
-</div>
-</div>
-</section>
-<!-- Center Column: Visual Data -->
-<section class="lg:col-span-6 flex flex-col gap-6">
-<!-- Stats Radar Chart Panel -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative overflow-hidden">
-<div class="flex items-center justify-between mb-6">
-<h3 class="text-white text-lg font-bold uppercase tracking-widest flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">radar</span>
-                            Ability Stats
-                        </h3>
-<div class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
-                            Total Power: 9000
+                    <div class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+                        Total Skills: {{ skills.count }}
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="relative size-64 flex-shrink-0">
+                        <div class="absolute inset-0 border border-white/5 rounded-full"></div>
+                        <div class="absolute inset-8 border border-white/5 rounded-full"></div>
+                        <svg class="w-full h-full drop-shadow-[0_0_15px_rgba(19,91,236,0.4)]" viewBox="0 0 100 100">
+                            <polygon fill="rgba(19, 91, 236, 0.2)" points="50,10 90,45 80,85 20,85 10,45" stroke="#135bec" stroke-width="1.5"></polygon>
+                        </svg>
+                        <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-xs font-bold text-slate-300">CODE</span>
+                        <span class="absolute bottom-[10%] right-0 translate-x-2 text-xs font-bold text-slate-300">CLOUD</span>
+                        <span class="absolute bottom-[10%] left-0 -translate-x-2 text-xs font-bold text-slate-300">OPS</span>
+                    </div>
+                    <div class="flex-1 w-full grid grid-cols-2 gap-4">
+                        <div class="bg-surface-dark p-3 rounded border border-white/5">
+                            <p class="text-xs text-slate-500 uppercase font-bold mb-1">Backend</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary w-[90%]"></div></div>
                         </div>
-</div>
-<div class="flex flex-col md:flex-row items-center gap-8">
-<!-- Radar Chart Graphic -->
-<div class="relative size-64 flex-shrink-0">
-<!-- Background Grid Circles -->
-<div class="absolute inset-0 border border-white/5 rounded-full"></div>
-<div class="absolute inset-8 border border-white/5 rounded-full"></div>
-<div class="absolute inset-16 border border-white/5 rounded-full"></div>
-<div class="absolute top-1/2 left-0 w-full h-px bg-white/5"></div>
-<div class="absolute top-0 left-1/2 w-px h-full bg-white/5"></div>
-<!-- The Polygon Shape (Simulated with SVG) -->
-<svg class="w-full h-full drop-shadow-[0_0_15px_rgba(19,91,236,0.4)]" viewbox="0 0 100 100">
-<polygon fill="rgba(19, 91, 236, 0.2)" points="50,10 90,45 80,85 20,85 10,45" stroke="#135bec" stroke-width="1.5"></polygon>
-<!-- Points -->
-<circle cx="50" cy="10" fill="#fff" r="1.5"></circle>
-<circle cx="90" cy="45" fill="#fff" r="1.5"></circle>
-<circle cx="80" cy="85" fill="#fff" r="1.5"></circle>
-<circle cx="20" cy="85" fill="#fff" r="1.5"></circle>
-<circle cx="10" cy="45" fill="#fff" r="1.5"></circle>
-</svg>
-<!-- Labels -->
-<span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-xs font-bold text-slate-300">CODE</span>
-<span class="absolute top-[35%] right-0 translate-x-4 text-xs font-bold text-slate-300">LEAD</span>
-<span class="absolute bottom-[10%] right-0 translate-x-2 text-xs font-bold text-slate-300">COMM</span>
-<span class="absolute bottom-[10%] left-0 -translate-x-2 text-xs font-bold text-slate-300">RELY</span>
-<span class="absolute top-[35%] left-0 -translate-x-6 text-xs font-bold text-slate-300">ARCH</span>
-</div>
-<!-- Stats Breakdown List -->
-<div class="flex-1 w-full grid grid-cols-2 gap-4">
-<div class="bg-surface-dark p-3 rounded border border-white/5">
-<p class="text-xs text-slate-500 uppercase font-bold mb-1">Coding</p>
-<div class="flex items-end gap-2">
-<span class="text-xl font-bold text-white">98</span>
-<span class="text-xs text-green-400 mb-1">+2 (Buff)</span>
-</div>
-<div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary w-[98%]"></div></div>
-</div>
-<div class="bg-surface-dark p-3 rounded border border-white/5">
-<p class="text-xs text-slate-500 uppercase font-bold mb-1">Architecture</p>
-<div class="flex items-end gap-2">
-<span class="text-xl font-bold text-white">92</span>
-</div>
-<div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary w-[92%]"></div></div>
-</div>
-<div class="bg-surface-dark p-3 rounded border border-white/5">
-<p class="text-xs text-slate-500 uppercase font-bold mb-1">Leadership</p>
-<div class="flex items-end gap-2">
-<span class="text-xl font-bold text-white">85</span>
-</div>
-<div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-purple-500 w-[85%]"></div></div>
-</div>
-<div class="bg-surface-dark p-3 rounded border border-white/5">
-<p class="text-xs text-slate-500 uppercase font-bold mb-1">Communication</p>
-<div class="flex items-end gap-2">
-<span class="text-xl font-bold text-white">88</span>
-</div>
-<div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-purple-500 w-[88%]"></div></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Skill Tree -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative min-h-[400px]">
-<div class="flex items-center justify-between mb-8">
-<h3 class="text-white text-lg font-bold uppercase tracking-widest flex items-center gap-2">
-<span class="material-symbols-outlined text-accent">account_tree</span>
-                            Skill Tree Mastery
-                        </h3>
-<div class="text-xs text-slate-500">
-                            Points Available: <span class="text-white font-bold">0</span>
-</div>
-</div>
-<!-- Skill Tree Visualization -->
-<div class="relative flex flex-col items-center gap-8 py-4">
-<!-- Connection Lines (Simulated with absolute divs) -->
-<div class="absolute top-[80px] left-1/2 w-px h-16 bg-gradient-to-b from-primary to-slate-700 -translate-x-1/2 z-0"></div>
-<div class="absolute top-[170px] left-[30%] right-[30%] h-px bg-slate-700 z-0"></div>
-<div class="absolute top-[170px] left-[30%] w-px h-16 bg-slate-700 z-0"></div>
-<div class="absolute top-[170px] right-[30%] w-px h-16 bg-slate-700 z-0"></div>
-<!-- Root Node -->
-<div class="relative z-10 flex flex-col items-center group cursor-pointer">
-<div class="size-16 rounded-full bg-surface-dark border-2 border-primary neon-shadow flex items-center justify-center transition-transform hover:scale-110">
-<span class="material-symbols-outlined text-primary text-3xl">javascript</span>
-</div>
-<span class="mt-2 text-xs font-bold text-white uppercase tracking-wider bg-surface-dark px-2 py-0.5 rounded border border-white/10">JavaScript</span>
-</div>
-<!-- Level 2 Nodes -->
-<div class="w-full flex justify-center gap-16 md:gap-32 relative z-10 pt-8">
-<!-- Left Branch -->
-<div class="flex flex-col items-center group cursor-pointer">
-<div class="size-14 rounded-full bg-surface-dark border-2 border-primary neon-shadow flex items-center justify-center transition-transform hover:scale-110">
-<span class="material-symbols-outlined text-primary text-2xl">code</span>
-</div>
-<span class="mt-2 text-xs font-bold text-white uppercase tracking-wider bg-surface-dark px-2 py-0.5 rounded border border-white/10">React</span>
-</div>
-<!-- Right Branch -->
-<div class="flex flex-col items-center group cursor-pointer">
-<div class="size-14 rounded-full bg-surface-dark border-2 border-slate-600 flex items-center justify-center transition-transform hover:scale-110 opacity-70 hover:opacity-100">
-<span class="material-symbols-outlined text-slate-400 text-2xl">dns</span>
-</div>
-<span class="mt-2 text-xs font-bold text-slate-400 uppercase tracking-wider bg-surface-dark px-2 py-0.5 rounded border border-white/10">Node.js</span>
-</div>
-</div>
-<!-- Level 3 Nodes (More branched) -->
-<div class="w-full flex justify-between px-8 md:px-16 pt-4 relative z-10">
-<div class="flex flex-col items-center opacity-40">
-<div class="size-10 rounded-full bg-surface-dark border border-slate-600 flex items-center justify-center">
-<span class="material-symbols-outlined text-slate-500 text-lg">smartphone</span>
-</div>
-<span class="mt-1 text-[10px] text-slate-500 font-bold uppercase">Native</span>
-</div>
-<div class="flex flex-col items-center">
-<div class="size-12 rounded-full bg-surface-dark border-2 border-accent accent-shadow flex items-center justify-center animate-pulse">
-<span class="material-symbols-outlined text-accent text-xl">cloud</span>
-</div>
-<span class="mt-1 text-[10px] text-accent font-bold uppercase">AWS</span>
-</div>
-<div class="flex flex-col items-center opacity-40">
-<div class="size-10 rounded-full bg-surface-dark border border-slate-600 flex items-center justify-center">
-<span class="material-symbols-outlined text-slate-500 text-lg">database</span>
-</div>
-<span class="mt-1 text-[10px] text-slate-500 font-bold uppercase">SQL</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Right Column: Achievements & Inventory -->
-<section class="lg:col-span-3 flex flex-col gap-6">
-<!-- Badges -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6">
-<h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
-<span>Achievements</span>
-<span class="text-slate-500">12/50</span>
-</h3>
-<div class="grid grid-cols-3 gap-3">
-<!-- Legendary Badge -->
-<div class="aspect-square bg-gradient-to-br from-yellow-900/40 to-surface-dark border border-yellow-500/30 rounded-lg flex flex-col items-center justify-center p-2 group hover:border-yellow-500 transition-colors cursor-help relative">
-<span class="material-symbols-outlined text-yellow-400 text-2xl drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]">bug_report</span>
-<span class="text-[9px] text-yellow-200 mt-1 text-center leading-tight">Bug Hunter</span>
-<!-- Tooltip -->
-<div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-32 bg-black/90 border border-yellow-500/50 p-2 rounded text-[10px] text-white hidden group-hover:block z-50">
-<p class="font-bold text-yellow-400">Legendary</p>
-<p>Fixed a critical production bug in under 1 hour.</p>
-</div>
-</div>
-<!-- Epic Badge -->
-<div class="aspect-square bg-gradient-to-br from-purple-900/40 to-surface-dark border border-purple-500/30 rounded-lg flex flex-col items-center justify-center p-2 group hover:border-purple-500 transition-colors cursor-help">
-<span class="material-symbols-outlined text-purple-400 text-2xl drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]">school</span>
-<span class="text-[9px] text-purple-200 mt-1 text-center leading-tight">Mentor</span>
-</div>
-<!-- Rare Badge -->
-<div class="aspect-square bg-gradient-to-br from-blue-900/40 to-surface-dark border border-blue-500/30 rounded-lg flex flex-col items-center justify-center p-2 group hover:border-blue-500 transition-colors cursor-help">
-<span class="material-symbols-outlined text-blue-400 text-2xl">rocket_launch</span>
-<span class="text-[9px] text-blue-200 mt-1 text-center leading-tight">Shipper</span>
-</div>
-<!-- Common Badges -->
-<div class="aspect-square bg-surface-dark border border-white/5 rounded-lg flex flex-col items-center justify-center p-2 opacity-60">
-<span class="material-symbols-outlined text-slate-400 text-2xl">terminal</span>
-</div>
-<div class="aspect-square bg-surface-dark border border-white/5 rounded-lg flex flex-col items-center justify-center p-2 opacity-60">
-<span class="material-symbols-outlined text-slate-400 text-2xl">coffee</span>
-</div>
-<div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-slate-700 text-xl">lock</span>
-</div>
-</div>
-</div>
-<!-- Current Inventory (Tech Stack) -->
-<div class="bg-surface-darker border border-white/10 rounded-xl p-6 flex-1">
-<h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">backpack</span>
-                        Equipped Gear
+                        <div class="bg-surface-dark p-3 rounded border border-white/5">
+                            <p class="text-xs text-slate-500 uppercase font-bold mb-1">Cloud</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-accent w-[75%]"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative min-h-[400px]">
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-white text-lg font-bold uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-accent">account_tree</span>
+                        Skill Tree Mastery
                     </h3>
-<div class="space-y-3">
-<!-- Item Slot -->
-<div class="flex items-center gap-3 p-2 rounded bg-surface-dark border border-white/5 hover:border-white/20 transition-colors group">
-<div class="size-10 rounded bg-blue-900/20 border border-blue-500/30 flex items-center justify-center group-hover:bg-blue-900/40">
-<span class="material-symbols-outlined text-blue-400">code_blocks</span>
-</div>
-<div>
-<p class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">VS Code</p>
-<p class="text-[10px] text-slate-500 uppercase font-bold">Primary Weapon</p>
-</div>
-</div>
-<!-- Item Slot -->
-<div class="flex items-center gap-3 p-2 rounded bg-surface-dark border border-white/5 hover:border-white/20 transition-colors group">
-<div class="size-10 rounded bg-purple-900/20 border border-purple-500/30 flex items-center justify-center group-hover:bg-purple-900/40">
-<span class="material-symbols-outlined text-purple-400">palette</span>
-</div>
-<div>
-<p class="text-sm font-bold text-white group-hover:text-purple-400 transition-colors">Figma</p>
-<p class="text-[10px] text-slate-500 uppercase font-bold">Design Scroll</p>
-</div>
-</div>
-<!-- Item Slot -->
-<div class="flex items-center gap-3 p-2 rounded bg-surface-dark border border-white/5 hover:border-white/20 transition-colors group">
-<div class="size-10 rounded bg-green-900/20 border border-green-500/30 flex items-center justify-center group-hover:bg-green-900/40">
-<span class="material-symbols-outlined text-green-400">terminal</span>
-</div>
-<div>
-<p class="text-sm font-bold text-white group-hover:text-green-400 transition-colors">iTerm2</p>
-<p class="text-[10px] text-slate-500 uppercase font-bold">Accessory</p>
-</div>
-</div>
-<!-- Empty Slot -->
-<div class="flex items-center gap-3 p-2 rounded bg-transparent border border-dashed border-white/10 opacity-50">
-<div class="size-10 rounded bg-surface-dark flex items-center justify-center">
-</div>
-<div>
-<p class="text-sm font-bold text-slate-600">Empty Slot</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Quest Log (Recent Activity) -->
-<div class="bg-gradient-to-br from-primary/10 to-surface-darker border border-primary/20 rounded-xl p-4">
-<h3 class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Active Quest</h3>
-<p class="text-white font-bold text-sm mb-1">Migration to Kubernetes</p>
-<p class="text-slate-400 text-xs mb-3">Objective: Move legacy monolith to microservices cluster.</p>
-<div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-primary w-[45%]"></div>
-</div>
-<div class="text-right text-[10px] text-primary mt-1">45% Complete</div>
-</div>
-</section>
-</div>
+                    <div class="text-xs text-slate-500">
+                        <a href="#" class="text-white font-bold bg-surface-dark border border-white/20 px-3 py-1 rounded hover:bg-white/10 transition">
+                            + Add Skill
+                        </a>
+                    </div>
+                </div>
+
+                {% if skills %}
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    {% for user_skill in skills %}
+                    <div class="flex flex-col items-center group cursor-pointer">
+                        <div class="size-16 rounded-full bg-surface-dark border-2 border-primary neon-shadow flex items-center justify-center transition-transform hover:scale-110 relative overflow-hidden">
+                             {% if user_skill.skill.icon_class %}
+                                <i class="{{ user_skill.skill.icon_class }} text-3xl"></i>
+                            {% else %}
+                                <span class="material-symbols-outlined text-primary text-3xl">code</span>
+                            {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs font-bold text-white uppercase tracking-wider bg-surface-dark px-2 py-0.5 rounded border border-white/10">
+                            {{ user_skill.skill.name }}
+                        </span>
+                        <span class="text-[10px] text-accent mt-1 font-bold">LVL {{ user_skill.level }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="flex flex-col items-center justify-center py-10 opacity-50">
+                    <span class="material-symbols-outlined text-4xl mb-2">lock_clock</span>
+                    <p>No skills unlocked yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="lg:col-span-3 flex flex-col gap-6">
+            <div class="bg-surface-darker border border-white/10 rounded-xl p-6">
+                <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 flex items-center justify-between">
+                    <span>Achievements</span>
+                    <span class="text-slate-500">03/50</span>
+                </h3>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="aspect-square bg-gradient-to-br from-yellow-900/40 to-surface-dark border border-yellow-500/30 rounded-lg flex flex-col items-center justify-center p-2">
+                        <span class="material-symbols-outlined text-yellow-400 text-2xl">verified</span>
+                        <span class="text-[9px] text-yellow-200 mt-1 text-center">Certified</span>
+                    </div>
+                    <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-slate-700 text-xl">lock</span>
+                    </div>
+                     <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-slate-700 text-xl">lock</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-primary/10 to-surface-darker border border-primary/20 rounded-xl p-4">
+                <h3 class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Active Quest</h3>
+                <p class="text-white font-bold text-sm mb-1">Project VisionWare</p>
+                <p class="text-slate-400 text-xs mb-3">Objective: Deploy containerized app to AWS.</p>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary w-[50%]"></div>
+                </div>
+                <div class="text-right text-[10px] text-primary mt-1">50% Complete</div>
+            </div>
+        </section>
+    </div>
 </main>
-</body></html>
+</body>
+</html>

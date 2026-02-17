@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Skill Manager - DevRPG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "accent": "#a855f7",
+                        "background-dark": "#0f172a",
+                        "surface-dark": "#1e293b",
+                        "surface-darker": "#111827",
+                    },
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .neon-border { border: 1px solid rgba(19, 91, 236, 0.3); box-shadow: 0 0 15px rgba(19, 91, 236, 0.1); }
+        input, select { background: #0f172a !important; border: 1px solid #334155 !important; color: white !important; border-radius: 8px !important; padding: 10px !important; width: 100%; }
+        label { display: block; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; letter-spacing: 0.05em; }
+    </style>
+</head>
+<body class="bg-background-dark font-display text-slate-200 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-surface-darker border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="bg-surface-dark p-6 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+                <div>
+                    <h1 class="text-xl font-bold text-white uppercase tracking-tight">Skill Tree Manager</h1>
+                    <p class="text-xs text-slate-400">Update your hero's technical capabilities</p>
+                </div>
+            </div>
+            <a href="{% url 'dashboard' %}" class="flex items-center gap-2 text-xs font-bold py-2 px-4 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-all border border-white/10">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <section>
+                <h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">add_circle</span>
+                    Add New Node
+                </h3>
+                <form method="POST" class="space-y-5">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(19,91,236,0.3)] flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">bolt</span>
+                        Sync to Tree
+                    </button>
+                </form>
+            </section>
+
+            <section>
+                <h3 class="text-sm font-bold text-accent uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">account_tree</span>
+                    Active Nodes
+                </h3>
+                <div class="space-y-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
+                    {% for s in user_skills %}
+                    <div class="bg-surface-dark border border-white/5 p-4 rounded-xl flex items-center justify-between group hover:border-primary/30 transition-all">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 rounded-lg bg-background-dark flex items-center justify-center border border-white/5">
+                                {% if s.skill.icon_class %}
+                                    <i class="{{ s.skill.icon_class }} text-xl text-primary"></i>
+                                {% else %}
+                                    <span class="material-symbols-outlined text-primary">code</span>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">{{ s.skill.name }}</h4>
+                                <p class="text-[10px] text-accent font-bold uppercase">Level {{ s.level }}</p>
+                            </div>
+                        </div>
+                        <a href="{% url 'delete_skill' s.pk %}" class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/20 text-slate-500 hover:text-red-500 transition-colors" onclick="return confirm('Disconnect this skill node?')">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-10 opacity-30">
+                        <span class="material-symbols-outlined text-4xl mb-2">inventory_2</span>
+                        <p class="text-xs uppercase font-bold tracking-widest">Tree is empty</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <div class="p-4 bg-black/20 text-center border-t border-white/5">
+            <p class="text-[10px] text-slate-500 uppercase tracking-widest">Changes are synchronized with your Global Hero Profile</p>
+        </div>
+    </div>
+
+</body>
+</html>

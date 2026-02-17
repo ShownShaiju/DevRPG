@@ -42,7 +42,6 @@
         .neon-text { text-shadow: 0 0 5px rgba(19, 91, 236, 0.5); }
         .accent-shadow { box-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3); }
         .hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
         .bg-grid-fade { mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
     </style>
 </head>
@@ -64,11 +63,6 @@
         <a href="{% url 'logout' %}" class="flex size-10 items-center justify-center rounded-lg bg-surface-dark hover:bg-red-900/30 text-white transition-colors border border-white/5 relative" title="Logout">
             <span class="material-symbols-outlined text-[20px]">logout</span>
         </a>
-        <div class="md:hidden">
-            <button class="flex size-10 items-center justify-center rounded-lg bg-primary text-white">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-        </div>
     </div>
 </header>
 
@@ -99,7 +93,7 @@
                 </p>
                 
                 <div class="w-full flex gap-2 mb-6">
-                    <button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow"><a href="{% url 'profile_edit' %}" class="btn ...">Edit Profile</a></button>
+                    <a href="{% url 'profile_edit' %}" class="w-full text-center bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow">Edit Profile</a>
                 </div>
                 
                 <div class="w-full space-y-2">
@@ -133,7 +127,6 @@
         </section>
 
         <section class="lg:col-span-6 flex flex-col gap-6">
-            
             <div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative overflow-hidden">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-white text-lg font-bold uppercase tracking-widest flex items-center gap-2">
@@ -146,8 +139,6 @@
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="relative size-64 flex-shrink-0">
-                        <div class="absolute inset-0 border border-white/5 rounded-full"></div>
-                        <div class="absolute inset-8 border border-white/5 rounded-full"></div>
                         <svg class="w-full h-full drop-shadow-[0_0_15px_rgba(19,91,236,0.4)]" viewBox="0 0 100 100">
                             <polygon fill="rgba(19, 91, 236, 0.2)" points="50,10 90,45 80,85 20,85 10,45" stroke="#135bec" stroke-width="1.5"></polygon>
                         </svg>
@@ -174,35 +165,50 @@
                         <span class="material-symbols-outlined text-accent">account_tree</span>
                         Skill Tree Mastery
                     </h3>
-                    <div class="text-xs text-slate-500">
-                        <a href="#" class="text-white font-bold bg-surface-dark border border-white/20 px-3 py-1 rounded hover:bg-white/10 transition">
-                            + Add Skill
+                    <div class="text-xs">
+                        <a href="{% url 'skill_manager' %}" class="text-white font-bold bg-primary/20 border border-primary/50 px-4 py-2 rounded hover:bg-primary/40 transition flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm">add_circle</span>
+                            Upgrade Tree
                         </a>
                     </div>
                 </div>
 
                 {% if skills %}
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {% for user_skill in skills %}
-                    <div class="flex flex-col items-center group cursor-pointer">
-                        <div class="size-16 rounded-full bg-surface-dark border-2 border-primary neon-shadow flex items-center justify-center transition-transform hover:scale-110 relative overflow-hidden">
-                             {% if user_skill.skill.icon_class %}
-                                <i class="{{ user_skill.skill.icon_class }} text-3xl"></i>
-                            {% else %}
-                                <span class="material-symbols-outlined text-primary text-3xl">code</span>
-                            {% endif %}
+                <div class="relative py-4">
+                    <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 z-0"></div>
+                    
+                    <div class="flex flex-wrap justify-center gap-10 relative z-10">
+                        {% for user_skill in skills %}
+                        <div class="flex flex-col items-center group relative">
+                            <div class="relative">
+                                <div class="absolute inset-[-4px] rounded-full border border-dashed border-accent/40 animate-[spin_10s_linear_infinite]"></div>
+                                
+                                <div class="size-20 rounded-full bg-surface-dark border-2 {% if user_skill.level > 5 %}border-accent accent-shadow{% else %}border-primary neon-shadow{% endif %} flex items-center justify-center transition-all group-hover:scale-110 overflow-hidden relative">
+                                    {% if "devicon" in user_skill.skill.icon_class %}
+                                        <i class="{{ user_skill.skill.icon_class }} text-4xl {% if user_skill.level > 5 %}text-accent{% else %}text-primary{% endif %}"></i>
+                                    {% else %}
+                                        <span class="material-symbols-outlined text-4xl {% if user_skill.level > 5 %}text-accent{% else %}text-primary{% endif %}">
+                                            {{ user_skill.skill.icon_class|default:"terminal" }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <div class="absolute -bottom-1 -right-1 bg-white text-black font-black text-[10px] px-1.5 py-0.5 rounded shadow-lg border border-white">
+                                    L{{ user_skill.level }}
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <h4 class="text-white font-bold text-xs uppercase tracking-tighter">{{ user_skill.skill.name }}</h4>
+                                <span class="text-[8px] text-slate-500 font-bold uppercase mt-1 block tracking-widest">{{ user_skill.skill.get_category_display }}</span>
+                            </div>
                         </div>
-                        <span class="mt-2 text-xs font-bold text-white uppercase tracking-wider bg-surface-dark px-2 py-0.5 rounded border border-white/10">
-                            {{ user_skill.skill.name }}
-                        </span>
-                        <span class="text-[10px] text-accent mt-1 font-bold">LVL {{ user_skill.level }}</span>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 {% else %}
-                <div class="flex flex-col items-center justify-center py-10 opacity-50">
-                    <span class="material-symbols-outlined text-4xl mb-2">lock_clock</span>
-                    <p>No skills unlocked yet.</p>
+                <div class="flex flex-col items-center justify-center py-20 opacity-40 text-center">
+                    <span class="material-symbols-outlined text-4xl mb-4">lock</span>
+                    <p class="font-bold tracking-widest uppercase text-sm">No skills synchronized</p>
+                    <p class="text-[10px] mt-2 max-w-[200px]">Access the manager to unlock your talent tree branches.</p>
                 </div>
                 {% endif %}
             </div>
@@ -217,28 +223,32 @@
                 <div class="grid grid-cols-3 gap-3">
                     <div class="aspect-square bg-gradient-to-br from-yellow-900/40 to-surface-dark border border-yellow-500/30 rounded-lg flex flex-col items-center justify-center p-2">
                         <span class="material-symbols-outlined text-yellow-400 text-2xl">verified</span>
-                        <span class="text-[9px] text-yellow-200 mt-1 text-center">Certified</span>
+                        <span class="text-[9px] text-yellow-200 mt-1 text-center font-bold">Certified</span>
                     </div>
-                    <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center">
-                        <span class="material-symbols-outlined text-slate-700 text-xl">lock</span>
+                    <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center text-slate-700">
+                        <span class="material-symbols-outlined">lock</span>
                     </div>
-                     <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center">
-                        <span class="material-symbols-outlined text-slate-700 text-xl">lock</span>
+                    <div class="aspect-square bg-surface-dark border border-dashed border-white/10 rounded-lg flex items-center justify-center text-slate-700">
+                        <span class="material-symbols-outlined">lock</span>
                     </div>
                 </div>
             </div>
 
             <div class="bg-gradient-to-br from-primary/10 to-surface-darker border border-primary/20 rounded-xl p-4">
-                <h3 class="text-primary text-xs font-bold uppercase tracking-widest mb-2">Active Quest</h3>
+                <h3 class="text-primary text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs">flag</span>
+                    Active Quest
+                </h3>
                 <p class="text-white font-bold text-sm mb-1">Project VisionWare</p>
                 <p class="text-slate-400 text-xs mb-3">Objective: Deploy containerized app to AWS.</p>
                 <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                     <div class="h-full bg-primary w-[50%]"></div>
                 </div>
-                <div class="text-right text-[10px] text-primary mt-1">50% Complete</div>
+                <div class="text-right text-[10px] text-primary mt-1 font-bold">50% Complete</div>
             </div>
         </section>
     </div>
 </main>
+
 </body>
 </html>

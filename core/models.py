@@ -9,6 +9,7 @@ class Skill(models.Model):
         ('devops', 'DevOps'),
         ('cloud', 'Cloud'),
         ('mobile', 'Mobile'),
+        ('tools', 'Tools'),
     ]
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)

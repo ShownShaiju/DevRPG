@@ -1,74 +1,145 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html class="dark" lang="en">
 <head>
-    <title>Edit Profile</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Edit Profile - DevRPG</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "accent": "#a855f7",
+                        "background-dark": "#0f172a",
+                        "surface-dark": "#1e293b",
+                        "surface-darker": "#111827",
+                    },
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"] }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            background-color: #0f0e17;
-            color: #fffffe;
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        .hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .neon-shadow { box-shadow: 0 0 15px rgba(19, 91, 236, 0.3); }
+        
+        input:not([type="file"]), textarea, select { 
+            background: #0f172a !important; 
+            border: 1px solid #334155 !important; 
+            color: white !important; 
+            border-radius: 8px !important; 
+            padding: 10px !important; 
+            width: 100%; 
+            margin-bottom: 1rem;
         }
-        .card {
-            background: #1a1a2e;
-            padding: 2rem;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid #4a4e69;
+        label { 
+            display: block; 
+            color: #94a3b8; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            letter-spacing: 0.05em; 
         }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #a7a9be; }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            background: #16213e;
-            border: 1px solid #0f3460;
-            color: white;
-            border-radius: 5px;
-        }
-        .btn-save {
-            background-color: #e94560;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-        .btn-cancel {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #a7a9be;
-            text-decoration: none;
+
+        /* Hide the default Django file input and its label */
+        #div_id_avatar_image, .avatar-upload-field {
+            display: none !important;
         }
     </style>
 </head>
-<body>
+<body class="bg-background-dark font-display text-slate-200 min-h-screen flex items-center justify-center p-6">
 
-<div class="card">
-    <h2 style="margin-top: 0;">Edit Hero Profile</h2>
-    
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="w-full max-w-xl bg-surface-darker border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
         
-        {{ u_form.as_p }}
-        {{ p_form.as_p }}
+        <div class="bg-surface-dark p-6 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-3xl">edit_square</span>
+                <div>
+                    <h1 class="text-xl font-bold text-white uppercase tracking-tight">Hero Configuration</h1>
+                    <p class="text-xs text-slate-400">Modify your identity and attributes</p>
+                </div>
+            </div>
+            <a href="{% url 'dashboard' %}" class="text-slate-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </a>
+        </div>
 
-        <button type="submit" class="btn-save">Save Changes</button>
-    </form>
-    
-    <a href="{% url 'dashboard' %}" class="btn-cancel">Cancel & Return to Dashboard</a>
-</div>
+        <form method="POST" enctype="multipart/form-data" class="p-8">
+            {% csrf_token %}
+
+            <div class="flex flex-col items-center mb-8">
+                <div class="relative group cursor-pointer" onclick="document.getElementById('id_avatar_image').click();">
+                    <div class="hexagon w-32 h-36 bg-surface-dark p-1 neon-shadow relative overflow-hidden">
+                        {% if user.profile.avatar_image %}
+                            <img id="avatar-preview" src="{{ user.profile.avatar_image.url }}" alt="Avatar" class="hexagon w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all"/>
+                        {% else %}
+                            <img id="avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Placeholder" class="hexagon w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all"/>
+                        {% endif %}
+                        
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-[10px] font-bold text-white uppercase bg-black/50 px-2 py-1 rounded">Change</span>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -bottom-2 -right-2 bg-primary p-2 rounded-full border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-sm text-white">photo_camera</span>
+                    </div>
+                </div>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-4">Click hex to upload new visualization</p>
+            </div>
+
+            <div class="space-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {{ u_form.as_p }}
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    {% for field in p_form %}
+                        {% if field.name == 'avatar_image' %}
+                            <div class="avatar-upload-field">
+                                {{ field }} </div>
+                        {% else %}
+                            <p>
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col gap-3">
+                <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(19,91,236,0.3)] flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">save</span>
+                    Apply Modifications
+                </button>
+                
+                <a href="{% url 'dashboard' %}" class="w-full text-center text-slate-500 hover:text-slate-300 text-xs font-bold uppercase tracking-widest py-2 transition-colors">
+                    Abort & Return to Dashboard
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('id_avatar_image');
+        const preview = document.getElementById('avatar-preview');
+
+        fileInput.onchange = evt => {
+            const [file] = fileInput.files;
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -6,8 +6,10 @@ from .models import Profile
 from django.urls import reverse
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm, AddSkillForm
 from django.contrib.auth.decorators import login_required
+from core.models import UserSkill, Skill
+
 
 
 def register(request):
@@ -120,3 +122,28 @@ def profile_edit(request):
     }
 
     return render(request, 'users/profile_edit.html', context)
+
+@login_required
+def skill_manager(request):
+    user_skills = UserSkill.objects.filter(user=request.user)
+    
+    if request.method == 'POST':
+        form = AddSkillForm(request.POST)
+        if form.is_valid():
+            skill_instance = form.save(commit=False)
+            skill_instance.user = request.user
+            skill_instance.save()
+            return redirect('skill_manager')
+    else:
+        form = AddSkillForm()
+        
+    return render(request, 'users/skill_manager.html', {
+        'user_skills': user_skills,
+        'form': form
+    })
+
+@login_required
+def delete_skill(request, pk):
+    skill = get_object_or_404(UserSkill, pk=pk, user=request.user)
+    skill.delete()
+    return redirect('skill_manager')

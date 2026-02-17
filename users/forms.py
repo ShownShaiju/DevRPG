@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+from core.models import UserSkill, Skill
 
 # 1. Update User Data (Exclude Email as requested)
 class UserUpdateForm(forms.ModelForm):
@@ -14,3 +15,12 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         # We use 'avatar_url' because that is what is in your models.py right now
         fields = ['avatar_image', 'job_title', 'bio', 'location']
+        
+
+class AddSkillForm(forms.ModelForm):
+    class Meta:
+        model = UserSkill
+        fields = ['skill', 'level']
+        widgets = {
+            'level': forms.NumberInput(attrs={'min': 1, 'max': 10}),
+        }        

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+    <style>
+        body {
+            background-color: #0f0e17;
+            color: #fffffe;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #1a1a2e;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #4a4e69;
+        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #a7a9be; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            background: #16213e;
+            border: 1px solid #0f3460;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-save {
+            background-color: #e94560;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .btn-cancel {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #a7a9be;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 style="margin-top: 0;">Edit Hero Profile</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ u_form.as_p }}
+        {{ p_form.as_p }}
+
+        <button type="submit" class="btn-save">Save Changes</button>
+    </form>
+    
+    <a href="{% url 'dashboard' %}" class="btn-cancel">Cancel & Return to Dashboard</a>
+</div>
+
+</body>
+</html>

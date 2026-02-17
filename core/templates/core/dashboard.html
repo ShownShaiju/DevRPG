@@ -82,7 +82,11 @@
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
                 <div class="relative mb-4">
                     <div class="hexagon w-40 h-44 bg-surface-dark p-1 relative z-10 neon-shadow">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Profile" class="hexagon w-full h-full object-cover"/>
+                        {% if user.profile.avatar_image %}
+                            <img src="{{ user.profile.avatar_image.url }}" alt="Hero Avatar" class="hexagon w-full h-full object-cover"/>
+                        {% else %}  
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Profile" class="hexagon w-full h-full object-cover"/>
+                        {% endif %}
                     </div>
                     <div class="absolute -bottom-3 -right-3 bg-primary text-white font-bold text-sm py-1 px-3 rounded-md border border-white/20 shadow-lg z-20 neon-shadow">
                         LV. {{ user.profile.level|default:"1" }}
@@ -95,7 +99,7 @@
                 </p>
                 
                 <div class="w-full flex gap-2 mb-6">
-                    <button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow">Edit Profile</button>
+                    <button class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded-lg text-sm transition-all neon-shadow"><a href="{% url 'profile_edit' %}" class="btn ...">Edit Profile</a></button>
                 </div>
                 
                 <div class="w-full space-y-2">

@@ -6,6 +6,9 @@ from .models import Profile
 from django.urls import reverse
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from .forms import UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.method == "POST":
@@ -95,3 +98,25 @@ def logout_view(request):
     # We use reverse() to get the URL for 'register', then append the query param.
     return redirect(f"{reverse('register')}?mode=login")
 
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your profile has been updated!')
+            return redirect('dashboard') # Redirect back to dashboard after saving
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'users/profile_edit.html', context)

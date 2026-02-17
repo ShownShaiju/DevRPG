@@ -14,8 +14,7 @@ class Profile(models.Model):
     level = models.IntegerField(default=1)
     total_xp = models.IntegerField(default=0)
     
-    # Profile Pic (We will use a URL for now to avoid 'Pillow' image errors during demo)
-    avatar_url = models.CharField(max_length=255, default="https://api.dicebear.com/7.x/bottts/svg?seed=new")
+    avatar_image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

@@ -6,7 +6,6 @@ class Skill(models.Model):
     CATEGORY_CHOICES = [
         ('frontend', 'Frontend'),
         ('backend', 'Backend'),
-        ('devops', 'DevOps'),
         ('cloud', 'Cloud'),
         ('mobile', 'Mobile'),
         ('tools', 'Tools'),

@@ -99,7 +99,7 @@
                 <div class="w-full space-y-2">
                     <div class="flex justify-between text-xs text-slate-400 uppercase tracking-wider font-bold">
                         <span>XP Progress</span>
-                        <span>{{ user.profile.total_xp|default:"0" }} / 1000 XP</span>
+                        <span>{{ user.profile.total_xp|default:"400" }} / 1000 XP</span>
                     </div>
                     <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden border border-white/5">
                         <div class="h-full bg-gradient-to-r from-blue-600 to-purple-500 w-[60%] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
@@ -138,22 +138,47 @@
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="relative size-64 flex-shrink-0">
-                        <svg class="w-full h-full drop-shadow-[0_0_15px_rgba(19,91,236,0.4)]" viewBox="0 0 100 100">
-                            <polygon fill="rgba(19, 91, 236, 0.2)" points="50,10 90,45 80,85 20,85 10,45" stroke="#135bec" stroke-width="1.5"></polygon>
+                    <div class="relative size-64 flex-shrink-0 mt-4">
+                        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 100 100">
+                            <polygon fill="none" points="50,10 88.04,37.64 73.51,82.36 26.49,82.36 11.96,37.64" stroke="#fff" stroke-width="0.5"></polygon>
+                            <line x1="50" y1="50" x2="50" y2="10" stroke="#fff" stroke-width="0.2"></line>
+                            <line x1="50" y1="50" x2="88.04" y2="37.64" stroke="#fff" stroke-width="0.2"></line>
+                            <line x1="50" y1="50" x2="73.51" y2="82.36" stroke="#fff" stroke-width="0.2"></line>
+                            <line x1="50" y1="50" x2="26.49" y2="82.36" stroke="#fff" stroke-width="0.2"></line>
+                            <line x1="50" y1="50" x2="11.96" y2="37.64" stroke="#fff" stroke-width="0.2"></line>
                         </svg>
-                        <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-xs font-bold text-slate-300">CODE</span>
-                        <span class="absolute bottom-[10%] right-0 translate-x-2 text-xs font-bold text-slate-300">CLOUD</span>
-                        <span class="absolute bottom-[10%] left-0 -translate-x-2 text-xs font-bold text-slate-300">OPS</span>
+                        
+                        <svg class="w-full h-full drop-shadow-[0_0_15px_rgba(19,91,236,0.5)] relative z-10 transition-all duration-500" viewBox="0 0 100 100">
+                            <polygon fill="rgba(19, 91, 236, 0.2)" points="{{ polygon_points }}" stroke="#135bec" stroke-width="1.5"></polygon>
+                        </svg>
+                        
+                        <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 text-[10px] font-bold text-slate-300 tracking-widest">FRONTEND</span>
+                        <span class="absolute top-[30%] right-0 translate-x-2 text-[10px] font-bold text-slate-300 tracking-widest">BACKEND</span>
+                        <span class="absolute bottom-[10%] right-0 translate-x-2 text-[10px] font-bold text-slate-300 tracking-widest">CLOUD</span>
+                        <span class="absolute bottom-[10%] left-0 -translate-x-2 text-[10px] font-bold text-slate-300 tracking-widest">MOBILE</span>
+                        <span class="absolute top-[30%] left-0 -translate-x-2 text-[10px] font-bold text-slate-300 tracking-widest">TOOLS</span>
                     </div>
+                    
                     <div class="flex-1 w-full grid grid-cols-2 gap-4">
                         <div class="bg-surface-dark p-3 rounded border border-white/5">
-                            <p class="text-xs text-slate-500 uppercase font-bold mb-1">Backend</p>
-                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary w-[90%]"></div></div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Frontend</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary" style="width: {% widthratio stats.frontend 10 100 %}%"></div></div>
                         </div>
                         <div class="bg-surface-dark p-3 rounded border border-white/5">
-                            <p class="text-xs text-slate-500 uppercase font-bold mb-1">Cloud</p>
-                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-accent w-[75%]"></div></div>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Backend</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-accent" style="width: {% widthratio stats.backend 10 100 %}%"></div></div>
+                        </div>
+                        <div class="bg-surface-dark p-3 rounded border border-white/5">
+                            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Cloud</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary" style="width: {% widthratio stats.cloud 10 100 %}%"></div></div>
+                        </div>
+                        <div class="bg-surface-dark p-3 rounded border border-white/5">
+                            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Mobile</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-accent" style="width: {% widthratio stats.mobile 10 100 %}%"></div></div>
+                        </div>
+                        <div class="bg-surface-dark p-3 rounded border border-white/5 col-span-2">
+                            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Tools</p>
+                            <div class="h-1 bg-slate-800 rounded mt-2 w-full"><div class="h-full bg-primary" style="width: {% widthratio stats.tools 10 100 %}%"></div></div>
                         </div>
                     </div>
                 </div>

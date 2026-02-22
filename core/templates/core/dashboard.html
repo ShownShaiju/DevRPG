@@ -75,12 +75,19 @@
             <div class="bg-surface-darker border border-white/10 rounded-xl p-6 flex flex-col items-center relative overflow-hidden group">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
                 <div class="relative mb-4">
-                    <div class="hexagon w-40 h-44 bg-surface-dark p-1 relative z-10 neon-shadow">
-                        {% if user.profile.avatar_image %}
-                            <img src="{{ user.profile.avatar_image.url }}" alt="Hero Avatar" class="hexagon w-full h-full object-cover"/>
+                    <div id="avatar-container" class="hexagon w-40 h-44 bg-surface-dark p-1 relative z-10 neon-shadow">
+                        
+                        {% if user.profile.is_avatar_processing %}
+                            <div class="hexagon w-full h-full flex flex-col items-center justify-center bg-surface-darker/80 backdrop-blur border-2 border-primary border-dashed animate-pulse">
+                                <span class="material-symbols-outlined text-primary text-3xl animate-spin mb-2">sync</span>
+                                <span class="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Optimizing<br>Matrix</span>
+                            </div>
+                        {% elif user.profile.avatar_image %}
+                            <img src="{{ user.profile.avatar_image.url }}" alt="Hero Avatar" class="hexagon w-full h-full object-cover object-center"/>
                         {% else %}  
-                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Profile" class="hexagon w-full h-full object-cover"/>
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ user.username }}" alt="Profile" class="hexagon w-full h-full object-cover object-center"/>
                         {% endif %}
+
                     </div>
                     <div class="absolute -bottom-3 -right-3 bg-primary text-white font-bold text-sm py-1 px-3 rounded-md border border-white/20 shadow-lg z-20 neon-shadow">
                         LV. {{ user.profile.level|default:"1" }}
@@ -274,6 +281,35 @@
         </section>
     </div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Django template injects True/False, JS converts to boolean
+        const isProcessing = {{ user.profile.is_avatar_processing|yesno:"true,false" }};
+        
+        if (isProcessing) {
+            const statusUrl = "{% url 'avatar_status' %}";
+            const container = document.getElementById('avatar-container');
 
+            // Ping the server every 1.5 seconds
+            const checkInterval = setInterval(() => {
+                fetch(statusUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.is_processing) {
+                            clearInterval(checkInterval); // Stop pinging
+                            
+                            // Cache-Busting: Append a timestamp to the URL so the browser is forced to download the new image instead of using memory
+                            const timestamp = new Date().getTime();
+                            const freshImageUrl = `${data.avatar_url}?t=${timestamp}`;
+                            
+                            // Swap the DOM: Replace the spinning matrix with the final image
+                            container.innerHTML = `<img src="${freshImageUrl}" alt="Hero Avatar" class="hexagon w-full h-full object-cover object-center animate-[pulse_0.5s_ease-out]"/>`;
+                        }
+                    })
+                    .catch(error => console.error("Error checking avatar status:", error));
+            }, 1500);
+        }
+    });
+</script>
 </body>
 </html>

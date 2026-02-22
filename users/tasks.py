@@ -16,15 +16,18 @@ def optimize_avatar(profile_id):
         
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
-        target_size = (300, 300) 
-        
-        
+            
+        target_size = (300, 300)      
         img = ImageOps.fit(img, target_size, Image.Resampling.LANCZOS)
-        
-        
         img.save(img_path, format='JPEG', quality=85)
+        
+        profile.is_avatar_processing = False
+        profile.save()
         
         return f"Avatar optimized successfully for Profile ID: {profile_id}"
 
     except Exception as e:
+        profile=profile.objects.get(id=profile_id)
+        profile.is_avatar_processing = False
+        profile.save()
         return f"Task Failed: {str(e)}"

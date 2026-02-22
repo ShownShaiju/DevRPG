@@ -10,7 +10,7 @@ from .forms import UserUpdateForm, ProfileUpdateForm, AddSkillForm
 from django.contrib.auth.decorators import login_required
 from core.models import UserSkill, Skill
 from .tasks import optimize_avatar
-
+from django.http import JsonResponse
 
 def register(request):
     if request.method == "POST":
@@ -87,7 +87,7 @@ def login_view(request):
             messages.error(request, "Invalid credentials.")
     
     return render(request, 'users/register.html') # Render the same page
-# users/views.py
+
 
 def logout_view(request):
     # 1. Clear the session data (logs the user out)
@@ -96,8 +96,6 @@ def logout_view(request):
     # 2. Add a message (Your HTML toast logic will pick this up!)
     messages.info(request, "You have been logged out.")
     
-    # 3. Redirect to register page with the 'mode=login' query parameter
-    # We use reverse() to get the URL for 'register', then append the query param.
     return redirect(f"{reverse('register')}?mode=login")
 
 @login_required
@@ -108,12 +106,15 @@ def profile_edit(request):
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            profile = p_form.save() # Capture the saved profile instance
+            profile = p_form.save(commit=False)  # Don't save to DB yet
             
-            # offload the image processing to Celery ONLY if a new file was uploaded
+
             if 'avatar_image' in request.FILES:
-                optimize_avatar.delay(profile.id) 
-                # .delay() is the critical method. It sends the task to Redis.
+                profile.is_avatar_processing = True 
+                profile.save()
+                optimize_avatar.delay(profile.id)
+            else:
+                profile.save()
 
             messages.success(request, 'Your profile attributes have been updated!')
             return redirect('dashboard') 
@@ -152,3 +153,12 @@ def delete_skill(request, pk):
     skill = get_object_or_404(UserSkill, pk=pk, user=request.user)
     skill.delete()
     return redirect('skill_manager')
+
+@login_required
+def avatar_status(request):
+    """API endpoint for frontend polling to check Celery task status."""
+    profile = request.user.profile
+    return JsonResponse({
+        'is_processing': profile.is_avatar_processing,
+        'avatar_url': profile.avatar_image.url if profile.avatar_image else ''
+    })

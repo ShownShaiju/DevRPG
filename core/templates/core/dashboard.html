@@ -43,10 +43,26 @@
         .accent-shadow { box-shadow: 0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3); }
         .hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
         .bg-grid-fade { mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
+       
+        /* TOAST NOTIFICATION STYLES */
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 60; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(16, 22, 34, 0.95); border-left: 4px solid #0d59f2; color: white; padding: 16px 24px; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); transform: translateX(100%); transition: transform 0.3s ease-out; display: flex; align-items: center; gap: 12px; min-width: 300px; border: 1px solid rgba(255,255,255,0.1); }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #fbbf24; } 
+        .toast.error { border-left-color: #ef4444; }   
+        .toast.info { border-left-color: #0d59f2; }
+    
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-200 min-h-screen flex flex-col overflow-x-hidden">
-
+<div id="toast-container"></div>
+<div id="django-messages" style="display:none;">
+    {% if messages %}
+        {% for message in messages %}
+            <div data-tag="{{ message.tags }}" data-text="{{ message }}"></div>
+        {% endfor %}
+    {% endif %}
+</div>
 <header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-white/10 bg-surface-darker/90 backdrop-blur-md px-6 py-3 lg:px-10">
     <div class="flex items-center gap-4 text-white">
         <div class="size-8 text-primary neon-text">
@@ -310,6 +326,35 @@
             }, 500);
         }
     });
+
+    // --- TOAST NOTIFICATION LOGIC ---
+        function showToast(message, tag) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${tag}`; 
+            
+            let icon = 'info';
+            if (tag.includes('success')) icon = 'check_circle';
+            if (tag.includes('error')) icon = 'error';
+
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-xl">${icon}</span>
+                <span class="text-sm font-bold uppercase tracking-wide">${message}</span>
+            `;
+            
+            toastContainer.appendChild(toast);
+            setTimeout(() => { toast.classList.add('show'); }, 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 3000);
+        }
+
+        const messageDivs = document.querySelectorAll('#django-messages div');
+        messageDivs.forEach(div => {
+            showToast(div.getAttribute('data-text'), div.getAttribute('data-tag'));
+        });
+        // --- END TOAST LOGIC ---
 </script>
 </body>
 </html>

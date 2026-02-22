@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from .forms import UserUpdateForm, ProfileUpdateForm, AddSkillForm
 from django.contrib.auth.decorators import login_required
 from core.models import UserSkill, Skill
-
+from .tasks import optimize_avatar
 
 
 def register(request):
@@ -108,9 +108,15 @@ def profile_edit(request):
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            p_form.save()
-            messages.success(request, f'Your profile has been updated!')
-            return redirect('dashboard') # Redirect back to dashboard after saving
+            profile = p_form.save() # Capture the saved profile instance
+            
+            # offload the image processing to Celery ONLY if a new file was uploaded
+            if 'avatar_image' in request.FILES:
+                optimize_avatar.delay(profile.id) 
+                # .delay() is the critical method. It sends the task to Redis.
+
+            messages.success(request, 'Your profile attributes have been updated!')
+            return redirect('dashboard') 
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -122,7 +128,6 @@ def profile_edit(request):
     }
 
     return render(request, 'users/profile_edit.html', context)
-
 @login_required
 def skill_manager(request):
     user_skills = UserSkill.objects.filter(user=request.user)

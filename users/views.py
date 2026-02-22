@@ -21,6 +21,10 @@ def register(request):
         confirm_password = request.POST['confirm-password']
 
         # 1. Validation
+        if ' ' in username:
+            messages.error(request, "Username cannot contain spaces!")
+            return redirect('register')
+        
         if password != confirm_password:
             messages.error(request, "Passwords do not match!")
             return redirect('register')

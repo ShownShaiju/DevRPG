@@ -130,16 +130,61 @@
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
         const fileInput = document.getElementById('id_avatar_image');
-        const preview = document.getElementById('avatar-preview');
+        const form = document.querySelector('form');
+        
+        // Robust selector: Try the ID first, fallback to the hexagon class if the ID is missing
+        const preview = document.getElementById('avatar-preview') || document.querySelector('img.hexagon');
+        const originalAvatarSrc = preview ? preview.src : '';
 
-        fileInput.onchange = evt => {
-            const [file] = fileInput.files;
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-            }
+        // 1. Instant Preview and Selection Shield
+        if (fileInput) {
+            fileInput.addEventListener('change', (evt) => {
+                const [file] = fileInput.files;
+                if (file) {
+                    if (file.size > 10485760) {
+                        alert("System Alert: File is too massive! Please select an image under 10MB.");
+                        fileInput.value = ''; // Clear the invalid file
+                        if (preview) preview.src = originalAvatarSrc; // Restore original snapshot
+                        return;
+                    }
+                    if (preview) preview.src = URL.createObjectURL(file);
+                }
+            });
         }
-    </script>
+
+        // 2. The Hard Shield (Intercept the Submit Button)
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                if (fileInput && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    
+                    // Final absolute check before network transmission
+                    if (file.size > 10485760) {
+                        e.preventDefault(); // Physically halt the form submission
+                        alert("Upload Blocked: File exceeds 10MB server limit.");
+                        return;
+                    }
+
+                    // Optimistic UI Data Bridge
+                    e.preventDefault(); // Halt temporarily to build the bridge
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        try {
+                            sessionStorage.setItem('optimisticAvatar', event.target.result);
+                        } catch (err) {
+                            console.warn('Browser storage limit reached for preview.');
+                        }
+                        form.submit(); // Resume submission to Gunicorn/Django
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 </html>

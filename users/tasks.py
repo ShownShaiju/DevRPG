@@ -1,13 +1,14 @@
-# users/tasks.py
+import io
 from celery import shared_task
 from PIL import Image, ImageOps
 from .models import Profile
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
 @shared_task
 def optimize_avatar(profile_id):
     try:
-        # Use capital 'P' to query the database
+
         profile = Profile.objects.get(id=profile_id)
         
         # Enhanced Guard Clause: Skip if missing, default, or a web URL
@@ -19,15 +20,23 @@ def optimize_avatar(profile_id):
             profile.save()
             return "No optimization required."
 
-        img_path = profile.avatar_image.path
-        img = Image.open(img_path)
+        image_stream = profile.avatar_image.open('rb')
+        img = Image.open(image_stream)
         
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
             
         target_size = (300, 300) 
         img = ImageOps.fit(img, target_size, Image.Resampling.LANCZOS)
-        img.save(img_path, format='JPEG', quality=85)
+        
+        output_buffer = io.BytesIO()
+        img.save(output_buffer, format='JPEG', quality=85)
+        
+        profile.avatar_image.save(
+            profile.avatar_image.name, 
+            ContentFile(output_buffer.getvalue()), 
+            save=False
+        )
         
         profile.is_avatar_processing = False
         profile.save()
@@ -35,7 +44,7 @@ def optimize_avatar(profile_id):
         return f"Avatar optimized successfully for Profile ID: {profile_id}"
 
     except Exception as e:
-        # Failsafe: Ensure capital 'P' is used for Profile.objects
+
         failsafe_profile = Profile.objects.get(id=profile_id)
         failsafe_profile.is_avatar_processing = False
         failsafe_profile.save()

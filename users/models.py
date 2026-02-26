@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from .tasks import delete_old_avatar_task
+
 
 class Profile(models.Model):
 
@@ -36,4 +36,5 @@ def delete_old_avatar_on_update(sender, instance, **kwargs):
         if old_profile.avatar_image.name != 'default.jpg':
             # Dispatch the file name to the Celery worker queue (.delay)
             # This takes less than 1 millisecond to execute
+            from .tasks import delete_old_avatar_task
             delete_old_avatar_task.delay(old_profile.avatar_image.name)

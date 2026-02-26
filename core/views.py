@@ -3,8 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache 
 from .models import UserSkill
 from .utils import calculate_radar_stats    
+from django.shortcuts import redirect
 
-# The order matters!
+def index_redirect(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return redirect('/auth/register/?mode=login')
+
 @login_required
 @never_cache                          
 def dashboard(request):
@@ -18,3 +23,4 @@ def dashboard(request):
         'polygon_points': radar_data['polygon_points'],
     }
     return render(request, 'core/dashboard.html',context)
+

@@ -5,3 +5,6 @@ db.sqlite3
 .env
 .DS_Store
 media/
+aws/
+awscliv2.zip
+eksctl_Linux_amd64.tar.gz

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devrpg-web
+spec:
+  replicas: 2 # Let's run two copies for high availability!
+  selector:
+    matchLabels:
+      app: devrpg-web
+  template:
+    metadata:
+      labels:
+        app: devrpg-web
+    spec:
+      containers:
+      - name: web
+        image: 081087819432.dkr.ecr.ap-south-1.amazonaws.com/devrpg-app:latest
+        command: ["sh", "-c", "python manage.py migrate && gunicorn VeriSkills.wsgi:application --bind 0.0.0.0:8000"]
+        envFrom:
+        - secretRef:
+            name: devrpg-secrets
+        # OVERRIDE the DB_HOST from the secret to use the K8s service name
+        env:
+        - name: DB_HOST
+          value: "postgres"
+        - name: CELERY_BROKER_URL
+          value: "redis://redis:6379/0"
+        ports:
+        - containerPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devrpg-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devrpg-worker
+  template:
+    metadata:
+      labels:
+        app: devrpg-worker
+    spec:
+      containers:
+      - name: worker
+        image: 081087819432.dkr.ecr.ap-south-1.amazonaws.com/devrpg-app:latest
+        command: ["celery", "-A", "VeriSkills", "worker", "--loglevel=info"]
+        envFrom:
+        - secretRef:
+            name: devrpg-secrets
+        env:
+        - name: DB_HOST
+          value: "postgres"
+        - name: CELERY_BROKER_URL
+          value: "redis://redis:6379/0"

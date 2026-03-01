@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'users',
     'core',
     'storages',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -165,3 +166,5 @@ if AWS_ACCESS_KEY_ID:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+    
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')    

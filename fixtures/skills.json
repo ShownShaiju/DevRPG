@@ -1,0 +1,114 @@
+[
+  {
+    "model": "core.skill",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "slug": "python",
+      "rarity": "common",
+      "category": "Programming Language",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 2,
+    "fields": {
+      "name": "SQL",
+      "slug": "sql",
+      "rarity": "common",
+      "category": "Data & Databases",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 3,
+    "fields": {
+      "name": "Linux & Bash",
+      "slug": "linux-bash",
+      "rarity": "common",
+      "category": "Systems & Operations",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 4,
+    "fields": {
+      "name": "Git",
+      "slug": "git",
+      "rarity": "rare",
+      "category": "Version Control",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 5,
+    "fields": {
+      "name": "GitHub",
+      "slug": "github",
+      "rarity": "rare",
+      "category": "Collaboration & DevOps",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 6,
+    "fields": {
+      "name": "Docker",
+      "slug": "docker",
+      "rarity": "rare",
+      "category": "Containerization",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 7,
+    "fields": {
+      "name": "Kubernetes",
+      "slug": "kubernetes",
+      "rarity": "rare",
+      "category": "Container Orchestration",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  },
+  {
+    "model": "core.skill",
+    "pk": 8,
+    "fields": {
+      "name": "Django",
+      "slug": "django",
+      "rarity": "rare",
+      "category": "Web Framework",
+      "description": "",
+      "icon": "",
+      "is_active": true,
+      "merge_min_level": 3
+    }
+  }
+]

@@ -1,0 +1,5503 @@
+[
+  {
+    "model": "core.question",
+    "pk": 1,
+    "fields": {
+      "skill": 1,
+      "target_level": 1,
+      "scenario": "You've just installed Python and written your first script. The script should read a user's name from the terminal and print a greeting. When you run it, Python throws a NameError saying the variable 'name' is not defined.",
+      "task": "Walk through what a NameError means, why this specific one occurred, and show the corrected code that reads input from the terminal and prints 'Hello, {name}!'",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "description": "Correctly identifies NameError as a variable-not-defined error",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "description": "Identifies the likely cause: using a variable before assigning it, or a typo",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 3,
+    "fields": {
+      "question": 1,
+      "description": "Uses input() to read from terminal correctly",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 4,
+    "fields": {
+      "question": 1,
+      "description": "Shows a working print statement with the variable",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 5,
+    "fields": {
+      "question": 1,
+      "description": "Understands the difference between a string literal and a variable",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 2,
+    "fields": {
+      "skill": 1,
+      "target_level": 1,
+      "scenario": "A colleague hands you a Python script that loops through a list of numbers and prints only the even ones. The script runs but prints nothing at all. The list is: numbers = [1, 2, 3, 4, 5, 6]",
+      "task": "Explain the most likely cause of the script printing nothing, what you would check first, and write the correct version of the loop that prints only even numbers.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 6,
+    "fields": {
+      "question": 2,
+      "description": "Identifies that the condition is likely wrong (e.g. num % 2 != 0 instead of == 0)",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 7,
+    "fields": {
+      "question": 2,
+      "description": "Knows how to use the modulo operator % to check for even numbers",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 8,
+    "fields": {
+      "question": 2,
+      "description": "Writes a for loop correctly iterating over the list",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 9,
+    "fields": {
+      "question": 2,
+      "description": "Uses the if statement correctly inside the loop",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 10,
+    "fields": {
+      "question": 2,
+      "description": "Mentions checking the logic with a simple print or mental trace",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 3,
+    "fields": {
+      "skill": 1,
+      "target_level": 1,
+      "scenario": "You need to store information about a student: their name, age, and list of subjects. You've heard about Python data types but aren't sure which ones to use for each piece of data.",
+      "task": "Describe which Python data type you would use for each piece of information (name, age, subjects) and why. Then write a small code snippet that creates these three variables and prints them.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 11,
+    "fields": {
+      "question": 3,
+      "description": "Correctly identifies str for name",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 12,
+    "fields": {
+      "question": 3,
+      "description": "Correctly identifies int for age",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 13,
+    "fields": {
+      "question": 3,
+      "description": "Correctly identifies list for subjects",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 14,
+    "fields": {
+      "question": 3,
+      "description": "Writes syntactically correct variable assignments",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 15,
+    "fields": {
+      "question": 3,
+      "description": "Uses print() correctly to display all three",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 16,
+    "fields": {
+      "question": 3,
+      "description": "Shows basic understanding that different types serve different purposes",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 4,
+    "fields": {
+      "skill": 1,
+      "target_level": 2,
+      "scenario": "You're writing a script that reads a JSON configuration file from disk and loads settings into a Python dictionary. The file might not exist, or it might contain malformed JSON. Your script currently crashes with an unhandled exception in either case.",
+      "task": "Write a function load_config(filepath) that safely reads the JSON file, handles the case where the file doesn't exist, handles the case where the JSON is malformed, and returns a default empty dictionary if either error occurs. Include proper exception handling.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 17,
+    "fields": {
+      "question": 4,
+      "description": "Uses open() with a with statement for safe file handling",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 18,
+    "fields": {
+      "question": 4,
+      "description": "Uses json.loads() or json.load() correctly",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 19,
+    "fields": {
+      "question": 4,
+      "description": "Catches FileNotFoundError specifically, not bare except",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 20,
+    "fields": {
+      "question": 4,
+      "description": "Catches json.JSONDecodeError or ValueError for malformed JSON",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 21,
+    "fields": {
+      "question": 4,
+      "description": "Returns a default empty dict {} on error rather than crashing",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 22,
+    "fields": {
+      "question": 4,
+      "description": "Imports the json module",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 23,
+    "fields": {
+      "question": 4,
+      "description": "Defines a proper function with a parameter",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 6
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 5,
+    "fields": {
+      "skill": 1,
+      "target_level": 2,
+      "scenario": "You have a list of 10,000 product dictionaries, each with a 'price' and 'category' key. You need to create a new list containing only the prices of products in the 'electronics' category where price > 100. You know this can be done with a for loop, but a colleague mentioned list comprehensions.",
+      "task": "Write this filter using a list comprehension. Then explain in plain terms what a list comprehension is, when it's better than a regular loop, and when you might prefer a regular loop instead.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 24,
+    "fields": {
+      "question": 5,
+      "description": "Writes a syntactically correct list comprehension",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 25,
+    "fields": {
+      "question": 5,
+      "description": "Correctly includes both filter conditions (category and price)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 26,
+    "fields": {
+      "question": 5,
+      "description": "Explains list comprehension as a concise way to create lists from iterables",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 27,
+    "fields": {
+      "question": 5,
+      "description": "Identifies that list comprehensions are more readable and Pythonic for simple cases",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 28,
+    "fields": {
+      "question": 5,
+      "description": "Identifies that complex multi-step logic is better in a regular loop",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 29,
+    "fields": {
+      "question": 5,
+      "description": "Mentions performance: list comprehensions are generally faster than equivalent loops",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 6,
+    "fields": {
+      "skill": 1,
+      "target_level": 2,
+      "scenario": "You're asked to set up a Python project that a team of 3 developers will work on. Each developer's machine has a different version of Python and different globally installed packages. A new developer joined and ran pip install -r requirements.txt globally and broke their other projects.",
+      "task": "Explain what a virtual environment is, why it solves this problem, and walk through the exact commands to create one, activate it, install packages into it, and export the dependencies to requirements.txt.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 30,
+    "fields": {
+      "question": 6,
+      "description": "Correctly explains virtual environment as an isolated Python environment per project",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 31,
+    "fields": {
+      "question": 6,
+      "description": "Uses python -m venv venv (or virtualenv) to create it",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 32,
+    "fields": {
+      "question": 6,
+      "description": "Shows correct activation: source venv/bin/activate (Linux/Mac) or venv\\Scripts\\activate (Windows)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 33,
+    "fields": {
+      "question": 6,
+      "description": "Uses pip install inside the activated environment",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 34,
+    "fields": {
+      "question": 6,
+      "description": "Uses pip freeze > requirements.txt to export dependencies",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 35,
+    "fields": {
+      "question": 6,
+      "description": "Mentions adding venv/ to .gitignore",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 7,
+    "fields": {
+      "skill": 1,
+      "target_level": 3,
+      "scenario": "You're building an API client library that makes HTTP requests to a third-party payment service. The service rate-limits requests to 10 per second, returns 429 if exceeded, and occasionally returns 500 errors that succeed if retried. Your current implementation makes raw requests with no retry logic.",
+      "task": "Design a retry mechanism with exponential backoff. Show the implementation using a decorator or a wrapper function. Explain why exponential backoff is used instead of fixed-interval retries, and handle the difference between retryable errors (429, 500) and non-retryable ones (400, 401).",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 36,
+    "fields": {
+      "question": 7,
+      "description": "Implements retry logic using a loop or decorator, not just a single try/except",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 37,
+    "fields": {
+      "question": 7,
+      "description": "Uses exponential backoff: wait time doubles each retry (2^attempt seconds)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 38,
+    "fields": {
+      "question": 7,
+      "description": "Adds jitter to prevent thundering herd (random.uniform)",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 39,
+    "fields": {
+      "question": 7,
+      "description": "Distinguishes retryable (429, 500, 503) from non-retryable (400, 401, 404) status codes",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 40,
+    "fields": {
+      "question": 7,
+      "description": "Sets a maximum retry count to avoid infinite loops",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 41,
+    "fields": {
+      "question": 7,
+      "description": "Explains thundering herd problem or why fixed intervals are worse under load",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 42,
+    "fields": {
+      "question": 7,
+      "description": "Uses requests library correctly, checks response.status_code",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 6
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 8,
+    "fields": {
+      "skill": 1,
+      "target_level": 3,
+      "scenario": "You have a Python class UserRepository that queries a database. You're writing unit tests but don't want the tests to actually hit the database. A junior developer on your team says 'just connect to a test database.' You know there's a better way.",
+      "task": "Explain the concept of mocking in Python testing. Show how you would use unittest.mock to mock the database call in UserRepository.get_user(user_id) so the test doesn't touch any real database. Show a complete test case.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 43,
+    "fields": {
+      "question": 8,
+      "description": "Explains mocking as replacing real dependencies with controllable fakes during testing",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 44,
+    "fields": {
+      "question": 8,
+      "description": "Uses unittest.mock.patch or MagicMock correctly",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 45,
+    "fields": {
+      "question": 8,
+      "description": "Shows the mock returning a specific value to test against",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 46,
+    "fields": {
+      "question": 8,
+      "description": "Uses assert_called_with or assert_called_once to verify the mock was called correctly",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 47,
+    "fields": {
+      "question": 8,
+      "description": "Explains why mocking is better than a test database: speed, isolation, no side effects",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 48,
+    "fields": {
+      "question": 8,
+      "description": "Imports and uses unittest.TestCase or pytest correctly",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 9,
+    "fields": {
+      "skill": 1,
+      "target_level": 3,
+      "scenario": "You're profiling a Python web application and discover that a function process_orders() is called 10,000 times per minute and takes 200ms each call. The function processes a list of orders and calls an external tax calculation service for each order individually.",
+      "task": "Identify the architectural problem, propose a solution, and explain how you would use Python generators or batch processing to reduce the number of external API calls. Explain what a generator is and why it's memory-efficient for large datasets.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=1, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 49,
+    "fields": {
+      "question": 9,
+      "description": "Identifies the N+1 API call problem: one external call per order instead of batching",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 50,
+    "fields": {
+      "question": 9,
+      "description": "Proposes batching: group orders and make one API call with multiple orders",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 51,
+    "fields": {
+      "question": 9,
+      "description": "Correctly explains generators as functions that use yield, producing values lazily",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 52,
+    "fields": {
+      "question": 9,
+      "description": "Explains generator memory efficiency: doesn't load all data into memory at once",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 53,
+    "fields": {
+      "question": 9,
+      "description": "Shows a generator example with yield or uses a realistic batch processing pattern",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 54,
+    "fields": {
+      "question": 9,
+      "description": "Quantifies the improvement: 10000 API calls \u2192 ceil(10000/batch_size) calls",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 10,
+    "fields": {
+      "skill": 2,
+      "target_level": 1,
+      "scenario": "You have a table called employees with columns: id, name, department, salary, hire_date. Your manager asks you to pull a list of all employees in the 'Engineering' department, sorted by salary from highest to lowest.",
+      "task": "Write the SQL query that retrieves only the name and salary columns for Engineering employees, sorted by salary descending.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 55,
+    "fields": {
+      "question": 10,
+      "description": "Uses SELECT with specific columns (name, salary), not SELECT *",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 56,
+    "fields": {
+      "question": 10,
+      "description": "Uses FROM employees correctly",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 57,
+    "fields": {
+      "question": 10,
+      "description": "Uses WHERE department = 'Engineering' with correct string quoting",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 58,
+    "fields": {
+      "question": 10,
+      "description": "Uses ORDER BY salary DESC correctly",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 59,
+    "fields": {
+      "question": 10,
+      "description": "Does not add unnecessary clauses or syntax errors",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 11,
+    "fields": {
+      "skill": 2,
+      "target_level": 1,
+      "scenario": "You're exploring a database for the first time. You want to know: how many employees are in each department, and you only want to see departments that have more than 5 employees.",
+      "task": "Write the SQL query that counts employees per department and filters to only departments with more than 5 employees. Explain why you use HAVING instead of WHERE for this filter.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 60,
+    "fields": {
+      "question": 11,
+      "description": "Uses COUNT(*) or COUNT(id) correctly",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 61,
+    "fields": {
+      "question": 11,
+      "description": "Uses GROUP BY department correctly",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 62,
+    "fields": {
+      "question": 11,
+      "description": "Uses HAVING COUNT(*) > 5 (not WHERE)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 63,
+    "fields": {
+      "question": 11,
+      "description": "Explains that WHERE filters rows before grouping, HAVING filters groups after aggregation",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 64,
+    "fields": {
+      "question": 11,
+      "description": "Selects department column alongside the count",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 12,
+    "fields": {
+      "skill": 2,
+      "target_level": 1,
+      "scenario": "A product table has columns: id, name, price, stock_quantity, category. You need to find the average price per category, but the marketing team says some products have NULL in the price column due to a data entry issue.",
+      "task": "Write the query to get average price per category. Explain what NULL is in SQL, how AVG handles NULLs, and how you would also show which categories have NULL prices so they can be fixed.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 65,
+    "fields": {
+      "question": 12,
+      "description": "Writes correct AVG(price) GROUP BY category",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 66,
+    "fields": {
+      "question": 12,
+      "description": "Correctly explains that NULL means absent/unknown, not zero",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 67,
+    "fields": {
+      "question": 12,
+      "description": "Correctly states that AVG ignores NULL values (does not count them)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 68,
+    "fields": {
+      "question": 12,
+      "description": "Writes a query to find NULL prices: WHERE price IS NULL (not = NULL)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 69,
+    "fields": {
+      "question": 12,
+      "description": "Understands that = NULL doesn't work; IS NULL is required",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 13,
+    "fields": {
+      "skill": 2,
+      "target_level": 2,
+      "scenario": "You have two tables: orders (id, customer_id, order_date, total) and customers (id, name, email, country). The sales team wants a report showing every customer's name alongside their total order count and their total spend, including customers who have never ordered.",
+      "task": "Write the SQL query for this report. Explain the difference between INNER JOIN and LEFT JOIN and why one is necessary here over the other.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 70,
+    "fields": {
+      "question": 13,
+      "description": "Uses LEFT JOIN to include customers with zero orders",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 71,
+    "fields": {
+      "question": 13,
+      "description": "Joins on the correct key: customers.id = orders.customer_id",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 72,
+    "fields": {
+      "question": 13,
+      "description": "Uses COUNT(orders.id) \u2014 not COUNT(*) \u2014 to correctly count 0 for customers with no orders",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 73,
+    "fields": {
+      "question": 13,
+      "description": "Uses SUM(orders.total) with COALESCE to handle NULL for customers with no orders",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 74,
+    "fields": {
+      "question": 13,
+      "description": "Correctly explains INNER JOIN excludes non-matching rows, LEFT JOIN keeps all left-side rows",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 75,
+    "fields": {
+      "question": 13,
+      "description": "Uses GROUP BY customers.id or customers.name correctly",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 14,
+    "fields": {
+      "skill": 2,
+      "target_level": 2,
+      "scenario": "You need to design a database table for a blog platform. Each post can have multiple tags. Tags can belong to multiple posts. You currently have a posts table with a tags column storing comma-separated values like 'python,django,tutorial'.",
+      "task": "Explain why storing comma-separated values in a column is a bad design. Design the correct normalized schema for posts and tags, write the CREATE TABLE statements, and write the query to get all posts with the tag 'django'.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 76,
+    "fields": {
+      "question": 14,
+      "description": "Identifies CSV-in-column as violating 1NF: you can't index, search, or join efficiently",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 77,
+    "fields": {
+      "question": 14,
+      "description": "Designs a proper junction/bridge table: post_tags (post_id, tag_id)",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 78,
+    "fields": {
+      "question": 14,
+      "description": "Creates tags table: id, name with UNIQUE constraint on name",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 79,
+    "fields": {
+      "question": 14,
+      "description": "Writes syntactically valid CREATE TABLE statements with foreign keys",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 80,
+    "fields": {
+      "question": 14,
+      "description": "Writes the JOIN query correctly to find posts tagged 'django'",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 81,
+    "fields": {
+      "question": 14,
+      "description": "Mentions indexing foreign key columns in the junction table",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 15,
+    "fields": {
+      "skill": 2,
+      "target_level": 2,
+      "scenario": "Your application's transactions table has grown to 50 million rows. A query that retrieves all transactions for a specific user_id and filters by status = 'pending' now takes 8 seconds. The table has no indexes beyond the primary key.",
+      "task": "Explain what a database index is, why this query is slow without one, and write the CREATE INDEX statement that would most help this specific query. Explain the trade-off of adding indexes.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 82,
+    "fields": {
+      "question": 15,
+      "description": "Explains index as a separate data structure (B-tree) that allows fast lookup without full table scan",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 83,
+    "fields": {
+      "question": 15,
+      "description": "Identifies the problem as a full table scan across 50M rows",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 84,
+    "fields": {
+      "question": 15,
+      "description": "Creates a composite index on (user_id, status) \u2014 more efficient than two separate indexes for this query",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 85,
+    "fields": {
+      "question": 15,
+      "description": "Explains trade-offs: indexes speed up reads but slow down writes (INSERT, UPDATE, DELETE)",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 86,
+    "fields": {
+      "question": 15,
+      "description": "Mentions that indexes consume additional disk space",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 87,
+    "fields": {
+      "question": 15,
+      "description": "Suggests EXPLAIN/EXPLAIN ANALYZE to verify the index is being used",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 16,
+    "fields": {
+      "skill": 2,
+      "target_level": 3,
+      "scenario": "You have a sales table with columns: id, salesperson_id, sale_date, amount. The CEO wants a report showing each salesperson's monthly sales totals for 2025, AND a running cumulative total for the year alongside each monthly total. Standard GROUP BY won't give you the cumulative column.",
+      "task": "Write the query using window functions to produce: salesperson_id, month, monthly_total, cumulative_total_ytd. Explain what a window function is and why it's different from GROUP BY.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 88,
+    "fields": {
+      "question": 16,
+      "description": "Uses SUM() OVER (PARTITION BY salesperson_id ORDER BY month) for cumulative total",
+      "weight": 3.0,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 89,
+    "fields": {
+      "question": 16,
+      "description": "Uses GROUP BY or another window function for monthly totals correctly",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 90,
+    "fields": {
+      "question": 16,
+      "description": "Correctly uses date functions to extract month from sale_date",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 91,
+    "fields": {
+      "question": 16,
+      "description": "Explains window function: aggregates over a sliding window without collapsing rows",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 92,
+    "fields": {
+      "question": 16,
+      "description": "Explains key difference from GROUP BY: window functions preserve individual rows",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 93,
+    "fields": {
+      "question": 16,
+      "description": "Filters to 2025 data with WHERE EXTRACT(year FROM sale_date) = 2025",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 17,
+    "fields": {
+      "skill": 2,
+      "target_level": 3,
+      "scenario": "You're optimizing a PostgreSQL query that joins users, orders, and order_items tables. Running EXPLAIN ANALYZE shows: Seq Scan on order_items (cost=0.00..48920.00 rows=2000000), Hash Join (cost=...), Planning Time: 2ms, Execution Time: 12400ms. The query filters on order_items.product_id = 'PROD-456'.",
+      "task": "Interpret what the EXPLAIN ANALYZE output tells you about why the query is slow. What specific action would you take, and what would you expect the new execution plan to look like?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 94,
+    "fields": {
+      "question": 17,
+      "description": "Correctly identifies Seq Scan as the problem \u2014 reading all 2M rows instead of using an index",
+      "weight": 3.0,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 95,
+    "fields": {
+      "question": 17,
+      "description": "Correctly identifies that product_id needs an index to eliminate the sequential scan",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 96,
+    "fields": {
+      "question": 17,
+      "description": "Writes CREATE INDEX idx_order_items_product_id ON order_items(product_id)",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 97,
+    "fields": {
+      "question": 17,
+      "description": "Explains that after indexing, Seq Scan becomes Index Scan, drastically reducing rows read",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 98,
+    "fields": {
+      "question": 17,
+      "description": "Mentions running EXPLAIN ANALYZE again to verify improvement",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 99,
+    "fields": {
+      "question": 17,
+      "description": "Understands cost values: left number is startup cost, right is total cost",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 18,
+    "fields": {
+      "skill": 2,
+      "target_level": 3,
+      "scenario": "You need to find all customers who placed orders in January 2025 but have NOT placed any orders since then. Your orders table has: customer_id, order_date, status. This needs to run on 10 million rows in under 2 seconds.",
+      "task": "Write this query using a method that will actually perform well at scale. Explain why you chose your approach over alternatives (subquery, NOT IN, NOT EXISTS, LEFT JOIN with NULL check) and which performs best on large tables.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=2, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 100,
+    "fields": {
+      "question": 18,
+      "description": "Writes a working query using NOT EXISTS, LEFT JOIN + IS NULL, or EXCEPT",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 101,
+    "fields": {
+      "question": 18,
+      "description": "Correctly filters January 2025 orders for the 'placed' set",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 102,
+    "fields": {
+      "question": 18,
+      "description": "Correctly excludes customers with orders after January 2025",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 103,
+    "fields": {
+      "question": 18,
+      "description": "Explains NOT EXISTS is generally fastest: stops at first match, uses index",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 104,
+    "fields": {
+      "question": 18,
+      "description": "Explains NOT IN is dangerous: returns no rows if any value is NULL",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 105,
+    "fields": {
+      "question": 18,
+      "description": "Mentions indexing customer_id and order_date for performance",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 19,
+    "fields": {
+      "skill": 3,
+      "target_level": 1,
+      "scenario": "You've SSH'd into a remote Linux server for the first time. You need to find a log file called error.log somewhere on the system, read its last 50 lines, and figure out how much free disk space is available.",
+      "task": "Write the exact commands you'd use for each of these three tasks. Briefly explain what each command does.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 106,
+    "fields": {
+      "question": 19,
+      "description": "Uses find / -name error.log or find /var/log -name error.log to locate the file",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 107,
+    "fields": {
+      "question": 19,
+      "description": "Uses tail -n 50 error.log (or tail -50) to read last 50 lines",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 108,
+    "fields": {
+      "question": 19,
+      "description": "Uses df -h to check disk space in human-readable format",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 109,
+    "fields": {
+      "question": 19,
+      "description": "Explains find searches directory trees recursively",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 110,
+    "fields": {
+      "question": 19,
+      "description": "Explains tail reads end of file, useful for logs",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 111,
+    "fields": {
+      "question": 19,
+      "description": "Explains df shows filesystem disk space usage",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 20,
+    "fields": {
+      "skill": 3,
+      "target_level": 1,
+      "scenario": "A file called deploy.sh exists in your home directory but when you try to run it with ./deploy.sh you get: Permission denied. You need to make it executable and run it.",
+      "task": "Explain what the Permission denied error means in this context, write the command to fix it, and explain what the execute permission is. Also show how to verify the permission was set correctly.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 112,
+    "fields": {
+      "question": 20,
+      "description": "Correctly identifies that the file lacks execute permission",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 113,
+    "fields": {
+      "question": 20,
+      "description": "Uses chmod +x deploy.sh or chmod 755 deploy.sh to fix it",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 114,
+    "fields": {
+      "question": 20,
+      "description": "Uses ls -l deploy.sh to verify permissions",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 115,
+    "fields": {
+      "question": 20,
+      "description": "Explains the rwx permission model: read, write, execute for owner/group/others",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 116,
+    "fields": {
+      "question": 20,
+      "description": "Understands that execute permission allows the file to be run as a program",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 21,
+    "fields": {
+      "skill": 3,
+      "target_level": 1,
+      "scenario": "You have a large text file access.log with millions of lines. You need to count how many lines contain the word 'ERROR', and then show only those lines. The file is too large to open in an editor.",
+      "task": "Write the commands to: (1) count lines containing ERROR, (2) display only lines containing ERROR, (3) save those ERROR lines to a new file called errors_only.log.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 117,
+    "fields": {
+      "question": 21,
+      "description": "Uses grep -c 'ERROR' access.log to count matching lines",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 118,
+    "fields": {
+      "question": 21,
+      "description": "Uses grep 'ERROR' access.log to display matching lines",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 119,
+    "fields": {
+      "question": 21,
+      "description": "Uses grep 'ERROR' access.log > errors_only.log to redirect to a new file",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 120,
+    "fields": {
+      "question": 21,
+      "description": "Understands that > redirects stdout to a file (overwrites), >> appends",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 121,
+    "fields": {
+      "question": 21,
+      "description": "Mentions grep -i for case-insensitive matching as an improvement",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 22,
+    "fields": {
+      "skill": 3,
+      "target_level": 2,
+      "scenario": "You're managing a production web server. The Nginx service was running fine this morning but developers say the site is down. You need to diagnose: is Nginx running? If not, why did it stop? And what's the current status of the service?",
+      "task": "Walk through your exact diagnostic commands in order. Include how you'd check if the process is running, check the service status, read the logs, and restart the service if needed.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 122,
+    "fields": {
+      "question": 22,
+      "description": "Uses systemctl status nginx to check service status and recent logs",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 123,
+    "fields": {
+      "question": 22,
+      "description": "Uses ps aux | grep nginx or pgrep nginx to check if process is running",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 124,
+    "fields": {
+      "question": 22,
+      "description": "Uses journalctl -u nginx -n 50 or tail /var/log/nginx/error.log to read logs",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 125,
+    "fields": {
+      "question": 22,
+      "description": "Uses systemctl restart nginx or systemctl start nginx to restart",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 126,
+    "fields": {
+      "question": 22,
+      "description": "Checks the port with ss -tlnp | grep 80 or netstat to confirm Nginx is listening",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 127,
+    "fields": {
+      "question": 22,
+      "description": "Understands that systemctl manages systemd services",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 23,
+    "fields": {
+      "skill": 3,
+      "target_level": 2,
+      "scenario": "You need to write a Bash script that runs every night at 2 AM to archive log files older than 7 days from /var/log/myapp/ into /var/archive/, and then delete them from the original location. The script should log its own activity.",
+      "task": "Write this Bash script. Include error handling, logging to a file, and the crontab entry to schedule it. Explain each significant part.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 128,
+    "fields": {
+      "question": 23,
+      "description": "Uses find /var/log/myapp/ -mtime +7 -type f to find old files",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 129,
+    "fields": {
+      "question": 23,
+      "description": "Uses cp or mv with find's -exec or xargs to archive files",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 130,
+    "fields": {
+      "question": 23,
+      "description": "Handles errors: checks if archive directory exists, creates it if not (mkdir -p)",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 131,
+    "fields": {
+      "question": 23,
+      "description": "Logs activity with timestamps: echo \"$(date): archived X files\" >> /var/log/archive.log",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 132,
+    "fields": {
+      "question": 23,
+      "description": "Writes correct crontab entry: 0 2 * * * /path/to/script.sh",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 133,
+    "fields": {
+      "question": 23,
+      "description": "Uses #!/bin/bash shebang at the top of the script",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 24,
+    "fields": {
+      "skill": 3,
+      "target_level": 2,
+      "scenario": "Your application server is experiencing slowness. You suspect either high CPU usage, memory exhaustion, or a disk I/O bottleneck. You need to diagnose which resource is the problem without any monitoring tools installed \u2014 just standard Linux commands.",
+      "task": "List the specific commands you'd run to check CPU, memory, and disk I/O in real time. Explain what you're looking for in each output to determine which resource is under pressure.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 134,
+    "fields": {
+      "question": 24,
+      "description": "Uses top or htop to check CPU and memory in real time, identifies %CPU and %MEM columns",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 135,
+    "fields": {
+      "question": 24,
+      "description": "Uses free -h to check memory usage and identifies if swap is being used heavily",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 136,
+    "fields": {
+      "question": 24,
+      "description": "Uses iostat -x 1 or iotop to check disk I/O, looks at %util and await",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 137,
+    "fields": {
+      "question": 24,
+      "description": "Uses vmstat 1 5 for combined view of CPU, memory, and I/O",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 138,
+    "fields": {
+      "question": 24,
+      "description": "Identifies warning signs: CPU steal > 5%, swap usage > 50%, disk await > 100ms",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 139,
+    "fields": {
+      "question": 24,
+      "description": "Mentions load average from uptime or top as a quick health indicator",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 25,
+    "fields": {
+      "skill": 3,
+      "target_level": 3,
+      "scenario": "You're setting up a new Linux server that will run a public-facing web application. A security audit requires: SSH hardening (no root login, key-based auth only), a firewall allowing only ports 80, 443, and 22, and fail2ban to block repeated failed SSH attempts.",
+      "task": "Walk through the complete setup for each requirement with exact commands and config changes. Explain why each change improves security.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 140,
+    "fields": {
+      "question": 25,
+      "description": "Edits /etc/ssh/sshd_config: sets PermitRootLogin no and PasswordAuthentication no",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 141,
+    "fields": {
+      "question": 25,
+      "description": "Sets up SSH key pair: ssh-keygen and copies public key to ~/.ssh/authorized_keys",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 142,
+    "fields": {
+      "question": 25,
+      "description": "Uses ufw or iptables to allow ports 22, 80, 443 and deny everything else: ufw allow 22, ufw enable",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 143,
+    "fields": {
+      "question": 25,
+      "description": "Installs and configures fail2ban: apt install fail2ban, explains it bans IPs after N failed attempts",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 144,
+    "fields": {
+      "question": 25,
+      "description": "Restarts sshd with systemctl restart sshd after config changes",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 145,
+    "fields": {
+      "question": 25,
+      "description": "Explains why each change matters: no root prevents privilege escalation, keys prevent brute force, fail2ban rate-limits attacks",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 26,
+    "fields": {
+      "skill": 3,
+      "target_level": 3,
+      "scenario": "A production process on your server is consuming 95% CPU and has been running for 3 hours. The on-call team isn't sure if it's a legitimate long-running job or a runaway process. You need to investigate without immediately killing it.",
+      "task": "Describe your investigation process step by step. What commands would you run to identify the process, understand what it's doing, check its resource usage history, and decide whether to kill it?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 146,
+    "fields": {
+      "question": 26,
+      "description": "Uses top or ps aux --sort=-%cpu to identify the process by PID and name",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 147,
+    "fields": {
+      "question": 26,
+      "description": "Uses ls -la /proc/{PID}/ or cat /proc/{PID}/cmdline to see the exact command being run",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 148,
+    "fields": {
+      "question": 26,
+      "description": "Uses strace -p {PID} to see what system calls the process is making",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 149,
+    "fields": {
+      "question": 26,
+      "description": "Uses lsof -p {PID} to see which files/sockets the process has open",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 150,
+    "fields": {
+      "question": 26,
+      "description": "Checks /proc/{PID}/status for memory and CPU stats",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 151,
+    "fields": {
+      "question": 26,
+      "description": "Describes decision process: if process is making progress (system calls changing) it may be legitimate; if stuck in a loop it's likely runaway",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 152,
+    "fields": {
+      "question": 26,
+      "description": "Mentions kill -15 (SIGTERM) for graceful kill before kill -9 (SIGKILL)",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 6
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 27,
+    "fields": {
+      "skill": 3,
+      "target_level": 3,
+      "scenario": "You need to set up log rotation for an application that writes to /var/log/myapp/app.log. The log grows at ~500MB per day. Requirements: keep 7 days of logs, compress old logs, rotate daily, ensure the application keeps writing to the correct file descriptor after rotation without restarting.",
+      "task": "Write the logrotate configuration for this setup. Explain what log rotation is, why compression matters at this scale, and how the copytruncate or postrotate/kill -HUP mechanism works.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=3, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 153,
+    "fields": {
+      "question": 27,
+      "description": "Writes a valid logrotate config: /var/log/myapp/app.log { daily rotate 7 compress ... }",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 154,
+    "fields": {
+      "question": 27,
+      "description": "Uses delaycompress to avoid compressing the most recent rotated file (still being written to)",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 155,
+    "fields": {
+      "question": 27,
+      "description": "Implements either copytruncate (copy and truncate in-place) or postrotate with kill -HUP for log reopen",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 156,
+    "fields": {
+      "question": 27,
+      "description": "Explains that without rotation, a 500MB/day log exhausts disk in under a week",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 157,
+    "fields": {
+      "question": 27,
+      "description": "Explains that compression reduces 500MB to ~20-50MB for text logs (10-25x ratio)",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 158,
+    "fields": {
+      "question": 27,
+      "description": "Explains the file descriptor problem: after rotation, the app still writes to the old inode unless told to reopen",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 28,
+    "fields": {
+      "skill": 4,
+      "target_level": 1,
+      "scenario": "You've just started working on a new feature for a project. You created a file called feature.py, edited it, and now you want to save a snapshot of your work with Git. When you run git status you see the file listed under 'Untracked files'.",
+      "task": "Explain what 'Untracked' means in Git, walk through the exact commands to stage the file and create a commit with a meaningful message, and explain what a commit actually represents.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 159,
+    "fields": {
+      "question": 28,
+      "description": "Correctly explains 'Untracked' means Git is aware of the file but not tracking changes to it",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 160,
+    "fields": {
+      "question": 28,
+      "description": "Uses git add feature.py (or git add .) to stage the file",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 161,
+    "fields": {
+      "question": 28,
+      "description": "Uses git commit -m 'descriptive message' to create the commit",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 162,
+    "fields": {
+      "question": 28,
+      "description": "Explains that a commit is a snapshot of the staged changes with a unique SHA hash",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 163,
+    "fields": {
+      "question": 28,
+      "description": "Distinguishes between working directory, staging area (index), and repository",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 29,
+    "fields": {
+      "skill": 4,
+      "target_level": 1,
+      "scenario": "You cloned a repository from GitHub, made changes to a file, and pushed to the remote. Your teammate also made changes to the same file and pushed before you. Now when you try to push, Git says: 'rejected \u2014 non-fast-forward. Hint: Updates were rejected because the remote contains work that you do not have locally.'",
+      "task": "Explain in plain terms why Git rejected your push, what non-fast-forward means, what command you'd run to fix this, and what might happen next.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 164,
+    "fields": {
+      "question": 29,
+      "description": "Explains that the remote has commits your local branch doesn't have",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 165,
+    "fields": {
+      "question": 29,
+      "description": "Explains non-fast-forward: your branch tip is behind the remote, Git can't just append your commits",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 166,
+    "fields": {
+      "question": 29,
+      "description": "Correctly identifies git pull as the next step to incorporate remote changes",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 167,
+    "fields": {
+      "question": 29,
+      "description": "Mentions that git pull may result in a merge conflict if both changed the same lines",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 168,
+    "fields": {
+      "question": 29,
+      "description": "Understands the pull-then-push workflow for shared branches",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 30,
+    "fields": {
+      "skill": 4,
+      "target_level": 1,
+      "scenario": "You've been committing directly to the main branch for a small solo project. Now you're joining a team where direct commits to main are not allowed. You need to understand branching before your first PR.",
+      "task": "Explain what a branch is in Git, why teams use them, and walk through the commands to create a new branch called feature/user-auth, make a commit on it, and switch back to main.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 169,
+    "fields": {
+      "question": 30,
+      "description": "Explains a branch as a movable pointer to a specific commit, allowing parallel development",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 170,
+    "fields": {
+      "question": 30,
+      "description": "Explains that branches protect main from unstable code and enable code review",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 171,
+    "fields": {
+      "question": 30,
+      "description": "Uses git checkout -b feature/user-auth or git switch -c feature/user-auth",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 172,
+    "fields": {
+      "question": 30,
+      "description": "Makes a commit on the new branch correctly",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 173,
+    "fields": {
+      "question": 30,
+      "description": "Uses git checkout main or git switch main to return to main",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 31,
+    "fields": {
+      "skill": 4,
+      "target_level": 2,
+      "scenario": "You and a teammate both edited the same section of config.py on different branches. When you try to merge your branch into main, Git reports a merge conflict. The file now shows conflict markers: <<<<<<, =======, >>>>>>>.",
+      "task": "Explain what each conflict marker means, how you would resolve the conflict, what decisions you need to make during resolution, and the commands to mark it resolved and complete the merge.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 174,
+    "fields": {
+      "question": 31,
+      "description": "Correctly explains <<<<<<< HEAD shows current branch content",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 175,
+    "fields": {
+      "question": 31,
+      "description": "Correctly explains ======= separates the two conflicting versions",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 176,
+    "fields": {
+      "question": 31,
+      "description": "Correctly explains >>>>>>> shows incoming branch content",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 177,
+    "fields": {
+      "question": 31,
+      "description": "Explains that you must manually edit the file, keeping the correct version or combining both",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 178,
+    "fields": {
+      "question": 31,
+      "description": "Uses git add config.py after resolving to mark as resolved",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 179,
+    "fields": {
+      "question": 31,
+      "description": "Uses git commit to complete the merge",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 32,
+    "fields": {
+      "skill": 4,
+      "target_level": 2,
+      "scenario": "You committed a file containing a hardcoded API key to your repository 3 commits ago. The commit is on your local machine only \u2014 it hasn't been pushed yet. You need to remove the API key from history completely before pushing.",
+      "task": "Explain the risk of API keys in git history, and walk through the exact git commands to remove the sensitive data from those 3 commits using interactive rebase or another approach. Explain why simply making a new commit to delete the key is not sufficient.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 180,
+    "fields": {
+      "question": 32,
+      "description": "Explains that git history is permanent \u2014 a new 'delete' commit doesn't remove the key from old commits",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 181,
+    "fields": {
+      "question": 32,
+      "description": "Uses git rebase -i HEAD~3 to enter interactive rebase for last 3 commits",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 182,
+    "fields": {
+      "question": 32,
+      "description": "Explains how to edit the commit: change 'pick' to 'edit', amend the file, git rebase --continue",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 183,
+    "fields": {
+      "question": 32,
+      "description": "Alternatively correctly describes git filter-repo or BFG Repo Cleaner",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 184,
+    "fields": {
+      "question": 32,
+      "description": "Mentions rotating/revoking the API key regardless, since it may already be compromised",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 185,
+    "fields": {
+      "question": 32,
+      "description": "Understands that if it was ever pushed, the key is permanently compromised and must be rotated",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 33,
+    "fields": {
+      "skill": 4,
+      "target_level": 2,
+      "scenario": "Your team uses Git Flow. You're hotfixing a critical production bug. Main is at v2.1.0. The develop branch has 3 weeks of unreleased work. You need to fix the bug in production immediately without shipping the unreleased develop changes.",
+      "task": "Walk through the Git Flow steps for a hotfix. Which branch do you branch from? Where do you merge back? Show the exact git commands. Explain what would break if you branched from develop instead.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 186,
+    "fields": {
+      "question": 33,
+      "description": "Correctly branches from main/master, not develop: git checkout -b hotfix/2.1.1 main",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 187,
+    "fields": {
+      "question": 33,
+      "description": "Makes the fix commit on the hotfix branch",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 188,
+    "fields": {
+      "question": 33,
+      "description": "Merges back to both main AND develop: git checkout main; git merge hotfix/2.1.1",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 189,
+    "fields": {
+      "question": 33,
+      "description": "Creates a version tag on main: git tag v2.1.1",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 190,
+    "fields": {
+      "question": 33,
+      "description": "Explains that branching from develop would include 3 weeks of untested code in the production hotfix",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 34,
+    "fields": {
+      "skill": 4,
+      "target_level": 3,
+      "scenario": "Your team has been working on a feature branch for 2 weeks. Main has moved forward with 25 commits. You need to integrate the latest main changes into your feature branch before submitting a PR. A junior developer says 'just merge main into your branch.' You prefer rebase.",
+      "task": "Explain the difference between git merge and git rebase for this scenario, the command to rebase your feature branch onto main, what happens if there are conflicts, and the trade-off in a team context (when rebase is dangerous).",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 191,
+    "fields": {
+      "question": 34,
+      "description": "Explains merge creates a merge commit preserving full history; rebase replays commits on top of main for linear history",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 192,
+    "fields": {
+      "question": 34,
+      "description": "Uses git rebase main (while on feature branch) or git rebase main feature-branch",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 193,
+    "fields": {
+      "question": 34,
+      "description": "Explains conflicts during rebase appear per-commit, not all at once, and resolved with git rebase --continue",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 194,
+    "fields": {
+      "question": 34,
+      "description": "Explains the golden rule: never rebase shared/public branches, only private feature branches",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 195,
+    "fields": {
+      "question": 34,
+      "description": "Explains why: rebase rewrites commit SHAs, causing diverged history for anyone else on that branch",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 196,
+    "fields": {
+      "question": 34,
+      "description": "Mentions git rebase --abort to safely cancel a rebase in progress",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 35,
+    "fields": {
+      "skill": 4,
+      "target_level": 3,
+      "scenario": "You've just deployed to production and the application is throwing errors that weren't present yesterday. You have 40 commits between the last known-good state (3 days ago) and HEAD. You need to identify which specific commit introduced the bug as fast as possible.",
+      "task": "Explain git bisect and walk through the complete process from start to finish. How does it work algorithmically? How many steps would it take to find the bad commit among 40? What do you do once you find it?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 197,
+    "fields": {
+      "question": 35,
+      "description": "Correctly explains git bisect uses binary search to find the bad commit",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 198,
+    "fields": {
+      "question": 35,
+      "description": "Correctly calculates ~6 steps for 40 commits (log2(40) \u2248 5.3)",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 199,
+    "fields": {
+      "question": 35,
+      "description": "Starts bisect correctly: git bisect start; git bisect bad; git bisect good <known-good-sha>",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 200,
+    "fields": {
+      "question": 35,
+      "description": "Describes the process: Git checks out midpoint, you test, mark git bisect good or git bisect bad",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 201,
+    "fields": {
+      "question": 35,
+      "description": "Knows git bisect reset to return to original HEAD after finding the culprit",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 202,
+    "fields": {
+      "question": 35,
+      "description": "Describes what to do after finding bad commit: git revert <sha> for a safe undo in production",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 36,
+    "fields": {
+      "skill": 4,
+      "target_level": 3,
+      "scenario": "You need to set up pre-commit hooks across your entire team's repository to automatically run linting and tests before any commit is allowed through. The challenge: Git hooks live in .git/hooks/ which isn't committed to the repository, so they don't sync across developers.",
+      "task": "Explain the problem with .git/hooks and propose two different solutions to share hooks across the team. Show how to implement one of them. Also explain when you might use server-side hooks instead of client-side hooks.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=4, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 203,
+    "fields": {
+      "question": 36,
+      "description": "Correctly identifies that .git/ is not committed, so hooks don't sync automatically",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 204,
+    "fields": {
+      "question": 36,
+      "description": "Proposes solution 1: commit hooks in a directory (e.g. .githooks/) and set core.hooksPath",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 205,
+    "fields": {
+      "question": 36,
+      "description": "Proposes solution 2: use a tool like pre-commit (pre-commit.com) or husky for JS projects",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 206,
+    "fields": {
+      "question": 36,
+      "description": "Shows git config core.hooksPath .githooks to point Git to the committed hooks directory",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 207,
+    "fields": {
+      "question": 36,
+      "description": "Explains server-side hooks (pre-receive, post-receive) enforce policy regardless of client config",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 208,
+    "fields": {
+      "question": 36,
+      "description": "Gives an example server-side hook use case: reject commits without a ticket number in message",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 37,
+    "fields": {
+      "skill": 5,
+      "target_level": 1,
+      "scenario": "You've been working on a local Git repository and want to share your code on GitHub so your team can access it. You have a repository on your machine but nothing on GitHub yet.",
+      "task": "Walk through the exact steps to create a new GitHub repository, connect your local repo to it, and push your code. Explain what 'origin' is and why it's called that.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 209,
+    "fields": {
+      "question": 37,
+      "description": "Creates repository on GitHub.com (UI or CLI)",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 210,
+    "fields": {
+      "question": 37,
+      "description": "Uses git remote add origin <url> to connect local to remote",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 211,
+    "fields": {
+      "question": 37,
+      "description": "Explains 'origin' is just the conventional default name for the primary remote repository",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 212,
+    "fields": {
+      "question": 37,
+      "description": "Uses git push -u origin main (or master) for the first push, explains -u sets upstream tracking",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 213,
+    "fields": {
+      "question": 37,
+      "description": "Understands the difference between the local repo and the remote on GitHub",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 38,
+    "fields": {
+      "skill": 5,
+      "target_level": 1,
+      "scenario": "You want to contribute to an open-source project on GitHub. You don't have write access to the repository. A friend tells you to 'fork it and submit a PR' but you're not sure what that means.",
+      "task": "Explain what forking a repository means, how it differs from cloning, and walk through the complete workflow from fork to submitted pull request.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 214,
+    "fields": {
+      "question": 38,
+      "description": "Correctly explains fork as creating a personal copy of a repo under your GitHub account",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 215,
+    "fields": {
+      "question": 38,
+      "description": "Explains difference: fork is a GitHub-level copy you own; clone is a local copy on your machine",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 216,
+    "fields": {
+      "question": 38,
+      "description": "Describes the workflow: fork \u2192 clone your fork \u2192 create branch \u2192 commit \u2192 push to your fork \u2192 open PR",
+      "weight": 3.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 217,
+    "fields": {
+      "question": 38,
+      "description": "Explains that a pull request asks the original repo owner to pull your changes",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 218,
+    "fields": {
+      "question": 38,
+      "description": "Mentions keeping your fork in sync with the upstream original repo",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 39,
+    "fields": {
+      "skill": 5,
+      "target_level": 1,
+      "scenario": "Your team's repository on GitHub has no README, no description, and no .gitignore. New developers who visit the repository have no idea what the project is or how to set it up. You've been asked to fix this.",
+      "task": "Describe what you'd add to make the repository welcoming and useful to new developers. What should a good README contain? What is a .gitignore and what should it exclude for a Python project?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 219,
+    "fields": {
+      "question": 39,
+      "description": "Lists README sections: project description, prerequisites, installation steps, usage, contributing guide",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 220,
+    "fields": {
+      "question": 39,
+      "description": "Mentions adding a license file for open source projects",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 221,
+    "fields": {
+      "question": 39,
+      "description": "Correctly explains .gitignore as a file that tells Git which files not to track",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 222,
+    "fields": {
+      "question": 39,
+      "description": "Lists appropriate Python .gitignore entries: __pycache__/, *.pyc, .env, venv/, .DS_Store",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 223,
+    "fields": {
+      "question": 39,
+      "description": "Explains that .env should be in .gitignore to prevent secrets being committed",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 40,
+    "fields": {
+      "skill": 5,
+      "target_level": 2,
+      "scenario": "You're reviewing a pull request from a junior developer. The PR adds a new feature but has three issues: a function with no docstring, a hardcoded database URL, and a test that always passes regardless of the code. You want to provide constructive feedback.",
+      "task": "Describe how you would conduct this code review on GitHub. What specific comments would you leave? How would you use GitHub's review features (comment, request changes, approve)? How would you keep the feedback constructive?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 224,
+    "fields": {
+      "question": 40,
+      "description": "Uses GitHub's line-level comments to point to specific lines rather than general comments",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 225,
+    "fields": {
+      "question": 40,
+      "description": "Selects 'Request Changes' (not just comment) since there are blocking issues",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 226,
+    "fields": {
+      "question": 40,
+      "description": "Addresses the hardcoded DB URL as a security issue \u2014 should be environment variable",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 227,
+    "fields": {
+      "question": 40,
+      "description": "Identifies the always-passing test as a testing flaw and explains what a meaningful test looks like",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 228,
+    "fields": {
+      "question": 40,
+      "description": "Frames feedback constructively: 'consider', 'could you', 'this pattern is safer because' rather than 'wrong'",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 229,
+    "fields": {
+      "question": 40,
+      "description": "Adds at least one positive comment to balance the review",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 41,
+    "fields": {
+      "skill": 5,
+      "target_level": 2,
+      "scenario": "Your team wants to set up a GitHub Actions workflow that automatically runs tests on every pull request to the main branch. The project is a Python Django application. Tests should fail fast if any test fails, and the PR should be blocked from merging if tests don't pass.",
+      "task": "Write a GitHub Actions workflow YAML file that accomplishes this. Explain the key sections: on, jobs, steps, and how branch protection rules connect to this workflow.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 230,
+    "fields": {
+      "question": 41,
+      "description": "Uses on: pull_request: branches: [main] as the trigger",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 231,
+    "fields": {
+      "question": 41,
+      "description": "Sets up Python with actions/setup-python@v4 and specifies a version",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 232,
+    "fields": {
+      "question": 41,
+      "description": "Installs dependencies with pip install -r requirements.txt",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 233,
+    "fields": {
+      "question": 41,
+      "description": "Runs tests with python manage.py test or pytest",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 234,
+    "fields": {
+      "question": 41,
+      "description": "Explains that required status checks in branch protection settings block PR merge if workflow fails",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 235,
+    "fields": {
+      "question": 41,
+      "description": "Uses a valid YAML structure with proper indentation and required fields",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 42,
+    "fields": {
+      "skill": 5,
+      "target_level": 2,
+      "scenario": "Your team of 8 developers is growing to 20. Currently everyone pushes directly to main. You've had three incidents in the past month where broken code reached production. You need to implement a proper GitHub workflow and branch protection.",
+      "task": "Design and explain the branch protection rules you would set up in GitHub. What checks should be required? What permissions should be restricted? How would you enforce code review quality?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 236,
+    "fields": {
+      "question": 42,
+      "description": "Requires pull request reviews before merging: minimum 2 approvals for critical repos",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 237,
+    "fields": {
+      "question": 42,
+      "description": "Enables required status checks: CI must pass before merge is allowed",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 238,
+    "fields": {
+      "question": 42,
+      "description": "Dismisses stale reviews when new commits are pushed (prevent approval before fix)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 239,
+    "fields": {
+      "question": 42,
+      "description": "Restricts who can push directly to main (admin only or no direct push)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 240,
+    "fields": {
+      "question": 42,
+      "description": "Enables branch up-to-date requirement: PR branch must include latest main before merge",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 241,
+    "fields": {
+      "question": 42,
+      "description": "Mentions CODEOWNERS file to automatically request reviews from domain experts",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 43,
+    "fields": {
+      "skill": 5,
+      "target_level": 3,
+      "scenario": "Your team deploys a Django application to AWS EKS. You want to build a full CI/CD pipeline in GitHub Actions that: runs tests on every PR, builds a Docker image on merge to main, pushes it to Amazon ECR, and then updates the Kubernetes deployment automatically.",
+      "task": "Write the complete multi-job GitHub Actions workflow for this pipeline. Explain job dependencies, how secrets are managed, and what happens if the Docker build succeeds but the Kubernetes deployment fails.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 242,
+    "fields": {
+      "question": 43,
+      "description": "Uses multi-job workflow with needs: dependencies: test \u2192 build \u2192 deploy",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 243,
+    "fields": {
+      "question": 43,
+      "description": "Configures AWS credentials in the build job using aws-actions/configure-aws-credentials",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 244,
+    "fields": {
+      "question": 43,
+      "description": "Stores ECR registry URL and other config as GitHub Actions secrets or environment variables",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 245,
+    "fields": {
+      "question": 43,
+      "description": "Tags Docker image with git SHA: ${{ github.sha }} for traceability",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 246,
+    "fields": {
+      "question": 43,
+      "description": "Updates Kubernetes with kubectl set image or applies updated manifests",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 247,
+    "fields": {
+      "question": 43,
+      "description": "Explains rollback strategy: if K8s deployment fails, kubectl rollout undo deployment/app",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 248,
+    "fields": {
+      "question": 43,
+      "description": "Uses on: push: branches: [main] to trigger only on merges to main, not every PR",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 6
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 44,
+    "fields": {
+      "skill": 5,
+      "target_level": 3,
+      "scenario": "You manage a GitHub organization with 50 repositories across 5 teams. Each team has different access levels. A security audit found that 3 repositories have API keys in their git history, and 12 repositories have no branch protection rules. You need to fix this at scale.",
+      "task": "Describe your approach to fixing both issues at scale using GitHub's organization features and APIs. How would you use GitHub Advanced Security (secret scanning), Dependabot, and the GitHub API to automate the fixes across 50 repositories?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 249,
+    "fields": {
+      "question": 44,
+      "description": "Enables GitHub Advanced Security at org level: secret scanning, push protection to prevent future leaks",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 250,
+    "fields": {
+      "question": 44,
+      "description": "Uses BFG Repo Cleaner or git filter-repo to remove secrets from history on the 3 affected repos",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 251,
+    "fields": {
+      "question": 44,
+      "description": "Rotates all found API keys immediately, regardless of cleanup (keys are compromised once exposed)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 252,
+    "fields": {
+      "question": 44,
+      "description": "Uses GitHub API or GitHub CLI (gh) to programmatically apply branch protection to all 50 repos",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 253,
+    "fields": {
+      "question": 44,
+      "description": "Mentions Dependabot for automated dependency vulnerability alerts and PRs",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 254,
+    "fields": {
+      "question": 44,
+      "description": "Explains org-level rulesets (GitHub Enterprise feature) to enforce branch protection across all repos",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 45,
+    "fields": {
+      "skill": 5,
+      "target_level": 3,
+      "scenario": "Your organization wants to build a GitHub App that automatically labels pull requests based on which files were changed (e.g., if a PR changes files in /backend, add the 'backend' label; if it changes /docs, add 'documentation'). You need to design and implement this.",
+      "task": "Explain the difference between a GitHub App and a GitHub Action for this use case. Describe the architecture of the GitHub App, which webhooks you'd subscribe to, and sketch the core logic.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=5, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 255,
+    "fields": {
+      "question": 45,
+      "description": "Correctly distinguishes GitHub App (persistent service, fine-grained permissions) from Action (runs in CI context per workflow)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 256,
+    "fields": {
+      "question": 45,
+      "description": "Subscribes to pull_request webhook event, specifically opened and synchronize actions",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 257,
+    "fields": {
+      "question": 45,
+      "description": "Uses GitHub API to list changed files in the PR: GET /repos/{owner}/{repo}/pulls/{pr}/files",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 258,
+    "fields": {
+      "question": 45,
+      "description": "Implements labeling logic: match file paths to label rules, call POST /repos/{owner}/{repo}/issues/{pr}/labels",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 259,
+    "fields": {
+      "question": 45,
+      "description": "Handles webhook verification: validates X-Hub-Signature-256 header to prevent spoofing",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 260,
+    "fields": {
+      "question": 45,
+      "description": "Explains that GitHub Apps authenticate as the app using JWT and then get installation tokens",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 46,
+    "fields": {
+      "skill": 6,
+      "target_level": 1,
+      "scenario": "A colleague hands you a Dockerfile for a simple Flask app and says 'run this on your machine.' You've never used Docker before. The Dockerfile contains: FROM python:3.11, WORKDIR /app, COPY requirements.txt ., RUN pip install -r requirements.txt, COPY . ., CMD ['python', 'app.py']",
+      "task": "Explain what each line in this Dockerfile does. Then write the two commands needed to build an image from this Dockerfile and run a container from that image, mapping port 5000 on the container to port 5000 on your machine.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 261,
+    "fields": {
+      "question": 46,
+      "description": "Correctly explains FROM as the base image",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 262,
+    "fields": {
+      "question": 46,
+      "description": "Correctly explains WORKDIR as setting the working directory inside the container",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 263,
+    "fields": {
+      "question": 46,
+      "description": "Correctly explains COPY and RUN for installing dependencies",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 264,
+    "fields": {
+      "question": 46,
+      "description": "Correctly explains CMD as the default command when the container starts",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 265,
+    "fields": {
+      "question": 46,
+      "description": "Uses docker build -t appname:tag . to build the image",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 266,
+    "fields": {
+      "question": 46,
+      "description": "Uses docker run -p 5000:5000 appname:tag to run with port mapping",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 47,
+    "fields": {
+      "skill": 6,
+      "target_level": 1,
+      "scenario": "You ran a Docker container with docker run nginx but now you can't find it with docker ps. A colleague says 'it probably stopped.' You need to see all containers (including stopped ones), find out why it stopped, and clean up containers you don't need.",
+      "task": "Write the commands to list all containers including stopped ones, view the logs of a stopped container to understand why it exited, and remove all stopped containers. Explain the difference between an image and a container.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 267,
+    "fields": {
+      "question": 47,
+      "description": "Uses docker ps -a to list all containers including stopped ones",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 268,
+    "fields": {
+      "question": 47,
+      "description": "Uses docker logs <container_id> to view logs of a stopped container",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 269,
+    "fields": {
+      "question": 47,
+      "description": "Uses docker rm <container_id> to remove a specific container, or docker container prune for all stopped",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 270,
+    "fields": {
+      "question": 47,
+      "description": "Correctly explains image as the blueprint/template; container as a running instance of that image",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 271,
+    "fields": {
+      "question": 47,
+      "description": "Understands a container can stop if its main process exits",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 48,
+    "fields": {
+      "skill": 6,
+      "target_level": 1,
+      "scenario": "You containerized a Django app but when you run it, it can't connect to your local PostgreSQL database running on your host machine. You tried using localhost inside the container but it doesn't work. Your colleague says 'use host.docker.internal.'",
+      "task": "Explain why localhost inside a Docker container doesn't refer to your host machine. What does localhost refer to inside a container? How does host.docker.internal solve this, and what environment variable pattern should you use instead of hardcoding this?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 272,
+    "fields": {
+      "question": 48,
+      "description": "Correctly explains localhost inside container refers to the container's own network namespace, not the host",
+      "weight": 3.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 273,
+    "fields": {
+      "question": 48,
+      "description": "Explains host.docker.internal resolves to the host machine's IP from inside a container (Docker Desktop)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 274,
+    "fields": {
+      "question": 48,
+      "description": "Recommends using environment variables for DB host rather than hardcoding",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 275,
+    "fields": {
+      "question": 48,
+      "description": "Mentions that in production this won't matter since DB runs in its own container on a shared network",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 276,
+    "fields": {
+      "question": 48,
+      "description": "Understands each container has its own isolated network namespace",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 49,
+    "fields": {
+      "skill": 6,
+      "target_level": 2,
+      "scenario": "You're containerizing a Django application with PostgreSQL and Redis. All three services need to run together for local development. Currently developers run each service manually in separate terminals. You want a single command to start everything.",
+      "task": "Write a docker-compose.yml file that defines all three services. The Django app should wait for PostgreSQL to be ready before starting. Include proper networking, environment variables, and volume for PostgreSQL data persistence.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 277,
+    "fields": {
+      "question": 49,
+      "description": "Defines three services: web (Django), db (PostgreSQL), redis with correct images",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 278,
+    "fields": {
+      "question": 49,
+      "description": "Uses depends_on for web depending on db, explaining that depends_on only waits for container start, not DB ready",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 279,
+    "fields": {
+      "question": 49,
+      "description": "Uses a named volume for PostgreSQL data persistence: volumes: postgres_data: on service and top level",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 280,
+    "fields": {
+      "question": 49,
+      "description": "Sets environment variables for DB: POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 281,
+    "fields": {
+      "question": 49,
+      "description": "Services communicate by service name as hostname (e.g., db instead of localhost)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 282,
+    "fields": {
+      "question": 49,
+      "description": "Exposes port 8000 for Django web service",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 50,
+    "fields": {
+      "skill": 6,
+      "target_level": 2,
+      "scenario": "Your Docker image for a Python app is 1.8GB. Your CI pipeline takes 12 minutes just to build and push the image. A DevOps engineer tells you your Dockerfile is inefficient and the image should be under 200MB. You currently use FROM python:3.11 as your only stage.",
+      "task": "Explain the two main techniques to reduce Docker image size: multi-stage builds and choosing a smaller base image. Rewrite the Dockerfile using both techniques to achieve a significantly smaller image. Explain layer caching and how Dockerfile instruction order affects build time.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 283,
+    "fields": {
+      "question": 50,
+      "description": "Uses multi-stage build: separate build stage from runtime stage with FROM python:3.11-slim AS builder",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 284,
+    "fields": {
+      "question": 50,
+      "description": "Copies only built artifacts from builder stage, not entire build environment",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 285,
+    "fields": {
+      "question": 50,
+      "description": "Switches from python:3.11 (900MB) to python:3.11-slim (130MB) or python:3.11-alpine for runtime",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 286,
+    "fields": {
+      "question": 50,
+      "description": "Explains layer caching: COPY requirements.txt before COPY . . so deps are cached unless requirements change",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 287,
+    "fields": {
+      "question": 50,
+      "description": "Explains that each RUN, COPY, ADD instruction creates a new layer",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 288,
+    "fields": {
+      "question": 50,
+      "description": "Mentions .dockerignore to exclude unnecessary files (tests, docs, .git) from the build context",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 51,
+    "fields": {
+      "skill": 6,
+      "target_level": 2,
+      "scenario": "Your Docker container running a web application keeps crashing randomly. Running docker logs shows the process exits with code 137. Your monitoring shows memory usage spikes before each crash. Developers say 'just increase the server RAM.'",
+      "task": "Explain what exit code 137 means. Diagnose the root cause using Docker's resource visibility. Propose a proper solution that doesn't just throw more RAM at the problem, and explain how to set resource limits correctly in Docker.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 289,
+    "fields": {
+      "question": 51,
+      "description": "Correctly identifies exit code 137 as SIGKILL \u2014 the container was killed by the OOM killer (out of memory)",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 290,
+    "fields": {
+      "question": 51,
+      "description": "Uses docker stats to monitor real-time CPU and memory usage of running containers",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 291,
+    "fields": {
+      "question": 51,
+      "description": "Identifies the real fix: profile the application for memory leaks, optimize memory usage",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 292,
+    "fields": {
+      "question": 51,
+      "description": "Explains how to set memory limits: docker run --memory=512m --memory-swap=512m",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 293,
+    "fields": {
+      "question": 51,
+      "description": "Explains that --memory-swap=memory disables swap, forcing early OOM instead of slow swapping",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 294,
+    "fields": {
+      "question": 51,
+      "description": "Mentions that resource limits in docker-compose use: mem_limit: 512m",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 52,
+    "fields": {
+      "skill": 6,
+      "target_level": 3,
+      "scenario": "Your security team ran a vulnerability scan on your Docker images and found: (1) the container runs as root, (2) the image has 47 high-severity CVEs from outdated packages, (3) the filesystem is writable. They say the image is not production-ready.",
+      "task": "Address all three issues. Show the Dockerfile changes needed to run as a non-root user, explain how to minimize CVEs by choosing and updating base images, and explain what a read-only filesystem means in Docker and how to implement it.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 295,
+    "fields": {
+      "question": 52,
+      "description": "Creates a non-root user in Dockerfile: RUN useradd -m appuser && USER appuser",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 296,
+    "fields": {
+      "question": 52,
+      "description": "Explains that running as root in a container means container escape could give root on host",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 297,
+    "fields": {
+      "question": 52,
+      "description": "Addresses CVEs by using minimal base image (distroless or Alpine), running apt-get upgrade in build, pinning versions",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 298,
+    "fields": {
+      "question": 52,
+      "description": "Uses --read-only flag: docker run --read-only or readOnly: true in K8s securityContext",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 299,
+    "fields": {
+      "question": 52,
+      "description": "Explains that --read-only prevents malware from writing to filesystem if container is compromised",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 300,
+    "fields": {
+      "question": 52,
+      "description": "Mounts tmpfs for directories that need write access: --tmpfs /tmp:rw,noexec,nosuid",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 53,
+    "fields": {
+      "skill": 6,
+      "target_level": 3,
+      "scenario": "Your team builds a monorepo with 5 microservices. Each service has its own Dockerfile but they share common base layers. CI builds each service independently, resulting in 5 \u00d7 15-minute builds with lots of redundant work. You need to optimize to under 5 minutes per service.",
+      "task": "Design a build strategy for this monorepo. How would you use Docker BuildKit's advanced features (cache mounts, build arguments, shared base images) to speed up builds? How do you handle caching in CI where the build environment is fresh each time?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 301,
+    "fields": {
+      "question": 53,
+      "description": "Proposes a shared base image built and pushed once, referenced by all services: FROM company/base:latest",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 302,
+    "fields": {
+      "question": 53,
+      "description": "Uses BuildKit cache mounts for pip/npm: RUN --mount=type=cache,target=/root/.cache/pip pip install",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 303,
+    "fields": {
+      "question": 53,
+      "description": "Enables BuildKit in CI: DOCKER_BUILDKIT=1 or uses docker buildx build",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 304,
+    "fields": {
+      "question": 53,
+      "description": "Uses GitHub Actions cache or ECR layer caching to persist layer cache between CI runs",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 305,
+    "fields": {
+      "question": 53,
+      "description": "Uses --build-arg for environment-specific values instead of hardcoding in Dockerfile",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 306,
+    "fields": {
+      "question": 53,
+      "description": "Explains cache invalidation: a change in shared base forces rebuild of all services \u2014 plan base image updates carefully",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 54,
+    "fields": {
+      "skill": 6,
+      "target_level": 3,
+      "scenario": "Your organization needs to ensure that only signed, verified Docker images are deployed to production. You've had incidents where test images were accidentally deployed. Additionally, your image scanning shows new vulnerabilities appear between build time and deploy time.",
+      "task": "Describe a container supply chain security strategy. How does Docker Content Trust / Cosign work? How would you prevent unsigned images from running in Kubernetes? How do you handle vulnerability management between build and deploy?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=6, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 307,
+    "fields": {
+      "question": 54,
+      "description": "Explains Docker Content Trust (DCT) / Notary: images are signed with private keys, verified on pull",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 308,
+    "fields": {
+      "question": 54,
+      "description": "Explains Sigstore/Cosign as a modern alternative: keyless signing using OIDC identity",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 309,
+    "fields": {
+      "question": 54,
+      "description": "Describes using Kubernetes admission controllers (OPA/Gatekeeper or Kyverno) to reject unsigned images",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 310,
+    "fields": {
+      "question": 54,
+      "description": "Proposes scanning images at multiple points: build time (Trivy in CI) and admission time (image policy webhook)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 311,
+    "fields": {
+      "question": 54,
+      "description": "Explains that CVEs discovered after build require a rebuild and redeploy policy (SLA for critical CVEs)",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 312,
+    "fields": {
+      "question": 54,
+      "description": "Mentions using a private registry (ECR) with immutable tags to prevent image tampering after push",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 55,
+    "fields": {
+      "skill": 7,
+      "target_level": 1,
+      "scenario": "You've joined a team that uses Kubernetes. Your manager asks you to check why the 'payment-service' application isn't responding. You have kubectl access to the cluster but have never used Kubernetes before.",
+      "task": "Walk through the kubectl commands you'd run to investigate: list pods, check the status of a specific pod, read its logs, and describe the pod to see events. Explain what a Pod is in Kubernetes.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 313,
+    "fields": {
+      "question": 55,
+      "description": "Uses kubectl get pods -n <namespace> or kubectl get pods --all-namespaces to list pods",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 314,
+    "fields": {
+      "question": 55,
+      "description": "Uses kubectl logs <pod-name> to read application logs",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 315,
+    "fields": {
+      "question": 55,
+      "description": "Uses kubectl describe pod <pod-name> to see events and status details",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 316,
+    "fields": {
+      "question": 55,
+      "description": "Correctly explains Pod as the smallest deployable unit in K8s, containing one or more containers",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 317,
+    "fields": {
+      "question": 55,
+      "description": "Checks pod status in get pods output: Running, Pending, CrashLoopBackOff, Error",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 56,
+    "fields": {
+      "skill": 7,
+      "target_level": 1,
+      "scenario": "You need to deploy a simple web application to Kubernetes. You have a Docker image at docker.io/myapp:v1. A senior engineer hands you a Deployment manifest YAML but you don't fully understand it. The manifest has: apiVersion, kind: Deployment, metadata, spec.replicas: 3, spec.template.spec.containers.",
+      "task": "Explain what each major section of the Deployment manifest does. What does replicas: 3 mean in practice? What happens if one of the 3 pods crashes?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 318,
+    "fields": {
+      "question": 56,
+      "description": "Explains apiVersion and kind identify the resource type for the K8s API",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 319,
+    "fields": {
+      "question": 56,
+      "description": "Explains metadata.name as the identifier for the resource",
+      "weight": 1.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 320,
+    "fields": {
+      "question": 56,
+      "description": "Explains spec.replicas: 3 means K8s maintains exactly 3 running pod instances",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 321,
+    "fields": {
+      "question": 56,
+      "description": "Explains that if a pod crashes, the Deployment controller automatically creates a replacement",
+      "weight": 3.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 322,
+    "fields": {
+      "question": 56,
+      "description": "Explains spec.template as the pod blueprint used to create new pods",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 57,
+    "fields": {
+      "skill": 7,
+      "target_level": 1,
+      "scenario": "Your application pod is running in Kubernetes but you can't reach it from outside the cluster. The pod is running fine but HTTP requests time out. A colleague says 'you need a Service.'",
+      "task": "Explain what a Kubernetes Service is, why pods can't be accessed directly from outside, and describe the three main Service types (ClusterIP, NodePort, LoadBalancer) and when you'd use each.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 323,
+    "fields": {
+      "question": 57,
+      "description": "Explains Service as a stable network endpoint that routes traffic to pods (pods have ephemeral IPs)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 324,
+    "fields": {
+      "question": 57,
+      "description": "Explains ClusterIP: only accessible within the cluster, for internal service-to-service communication",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 325,
+    "fields": {
+      "question": 57,
+      "description": "Explains NodePort: exposes the service on a port on each node, accessible from outside but limited",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 326,
+    "fields": {
+      "question": 57,
+      "description": "Explains LoadBalancer: provisions a cloud load balancer with an external IP, the standard way to expose services",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 327,
+    "fields": {
+      "question": 57,
+      "description": "Understands why direct pod access is unreliable: pod IPs change when pods restart",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 58,
+    "fields": {
+      "skill": 7,
+      "target_level": 2,
+      "scenario": "Your Django application deployed on Kubernetes keeps getting OOMKilled (out of memory killed). You also notice during peak traffic, the single pod is CPU-throttled. You need to fix both issues properly without just over-provisioning resources.",
+      "task": "Explain what OOMKilled means and why it happens. Write the resource requests and limits configuration for the pod. Explain the difference between requests and limits and why both matter. Then write the HorizontalPodAutoscaler manifest to scale based on CPU.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 328,
+    "fields": {
+      "question": 58,
+      "description": "Correctly explains OOMKilled: container exceeded its memory limit, K8s killed it",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 329,
+    "fields": {
+      "question": 58,
+      "description": "Correctly defines requests as the guaranteed minimum (used for scheduling) and limits as the maximum allowed",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 330,
+    "fields": {
+      "question": 58,
+      "description": "Writes valid resources: section with requests and limits for cpu and memory",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 331,
+    "fields": {
+      "question": 58,
+      "description": "Writes a valid HPA manifest with minReplicas, maxReplicas, and targetCPUUtilizationPercentage",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 332,
+    "fields": {
+      "question": 58,
+      "description": "Explains that without requests, the scheduler can't properly bin-pack pods onto nodes",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 333,
+    "fields": {
+      "question": 58,
+      "description": "Explains consequences of setting limits too low: throttling (CPU) or OOMKill (memory)",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 59,
+    "fields": {
+      "skill": 7,
+      "target_level": 2,
+      "scenario": "Your application needs a database password and an API key available as environment variables. A junior developer wants to hardcode them in the Deployment YAML and commit it to Git. You need to explain the correct approach.",
+      "task": "Explain why secrets shouldn't be in Deployment YAML committed to Git. Show how to create a Kubernetes Secret for the database password and API key, and how to reference it in a Deployment manifest as environment variables. What are the limitations of Kubernetes Secrets?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 334,
+    "fields": {
+      "question": 59,
+      "description": "Explains K8s Secrets in YAML are base64 encoded, not encrypted \u2014 committing to Git exposes them",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 335,
+    "fields": {
+      "question": 59,
+      "description": "Creates Secret: kubectl create secret generic app-secrets --from-literal=DB_PASSWORD=... or YAML",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 336,
+    "fields": {
+      "question": 59,
+      "description": "References secret in Deployment: env.valueFrom.secretKeyRef with correct name and key fields",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 337,
+    "fields": {
+      "question": 59,
+      "description": "Explains limitation: K8s Secrets are only base64 encoded at rest by default, not encrypted (unless etcd encryption is enabled)",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 338,
+    "fields": {
+      "question": 59,
+      "description": "Mentions better alternatives for production: AWS Secrets Manager, Vault, External Secrets Operator",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 339,
+    "fields": {
+      "question": 59,
+      "description": "Recommends using .gitignore or Sealed Secrets for secrets in GitOps workflows",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 60,
+    "fields": {
+      "skill": 7,
+      "target_level": 2,
+      "scenario": "You deployed a new version of your application to Kubernetes using kubectl apply. The new version has a bug that causes 50% of requests to return 500 errors. You need to roll back to the previous version immediately. You're under pressure \u2014 production is affected.",
+      "task": "Walk through the exact commands to roll back the deployment. Explain how Kubernetes rolling updates work and how they're supposed to prevent this scenario. What should you have configured to catch this before 100% of pods were updated?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 340,
+    "fields": {
+      "question": 60,
+      "description": "Uses kubectl rollout undo deployment/<name> to immediately roll back",
+      "weight": 3.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 341,
+    "fields": {
+      "question": 60,
+      "description": "Uses kubectl rollout status deployment/<name> to monitor the rollback",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 342,
+    "fields": {
+      "question": 60,
+      "description": "Uses kubectl rollout history deployment/<name> to see previous revisions",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 343,
+    "fields": {
+      "question": 60,
+      "description": "Explains rolling update: replaces pods one by one, maintains availability during update",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 344,
+    "fields": {
+      "question": 60,
+      "description": "Explains readiness probes: K8s waits for new pods to pass readiness check before routing traffic",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 345,
+    "fields": {
+      "question": 60,
+      "description": "Explains that without proper readiness probes, K8s routes traffic to pods before they're healthy",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 61,
+    "fields": {
+      "skill": 7,
+      "target_level": 3,
+      "scenario": "Your Kubernetes application is receiving a sudden spike in traffic: 10x normal load. The HPA is configured but pods are taking 3 minutes to become ready and serve traffic, making the autoscaling too slow to handle sudden spikes. You need to fix the slow scale-out.",
+      "task": "Diagnose why pods take 3 minutes to become ready. What would you investigate? Explain pre-warming strategies (Cluster Autoscaler node provisioning, PodDisruptionBudgets, Pod readiness gates) and design a solution that handles sudden traffic spikes more effectively.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 346,
+    "fields": {
+      "question": 61,
+      "description": "Identifies possible causes of slow readiness: app startup time, image pull time, node provisioning time",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 347,
+    "fields": {
+      "question": 61,
+      "description": "Distinguishes between node scaling (Cluster Autoscaler, 2-5 min) and pod scaling (seconds once node exists)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 348,
+    "fields": {
+      "question": 61,
+      "description": "Proposes keeping warm spare capacity: over-provision nodes slightly or use predictive scaling",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 349,
+    "fields": {
+      "question": 61,
+      "description": "Proposes optimizing app startup time: lazy loading, health check tuning, faster image pulls via pre-pulled images",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 350,
+    "fields": {
+      "question": 61,
+      "description": "Explains PodDisruptionBudget as availability guarantee during voluntary disruption, not startup speed",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 351,
+    "fields": {
+      "question": 61,
+      "description": "Mentions KEDA (Kubernetes Event Driven Autoscaling) for scaling based on queue depth or custom metrics",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 62,
+    "fields": {
+      "skill": 7,
+      "target_level": 3,
+      "scenario": "You're running a multi-tenant SaaS application on Kubernetes. Different customers' workloads share the same cluster. A performance test by one customer caused their pods to consume excessive CPU, impacting other customers. You need to implement proper isolation.",
+      "task": "Design a multi-tenant isolation strategy using Kubernetes primitives. Cover: namespace design, ResourceQuotas, LimitRanges, NetworkPolicies, and RBAC. Explain what each provides and where its limits are.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 352,
+    "fields": {
+      "question": 62,
+      "description": "Proposes one namespace per tenant with ResourceQuota limiting total CPU, memory, and pod count per namespace",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 353,
+    "fields": {
+      "question": 62,
+      "description": "Uses LimitRange to set default requests/limits so pods without explicit limits still get constrained",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 354,
+    "fields": {
+      "question": 62,
+      "description": "Implements NetworkPolicy to prevent cross-tenant pod communication: deny all ingress except within namespace",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 355,
+    "fields": {
+      "question": 62,
+      "description": "Uses RBAC to ensure each tenant's service accounts can only access their own namespace",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 356,
+    "fields": {
+      "question": 62,
+      "description": "Explains limits: namespaces share node resources unless you use dedicated node pools with taints/tolerations",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 357,
+    "fields": {
+      "question": 62,
+      "description": "Mentions node isolation via taints: kubectl taint nodes <node> tenant=customerA:NoSchedule",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 63,
+    "fields": {
+      "skill": 7,
+      "target_level": 3,
+      "scenario": "Your team is migrating from a monolithic deployment to a microservices architecture on Kubernetes. You currently deploy 1 large pod. After migration you'll have 15 small services. A new developer asks 'do we even need a service mesh? Can we just use Kubernetes Services?'",
+      "task": "Explain what problems appear at 15+ services that don't exist with 1 service. What does a service mesh (Istio/Linkerd) provide that native Kubernetes Services don't? What's the operational cost of adding a service mesh, and when is it not worth it?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=7, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 358,
+    "fields": {
+      "question": 63,
+      "description": "Identifies problems at scale: observability (which service called which?), retries, timeouts, circuit breaking, mTLS",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 359,
+    "fields": {
+      "question": 63,
+      "description": "Explains native K8s Services provide DNS and basic load balancing but no traffic management or observability",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 360,
+    "fields": {
+      "question": 63,
+      "description": "Explains service mesh provides: mutual TLS between services, distributed tracing, traffic splitting, circuit breaking",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 361,
+    "fields": {
+      "question": 63,
+      "description": "Explains sidecar proxy model: Envoy/Linkerd2-proxy injected into each pod, intercepts all traffic",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 362,
+    "fields": {
+      "question": 63,
+      "description": "Quantifies operational cost: added latency (~1ms), memory per sidecar (~50MB), learning curve, debugging complexity",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 363,
+    "fields": {
+      "question": 63,
+      "description": "Gives honest recommendation: service mesh worth it at 10+ services with observability requirements; overkill for 3 services",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 64,
+    "fields": {
+      "skill": 8,
+      "target_level": 1,
+      "scenario": "You're building your first Django project. You need a page at the URL /about/ that renders an HTML template showing the text 'About DevRPG'. You've created a new app called 'pages' but nothing is connected yet.",
+      "task": "Walk through all the steps needed: creating the view, registering the URL, creating the template, and making sure the app is installed. Explain the role of each file (views.py, urls.py, settings.py, templates/).",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 364,
+    "fields": {
+      "question": 64,
+      "description": "Creates a function view in views.py that calls render(request, 'pages/about.html', {})",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 365,
+    "fields": {
+      "question": 64,
+      "description": "Adds URL pattern in urls.py: path('about/', views.about, name='about')",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 366,
+    "fields": {
+      "question": 64,
+      "description": "Creates the HTML template in the correct templates/pages/ directory",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 367,
+    "fields": {
+      "question": 64,
+      "description": "Adds 'pages' to INSTALLED_APPS in settings.py",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 368,
+    "fields": {
+      "question": 64,
+      "description": "Understands the request-response cycle: URL \u2192 view \u2192 template \u2192 response",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 65,
+    "fields": {
+      "skill": 8,
+      "target_level": 1,
+      "scenario": "You need to create a Django model for a blog post. Each post should have: a title (max 200 chars), body text, publication date, and a boolean for whether it's published. After creating the model, a colleague says 'don't forget to run the migrations.'",
+      "task": "Write the complete model class. Explain what a migration is, why it exists, and write the two commands you need to run to apply your new model to the database.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 369,
+    "fields": {
+      "question": 65,
+      "description": "Defines Post model correctly with CharField(max_length=200), TextField, DateTimeField, BooleanField",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 370,
+    "fields": {
+      "question": 65,
+      "description": "Inherits from models.Model",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 371,
+    "fields": {
+      "question": 65,
+      "description": "Explains migration as Django's way of tracking and applying database schema changes",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 372,
+    "fields": {
+      "question": 65,
+      "description": "Runs python manage.py makemigrations to create migration file",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 373,
+    "fields": {
+      "question": 65,
+      "description": "Runs python manage.py migrate to apply migration to the database",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 66,
+    "fields": {
+      "skill": 8,
+      "target_level": 1,
+      "scenario": "You created a Django model called Product but when you log into /admin/ you can't see it. A senior developer says 'you need to register it.' You've heard about admin.py but aren't sure what to put in it.",
+      "task": "Explain what the Django admin is, why models need to be registered, write the code to register the Product model, and explain what ModelAdmin is used for.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 374,
+    "fields": {
+      "question": 66,
+      "description": "Explains Django admin as a built-in auto-generated management UI for your models",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 375,
+    "fields": {
+      "question": 66,
+      "description": "Imports Product model in admin.py and calls admin.site.register(Product)",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 376,
+    "fields": {
+      "question": 66,
+      "description": "Explains that registration tells Django admin to expose this model in the UI",
+      "weight": 2.0,
+      "level_gate": 1,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 377,
+    "fields": {
+      "question": 66,
+      "description": "Explains ModelAdmin as a class to customize admin display: list_display, search_fields, list_filter",
+      "weight": 2.5,
+      "level_gate": 1,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 378,
+    "fields": {
+      "question": 66,
+      "description": "Shows a basic ModelAdmin example: class ProductAdmin(admin.ModelAdmin): list_display = ['name', 'price']",
+      "weight": 1.5,
+      "level_gate": 1,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 67,
+    "fields": {
+      "skill": 8,
+      "target_level": 2,
+      "scenario": "You're building a REST API endpoint that returns a list of products. Each product has a price, category, and whether it's in stock. You need the endpoint to: support filtering by category, support pagination (20 items per page), and require authentication.",
+      "task": "Show how you would implement this using Django REST Framework. Write the serializer, viewset, and URL configuration. Explain the role of each DRF component.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 379,
+    "fields": {
+      "question": 67,
+      "description": "Writes a ModelSerializer for Product with correct fields",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 380,
+    "fields": {
+      "question": 67,
+      "description": "Uses a ModelViewSet or ListAPIView for the endpoint",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 381,
+    "fields": {
+      "question": 67,
+      "description": "Adds filtering using DjangoFilterBackend or filter_queryset method for category filter",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 382,
+    "fields": {
+      "question": 67,
+      "description": "Configures pagination: PageNumberPagination with page_size = 20",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 383,
+    "fields": {
+      "question": 67,
+      "description": "Adds authentication: permission_classes = [IsAuthenticated]",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 384,
+    "fields": {
+      "question": 67,
+      "description": "Registers with a router or in urls.py correctly",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 68,
+    "fields": {
+      "skill": 8,
+      "target_level": 2,
+      "scenario": "You have a Django model called Order with a ForeignKey to a User, and each Order has many OrderItems. You need to display a page showing all orders for the current user, with each order's items. A senior developer reviews your code and says 'you have an N+1 query problem.'",
+      "task": "Explain what the N+1 query problem is in Django's ORM context. Show the problematic code pattern that causes it, and then show the corrected version using select_related and prefetch_related. When would you use each?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 385,
+    "fields": {
+      "question": 68,
+      "description": "Correctly explains N+1: 1 query to get orders + N queries (one per order) to get items = N+1 total",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 386,
+    "fields": {
+      "question": 68,
+      "description": "Shows the bad pattern: iterating over orders and accessing order.items.all() inside the loop",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 387,
+    "fields": {
+      "question": 68,
+      "description": "Uses prefetch_related('items') for the reverse FK/M2M relationship (one-to-many)",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 388,
+    "fields": {
+      "question": 68,
+      "description": "Explains select_related for ForeignKey/OneToOne (JOIN), prefetch_related for reverse FK/M2M (separate query)",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 389,
+    "fields": {
+      "question": 68,
+      "description": "Uses Order.objects.filter(user=request.user).prefetch_related('items')",
+      "weight": 1.5,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 390,
+    "fields": {
+      "question": 68,
+      "description": "Mentions Django Debug Toolbar or django-silk to detect N+1 queries in development",
+      "weight": 1.0,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 69,
+    "fields": {
+      "skill": 8,
+      "target_level": 2,
+      "scenario": "You're deploying a Django app for the first time to a production server. You've been running with DEBUG=True and SQLite. Your senior developer gives you a checklist: switch DEBUG to False, use PostgreSQL, serve static files correctly, and use environment variables for secrets.",
+      "task": "Walk through each change required for production. Explain why DEBUG=True is dangerous in production. Show how to manage settings differences between development and production using environment variables.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=2",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 391,
+    "fields": {
+      "question": 69,
+      "description": "Explains DEBUG=True exposes full stack traces including settings values to anyone who triggers a 500 error",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 392,
+    "fields": {
+      "question": 69,
+      "description": "Uses python-decouple or os.environ to read SECRET_KEY, DATABASE_URL, DEBUG from environment",
+      "weight": 2.5,
+      "level_gate": 2,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 393,
+    "fields": {
+      "question": 69,
+      "description": "Switches database to PostgreSQL with proper ENGINE, NAME, USER, PASSWORD, HOST settings",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 394,
+    "fields": {
+      "question": 69,
+      "description": "Uses WhiteNoise or S3 for static files: STATIC_ROOT, python manage.py collectstatic",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 395,
+    "fields": {
+      "question": 69,
+      "description": "Sets ALLOWED_HOSTS to the production domain, not ['*']",
+      "weight": 2.0,
+      "level_gate": 2,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 396,
+    "fields": {
+      "question": 69,
+      "description": "Mentions running gunicorn instead of the development server in production",
+      "weight": 1.0,
+      "level_gate": 2,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 70,
+    "fields": {
+      "skill": 8,
+      "target_level": 3,
+      "scenario": "Your Django API endpoint GET /api/products/ is taking 800ms to respond. It queries a products table with 500,000 rows, joins to categories and inventory tables, and returns 50 results per page. Django Debug Toolbar shows 47 queries for a single request.",
+      "task": "Diagnose the causes of 47 queries. Walk through your optimization approach using Django ORM tools. Show the before and after query patterns. How would you verify the improvement?",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 397,
+    "fields": {
+      "question": 70,
+      "description": "Identifies N+1 queries as the primary cause of 47 queries (select_related/prefetch_related missing)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 398,
+    "fields": {
+      "question": 70,
+      "description": "Uses select_related for ForeignKey joins (category): reduces to 1 SQL JOIN",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 399,
+    "fields": {
+      "question": 70,
+      "description": "Uses prefetch_related for reverse relations (inventory): reduces to 2 total queries",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 400,
+    "fields": {
+      "question": 70,
+      "description": "Uses .only() or .defer() to select only needed fields, reducing data transfer",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 401,
+    "fields": {
+      "question": 70,
+      "description": "Uses .explain() or Django Debug Toolbar to verify query count dropped",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 402,
+    "fields": {
+      "question": 70,
+      "description": "Considers adding database indexes on filter/order_by columns used in the query",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 403,
+    "fields": {
+      "question": 70,
+      "description": "Implements Redis caching for this endpoint if data changes infrequently: cache.set(key, data, 300)",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 6
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 71,
+    "fields": {
+      "skill": 8,
+      "target_level": 3,
+      "scenario": "You need to implement a skill evaluation result in DevRPG that is generated asynchronously. A user submits their answer, the API returns immediately with a 202 Accepted, and a background job calls the Claude AI API and saves the result. The frontend polls for the result.",
+      "task": "Design and implement this async pattern in Django. Show the Celery task, the view that fires it, the status polling endpoint, and how you'd handle task failure and retry. Explain why this is better than a synchronous approach.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 404,
+    "fields": {
+      "question": 71,
+      "description": "Shows view returning 202 Accepted with task_id immediately after firing task.delay()",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 405,
+    "fields": {
+      "question": 71,
+      "description": "Writes a Celery task with @shared_task decorator that calls Claude API and saves result",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 406,
+    "fields": {
+      "question": 71,
+      "description": "Implements status polling endpoint: checks EvaluationSession.status, returns result when COMPLETED",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 407,
+    "fields": {
+      "question": 71,
+      "description": "Handles task failure with retry: @shared_task(bind=True, max_retries=3) and self.retry(exc=exc, countdown=60)",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 408,
+    "fields": {
+      "question": 71,
+      "description": "Explains synchronous approach blocks Gunicorn worker for 3-8 seconds per Claude call, limiting concurrency",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 409,
+    "fields": {
+      "question": 71,
+      "description": "Handles the case where polling times out on client side (session remains in EVALUATING state)",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  },
+  {
+    "model": "core.question",
+    "pk": 72,
+    "fields": {
+      "skill": 8,
+      "target_level": 3,
+      "scenario": "Your Django REST API is being consumed by a mobile app. Users report that their JWT tokens expire too quickly (1 hour) and they're being logged out constantly. Another developer suggests just setting the expiry to 30 days. You know this is a security mistake.",
+      "task": "Explain the access token / refresh token pattern. Why is a short access token lifetime important? Implement the token refresh endpoint using djangorestframework-simplejwt. Explain token rotation and what happens if a refresh token is stolen.",
+      "time_limit_seconds": 480,
+      "difficulty_notes": "Skill PK=8, Level=3",
+      "is_active": true
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 410,
+    "fields": {
+      "question": 72,
+      "description": "Explains access token (short-lived: 15-60min, sent on every request) vs refresh token (long-lived: days/weeks, used only to get new access token)",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 0
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 411,
+    "fields": {
+      "question": 72,
+      "description": "Explains why long-lived access tokens are dangerous: if stolen, attacker has access until expiry with no revocation",
+      "weight": 2.5,
+      "level_gate": 3,
+      "order": 1
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 412,
+    "fields": {
+      "question": 72,
+      "description": "Implements /api/token/refresh/ endpoint using simplejwt's TokenRefreshView or custom view",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 2
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 413,
+    "fields": {
+      "question": 72,
+      "description": "Explains token rotation: each refresh invalidates the old refresh token and issues a new one",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 414,
+    "fields": {
+      "question": 72,
+      "description": "Explains what happens if refresh token is stolen: attacker can generate access tokens until rotation detects reuse",
+      "weight": 2.0,
+      "level_gate": 3,
+      "order": 4
+    }
+  },
+  {
+    "model": "core.rubricitem",
+    "pk": 415,
+    "fields": {
+      "question": 72,
+      "description": "Mentions storing refresh tokens in httpOnly cookies (not localStorage) to prevent XSS theft",
+      "weight": 1.5,
+      "level_gate": 3,
+      "order": 5
+    }
+  }
+]

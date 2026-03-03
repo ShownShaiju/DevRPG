@@ -14,7 +14,8 @@ from rest_framework import status
 from .serializers import EvaluationSessionSerializer, QuestionSerializer
 import random
 from .ai_evaluator import evaluate_answer
-
+from .tasks import process_evaluation_task
+from .models import EvaluationResult
 
 # ==========================================
 # UI VIEWS
@@ -38,6 +39,17 @@ def dashboard(request):
     }
     return render(request, 'core/dashboard.html', context)
 
+@login_required
+@never_cache
+def evaluation_room(request):
+    """Serves the frontend interface for the AI Evaluation engine."""
+    # Fetch the user's active skills so they can select what to test
+    user_skills = UserSkill.objects.filter(user=request.user).select_related('skill')
+    
+    context = {
+        'user_skills': user_skills
+    }
+    return render(request, 'core/evaluation_room.html', context)
 
 # EVALUATION API VIEWS
 
@@ -77,7 +89,7 @@ class StartEvaluationView(APIView):
         
 
 class SubmitAnswerView(APIView):
-    """Receives the answer, enforces the timer, triggers AI, and updates XP."""
+    """Receives the answer, enforces the timer, and dispatches a background task."""
     
     def post(self, request, session_id):
         session = get_object_or_404(EvaluationSession, id=session_id, user=request.user)
@@ -88,49 +100,48 @@ class SubmitAnswerView(APIView):
         if session.expected_end and timezone.now() > session.expected_end:
             session.status = 'abandoned'
             session.save()
-            return Response({
-                "error": "Time limit exceeded. This challenge has been closed."
-            }, status=status.HTTP_403_FORBIDDEN)
+            return Response({"error": "Time limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
             
         # 2. Validation
         if session.status != 'in_progress':
-            return Response({"error": "This session is no longer active."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Session is not active."}, status=status.HTTP_400_BAD_REQUEST)
             
         if not user_answer or not question_id:
             return Response({"error": "answer_text and question_id are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        question = get_object_or_404(Question, id=question_id)
-
-        # 3. Update session status
+        # 3. Update session status to indicate background processing
         session.status = 'evaluating'
         session.save()
         
-        # 4. Trigger the AI Engine
-        result = evaluate_answer(session, question, user_answer)
+        # 4. Dispatch the Celery Task (.delay() makes it asynchronous)
+        process_evaluation_task.delay(session.id, question_id, user_answer)
         
-        if not result:
-            session.status = 'in_progress' # Rollback if AI fails
-            session.save()
-            return Response({"error": "AI Evaluation failed. Please try again."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        # 5. Core Game Loop: Update User Level and XP
-        user_skill, created = UserSkill.objects.get_or_create(
-            user=request.user,
-            skill=session.skill
-        )
-
-        if result.level_awarded > user_skill.level:
-            user_skill.level = result.level_awarded
-            
-        user_skill.xp += (result.level_awarded * 100)
-        user_skill.save()
-        
-        # 6. Return the final grade
+        # 5. Instantly return a 202 Accepted (Processing)
         return Response({
-            "message": "Evaluation Complete",
-            "level_awarded": result.level_awarded,
-            "reasoning": result.reasoning,
-            "strengths": result.strengths,
-            "gaps": result.gaps,
-            "new_total_xp": user_skill.xp
-        }, status=status.HTTP_200_OK)
+            "message": "Answer received. AI evaluation in progress.",
+            "status": session.status
+        }, status=status.HTTP_202_ACCEPTED)
+        
+class CheckEvaluationStatusView(APIView):
+    """Allows the client to check if the AI has finished grading."""
+    
+    def get(self, request, session_id):
+        session = get_object_or_404(EvaluationSession, id=session_id, user=request.user)
+        
+        if session.status == 'evaluating':
+            return Response({"status": "evaluating", "message": "AI is still thinking..."})
+            
+        if session.status == 'completed':
+            result = get_object_or_404(EvaluationResult, session=session)
+            user_skill = UserSkill.objects.get(user=request.user, skill=session.skill)
+            
+            return Response({
+                "status": "completed",
+                "level_awarded": result.level_awarded,
+                "reasoning": result.reasoning,
+                "strengths": result.strengths,
+                "gaps": result.gaps,
+                "new_total_xp": user_skill.xp
+            }, status=status.HTTP_200_OK)
+            
+        return Response({"status": session.status})        

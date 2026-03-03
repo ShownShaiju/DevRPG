@@ -7,7 +7,7 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'category', 'rarity', 'icon']
 
 class QuestionSerializer(serializers.ModelSerializer):
-    # Notice we do NOT include the rubric items here. The user shouldn't see the cheat sheet!
+
     class Meta:
         model = Question
         fields = ['id', 'target_level', 'scenario', 'task']

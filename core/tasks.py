@@ -1,13 +1,11 @@
-# core/tasks.py
 from celery import shared_task
 from .models import EvaluationSession, Question, UserSkill
-from .ai_evaluator import evaluate_answer
+from .ml_router import evaluate_with_hybrid_routing # Add this import
 
 @shared_task
 def process_evaluation_task(session_id, question_id, user_answer):
     """
     Background worker task to call the AI and update user progress.
-    This runs completely independent of the main web server.
     """
     try:
         session = EvaluationSession.objects.get(id=session_id)
@@ -15,14 +13,13 @@ def process_evaluation_task(session_id, question_id, user_answer):
     except (EvaluationSession.DoesNotExist, Question.DoesNotExist):
         return "Task Failed: Session or Question not found."
 
-    # 1. Trigger the AI Engine
-    result = evaluate_answer(session, question, user_answer)
+    # 1. Trigger the Hybrid Routing Engine (DistilBERT -> Gemini)
+    result = evaluate_with_hybrid_routing(session, question, user_answer)
     
     if not result:
-        # Rollback if AI fails (could add retry logic here later)
         session.status = 'in_progress' 
         session.save()
-        return "Task Failed: AI Evaluation returned None."
+        return "Task Failed: Evaluation routing returned None."
     
     # 2. Update User Level and XP
     user_skill, _ = UserSkill.objects.get_or_create(

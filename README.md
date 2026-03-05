@@ -8,10 +8,13 @@ A gamified, interactive developer portfolio and skill-tracking dashboard built w
 * **Async Task Queue:** Celery, Redis
 * **Frontend:** HTML5, Tailwind CSS, JavaScript
 * **Image Processing:** Pillow (PIL)
+* **Machine Learning:** PyTorch, HuggingFace Transformers (DistilBERT)
+* **AI API:** Google Gemini 1.5 Flash
 * **Infrastructure:** Docker, Nginx, Gunicorn
 * **Cloud Storage:** AWS S3 (Optional for media files)
 
-## 🧠 Core Architecture Focus: Asynchronous Image Pipeline
+## 🧠 Core Architecture Focus 
+### A: Asynchronous Image Pipeline
 To ensure high performance and prevent HTTP request blocking, this project implements a production-grade asynchronous media processing pipeline. 
 
 When a user uploads a heavy, high-resolution profile avatar:
@@ -22,11 +25,22 @@ When a user uploads a heavy, high-resolution profile avatar:
 
 This architecture drastically reduces outbound bandwidth costs, ensures sub-second page rendering times, and maintains a highly responsive user interface.
 
+### B: Two-Tier AI Evaluation Engine
+DevRPG evaluates developer skill levels by asking scenario-based technical questions and scoring the answers .To handle this at scale, the project implements a custom Two-Tier Cascade Architecture 
+
+Relying exclusively on external LLM APIs is accurate but inherently slow (3-8 seconds per evaluation) and expensive.To solve this, DevRPG utilizes a custom-trained local machine learning model to act as a high-speed pre-screening layer
+
+1. **The Fast Path (DistilBERT):** I fine-tuned a 66-million parameter DistilBERT model specifically for developer skill classification.The model was trained on 1080 synthetically generated answers covering 8 different technical skills, achieving a 98.1% validation accuracy. This model runs locally in CPU RAM inside my Celery workers, evaluating answers in approximately 50 milliseconds. 
+
+2. **Intelligent Routing:** If a user submits an obvious Novice or Apprentice answer (Level 1-2), DistilBERT recognizes the vocabulary markers and assigns a score instantly, entirely bypassing external APIs.
+
+3. **The Deep Evaluation Path (Gemini 1.5 Flash):** If the answer is complex, advanced (Level 3-5), or if the local model's confidence falls below 85%, the Celery router seamlessly falls back to the Gemini API for deep rubric-based evaluation.
+
 ## ✨ Features
 * **Dynamic Radar Charts:** Automatically calculates max skill levels and dynamically generates SVG polygon coordinates to visualize a user's technical stack distribution.
 * **Skill Tree Manager:** A standalone relational database allowing users to sync programming languages, frameworks, and tools to their global profile.
 * **Custom Auth System:** Overridden Django authentication routing with a stylized, gamified registration portal.
-
+* **AI Evaluation Chamber:** A real-time, timed testing environment where users submit text answers to technical scenarios, graded instantly by the hybrid DistilBERT/Gemini backend.
 ---
 
 ## 🚀 Getting Started

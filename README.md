@@ -8,6 +8,8 @@ A gamified, interactive developer portfolio and skill-tracking dashboard built w
 * **Async Task Queue:** Celery, Redis
 * **Frontend:** HTML5, Tailwind CSS, JavaScript
 * **Image Processing:** Pillow (PIL)
+* **Machine Learning:** PyTorch, HuggingFace Transformers (DistilBERT)
+* **AI API:** Google Gemini 1.5 Flash
 * **Infrastructure:** Docker, Nginx, Gunicorn
 * **Cloud Storage:** AWS S3 (Optional for media files)
 
@@ -26,7 +28,7 @@ This architecture drastically reduces outbound bandwidth costs, ensures sub-seco
 * **Dynamic Radar Charts:** Automatically calculates max skill levels and dynamically generates SVG polygon coordinates to visualize a user's technical stack distribution.
 * **Skill Tree Manager:** A standalone relational database allowing users to sync programming languages, frameworks, and tools to their global profile.
 * **Custom Auth System:** Overridden Django authentication routing with a stylized, gamified registration portal.
-
+* **AI Evaluation Chamber:** A real-time, timed testing environment where users submit text answers to technical scenarios, graded instantly by the hybrid DistilBERT/Gemini backend.
 ---
 
 ## 🚀 Getting Started

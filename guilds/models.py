@@ -1,3 +1,42 @@
 from django.db import models
+from django.conf import settings
+from core.models import Skill
 
-# Create your models here.
+class Guild(models.Model):
+    """The recruiter/company entity."""
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    logo = models.ImageField(upload_to='guild_logos/', null=True, blank=True)
+    
+
+    founder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='founded_guilds')
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='guilds', blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Quest(models.Model):
+    """The Job Post / Bounty."""
+    title = models.CharField(max_length=200)
+    guild = models.ForeignKey(Guild, on_delete=models.CASCADE, related_name='quests')
+    description = models.TextField()
+    xp_reward = models.PositiveIntegerField(default=500, help_text="Bonus XP for landing this role")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} [{self.guild.name}]"
+
+
+class QuestRequirement(models.Model):
+    """The precise skills an applicant must prove to apply."""
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='requirements')
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    minimum_level = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"Lv.{self.minimum_level} {self.skill.name} for {self.quest.title}"

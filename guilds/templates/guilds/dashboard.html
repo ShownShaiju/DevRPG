@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Guilds | DevRPG</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0f172a",
+                        "surface": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .neon-glow { box-shadow: 0 0 15px rgba(19, 91, 236, 0.4); }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+
+<header class="sticky top-0 z-50 glass-panel border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2 text-primary">
+                <span class="material-symbols-outlined text-3xl">terminal</span>
+                <h1 class="text-2xl font-bold tracking-tighter uppercase italic">DevRPG</h1>
+            </div>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-widest text-slate-400">
+                <a class="hover:text-primary transition-colors" href="{% url 'dashboard' %}">Dashboard</a>
+                <a class="text-primary border-b-2 border-primary" href="{% url 'guild_dashboard' %}">Guilds</a>
+                <a class="hover:text-primary transition-colors" href="#">Quests</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 pl-4 border-l border-white/10">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs text-slate-400">Level {{ user.profile.level|default:"1" }}</p>
+                    <p class="text-sm font-bold">{{ user.username }}</p>
+                </div>
+                <div class="size-10 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary">person</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+{% if not in_guild %}
+    <section class="space-y-10" id="mercenary-hub">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest">
+                    <span class="material-symbols-outlined text-xs">explore</span> Discovery Mode
+                </div>
+                <h2 class="text-5xl font-bold tracking-tight">The Mercenary Hub</h2>
+                <p class="text-slate-400 max-w-xl text-lg">Forge your path. Join an existing collective of elite developers or establish your own sovereign guild.</p>
+            </div>
+            <button class="neon-glow bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all transform hover:scale-105 uppercase tracking-wider">
+                <span class="material-symbols-outlined">add_circle</span> Found a Guild
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for g in available_guilds %}
+            <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-primary/50 transition-all group">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="size-16 rounded-xl bg-gradient-to-br from-primary to-blue-400 p-0.5">
+                        <div class="w-full h-full bg-background-dark rounded-[10px] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">shield</span>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20 uppercase">{{ g.industry }}</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{{ g.name }}</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">{{ g.description|truncatechars:80 }}</p>
+                <div class="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-white/5">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500">Members</p>
+                        <p class="font-bold">{{ g.members.count }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500">Min Level</p>
+                        <p class="font-bold">Lv. {{ g.minimum_level_to_join }}</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button class="flex-1 py-2 rounded-lg bg-primary hover:bg-primary/90 font-bold text-sm transition-colors uppercase tracking-tight">Join Guild</button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-12 text-slate-500">
+                <span class="material-symbols-outlined text-4xl mb-4">public_off</span>
+                <p>No guilds exist in this sector yet. Be the first to establish one.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% else %}
+    <section class="space-y-8" id="guild-hq">
+        <div class="relative overflow-hidden rounded-3xl p-8 border border-white/10 bg-gradient-to-r from-background-dark via-surface to-background-dark min-h-[200px] flex flex-col md:flex-row items-center gap-8">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px]"></div>
+            <div class="size-28 rounded-2xl bg-primary/20 border-2 border-primary/40 flex items-center justify-center relative z-10">
+                <span class="material-symbols-outlined text-primary text-6xl">rocket_launch</span>
+            </div>
+            <div class="flex-1 space-y-4 relative z-10">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-4xl font-black tracking-tight italic uppercase">{{ guild.name }}</h2>
+                    <span class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-bold rounded border border-primary/30 uppercase tracking-widest">{{ guild.industry }}</span>
+                </div>
+                <div class="flex flex-wrap gap-6 items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest">Guild XP</span>
+                        <p class="text-lg font-bold text-primary">{{ guild.guild_xp }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-2 relative z-10">
+                <button class="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 transition-colors" title="Leave Guild">
+                    <span class="material-symbols-outlined">logout</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
+            <div class="lg:col-span-7 space-y-6">
+                <h3 class="text-xl font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">assignment</span> Active Guild Quests
+                </h3>
+                <div class="space-y-4">
+                    {% for quest in quests %}
+                    <div class="glass-panel p-5 rounded-2xl border border-white/10 hover:bg-white/[0.03] transition-colors flex flex-col md:flex-row gap-6">
+                        <div class="md:w-32 flex flex-col items-center justify-center border-r border-white/5 pr-6">
+                            <p class="text-[10px] text-slate-500 uppercase font-black">Reward</p>
+                            <p class="text-2xl font-black text-amber-500 italic">+{{ quest.xp_reward }}</p>
+                            <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest">XP</p>
+                        </div>
+                        <div class="flex-1 space-y-3">
+                            <h4 class="text-lg font-bold">{{ quest.title }}</h4>
+                            <p class="text-sm text-slate-400">{{ quest.description }}</p>
+                            <div class="flex flex-wrap gap-2">
+                                {% for req in quest.requirements.all %}
+                                    <span class="px-2 py-1 rounded-md bg-white/5 text-[10px] font-bold text-slate-300 border border-white/10">Lv.{{ req.minimum_level }} {{ req.skill.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="w-full md:w-32 py-3 border border-primary text-primary hover:bg-primary/10 rounded-xl font-bold text-xs uppercase tracking-widest transition-all">Start Quest</button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="p-8 text-center border border-dashed border-white/10 rounded-2xl">
+                        <p class="text-slate-500">No active quests available for this guild.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 space-y-6">
+                <h3 class="text-xl font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">groups</span> Guild Roster
+                </h3>
+                <div class="glass-panel rounded-2xl divide-y divide-white/5">
+                    {% for member in roster %}
+                    <div class="p-4 flex items-center gap-4">
+                        <div class="size-10 rounded-full border {% if member == founder %}border-amber-500{% else %}border-white/10{% endif %} flex items-center justify-center bg-background-dark">
+                            <span class="material-symbols-outlined text-slate-500 text-sm">person</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">{{ member.username }}</p>
+                            <p class="text-xs text-slate-400">Lv. {{ member.profile.level|default:"1" }}</p>
+                        </div>
+                        {% if member == founder %}
+                            <div class="ml-auto text-[8px] font-black px-1.5 py-0.5 rounded bg-amber-500 text-black uppercase">Founder</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+</main>
+</body>
+</html>

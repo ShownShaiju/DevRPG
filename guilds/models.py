@@ -7,17 +7,20 @@ class Guild(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(blank=True)
-    logo = models.ImageField(upload_to='guild_logos/', null=True, blank=True)
     
-
+    # --- NEW RPG FEATURES ---
+    industry = models.CharField(max_length=100, default="Software Engineering", help_text="e.g., Fintech, Web3, Cybersec")
+    minimum_level_to_join = models.PositiveIntegerField(default=1, help_text="Min player level required to apply/join")
+    guild_xp = models.PositiveIntegerField(default=0, help_text="Total XP earned by members for the guild")
+    # ------------------------
+    
+    logo = models.ImageField(upload_to='guild_logos/', null=True, blank=True)
     founder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='founded_guilds')
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='guilds', blank=True)
-    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-
 
 class Quest(models.Model):
     """The Job Post / Bounty."""
@@ -30,7 +33,6 @@ class Quest(models.Model):
 
     def __str__(self):
         return f"{self.title} [{self.guild.name}]"
-
 
 class QuestRequirement(models.Model):
     """The precise skills an applicant must prove to apply."""

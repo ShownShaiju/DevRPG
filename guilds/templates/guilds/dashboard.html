@@ -77,9 +77,9 @@
                 <h2 class="text-5xl font-bold tracking-tight">The Mercenary Hub</h2>
                 <p class="text-slate-400 max-w-xl text-lg">Forge your path. Join an existing collective of elite developers or establish your own sovereign guild.</p>
             </div>
-            <button class="neon-glow bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all transform hover:scale-105 uppercase tracking-wider">
+            <a href="{% url 'create_guild' %}" class="neon-glow bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all transform hover:scale-105 uppercase tracking-wider inline-flex">
                 <span class="material-symbols-outlined">add_circle</span> Found a Guild
-            </button>
+            </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -106,7 +106,10 @@
                     </div>
                 </div>
                 <div class="flex gap-3">
-                    <button class="flex-1 py-2 rounded-lg bg-primary hover:bg-primary/90 font-bold text-sm transition-colors uppercase tracking-tight">Join Guild</button>
+                    <form method="POST" action="{% url 'join_guild' g.id %}" class="flex-1">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full py-2 rounded-lg bg-primary hover:bg-primary/90 font-bold text-sm transition-colors uppercase tracking-tight">Join Guild</button>
+                    </form>
                 </div>
             </div>
             {% empty %}
@@ -138,9 +141,12 @@
                 </div>
             </div>
             <div class="flex gap-2 relative z-10">
-                <button class="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 transition-colors" title="Leave Guild">
-                    <span class="material-symbols-outlined">logout</span>
-                </button>
+                <form method="POST" action="{% url 'leave_guild' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 transition-colors" title="Leave Guild">
+                        <span class="material-symbols-outlined">logout</span>
+                    </button>
+                </form>
             </div>
         </div>
 

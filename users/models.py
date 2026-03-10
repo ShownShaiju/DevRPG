@@ -13,6 +13,8 @@ class Profile(models.Model):
     location = models.CharField(max_length=100, blank=True, default="Kerala, India")
     github_username = models.CharField(max_length=100, blank=True, null=True)    
 
+    followers = models.ManyToManyField(User, related_name='following_profiles', blank=True)
+    
     level = models.IntegerField(default=1)
     total_xp = models.IntegerField(default=0)
     

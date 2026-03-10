@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from .models import UserSkill, Skill, Question, EvaluationSession
 from .utils import calculate_radar_stats    
-
+from django.contrib.auth.models import User
 # DRF imports
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -30,65 +30,76 @@ def index_redirect(request):
 
 @login_required
 @never_cache                          
-def dashboard(request):
-    
-    if request.method == "POST" and "github_username" in request.POST:
+def dashboard(request, username=None):
+    # 1. Determine whose profile we are looking at (The "Hero")
+    if username:
+        target_user = get_object_or_404(User, username=username)
+        is_owner = False
+    else:
+        target_user = request.user
+        is_owner = True
+
+    # 2. Handle GitHub Linking (ONLY if it's your own profile)
+    if request.method == "POST" and "github_username" in request.POST and is_owner:
         github_user = request.POST.get("github_username").strip()
         request.user.profile.github_username = github_user
         request.user.profile.save()
-        
-        # Clear any old cached data just in case they are changing usernames
-        cache_key = f"github_repos_{github_user}"
-        cache.delete(cache_key)
-        
+        cache.delete(f"github_repos_{github_user}")
         messages.success(request, f"GitHub account '{github_user}' synced successfully!")
         return redirect('dashboard')
-    
-    user_skills = UserSkill.objects.filter(user=request.user)
+
+    # 3. Fetch data for TARGET_USER (The Hero)
+    user_skills = UserSkill.objects.filter(user=target_user)
     radar_data = calculate_radar_stats(user_skills)
     
-    profile = request.user.profile
+    profile = target_user.profile
     target_xp = profile.level * 1000 
-    
+    xp_percentage = min(int((profile.total_xp / target_xp) * 100), 100) if target_xp > 0 else 0
 
-    if target_xp > 0:
-        xp_percentage = min(int((profile.total_xp / target_xp) * 100), 100)
-    else:
-        xp_percentage = 0
-    
-    user_guild = request.user.guilds.first()
+    user_guild = target_user.guilds.first()
+
+    # 4. Fetch GitHub Repos
     github_repos = []
     if profile.github_username:
-        # Cache the API response for 1 hour (3600 seconds) so we don't hit rate limits
         cache_key = f"github_repos_{profile.github_username}"
         github_repos = cache.get(cache_key)
-
         if github_repos is None:
             try:
-                # Fetch the 3 most recently updated public repos
                 url = f"https://api.github.com/users/{profile.github_username}/repos?sort=updated&per_page=3"
                 response = requests.get(url, timeout=3)
                 if response.status_code == 200:
                     github_repos = response.json()
-                    cache.set(cache_key, github_repos, 3600) # Save to cache
+                    cache.set(cache_key, github_repos, 3600)
                 else:
                     github_repos = []
-            except Exception as e:
-                print(f"GitHub API Error: {e}")
+            except Exception:
                 github_repos = []
-    # -----------------------------------
+
+    # 5. Calculate Follow Stats & Status
+    is_following = False
+    if not is_owner:
+        is_following = profile.followers.filter(id=request.user.id).exists()
+        
+    followers_count = profile.followers.count()
+    following_count = target_user.following_profiles.count()
 
     context = {
+        'hero': target_user, 
+        'is_owner': is_owner,
+        'is_following': is_following,
+        'followers_count': followers_count,
+        'following_count': following_count,
         'skills': user_skills,
         'stats': radar_data['stats'],
         'polygon_points': radar_data['polygon_points'],
         'target_xp': target_xp,
         'xp_percentage': xp_percentage,
         'user_guild': user_guild,
-        'github_repos': github_repos, # Pass the repos to the template!
+        'github_repos': github_repos,
     }
     
     return render(request, 'core/dashboard.html', context)
+
 @login_required
 @never_cache
 def evaluation_room(request):

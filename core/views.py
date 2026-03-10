@@ -16,7 +16,9 @@ import random
 from .ai_evaluator import evaluate_answer
 from .tasks import process_evaluation_task
 from .models import EvaluationResult
-
+from django.contrib import messages
+import requests
+from django.core.cache import cache
 # ==========================================
 # UI VIEWS
 # ==========================================
@@ -29,6 +31,19 @@ def index_redirect(request):
 @login_required
 @never_cache                          
 def dashboard(request):
+    
+    if request.method == "POST" and "github_username" in request.POST:
+        github_user = request.POST.get("github_username").strip()
+        request.user.profile.github_username = github_user
+        request.user.profile.save()
+        
+        # Clear any old cached data just in case they are changing usernames
+        cache_key = f"github_repos_{github_user}"
+        cache.delete(cache_key)
+        
+        messages.success(request, f"GitHub account '{github_user}' synced successfully!")
+        return redirect('dashboard')
+    
     user_skills = UserSkill.objects.filter(user=request.user)
     radar_data = calculate_radar_stats(user_skills)
     
@@ -42,7 +57,27 @@ def dashboard(request):
         xp_percentage = 0
     
     user_guild = request.user.guilds.first()
-        
+    github_repos = []
+    if profile.github_username:
+        # Cache the API response for 1 hour (3600 seconds) so we don't hit rate limits
+        cache_key = f"github_repos_{profile.github_username}"
+        github_repos = cache.get(cache_key)
+
+        if github_repos is None:
+            try:
+                # Fetch the 3 most recently updated public repos
+                url = f"https://api.github.com/users/{profile.github_username}/repos?sort=updated&per_page=3"
+                response = requests.get(url, timeout=3)
+                if response.status_code == 200:
+                    github_repos = response.json()
+                    cache.set(cache_key, github_repos, 3600) # Save to cache
+                else:
+                    github_repos = []
+            except Exception as e:
+                print(f"GitHub API Error: {e}")
+                github_repos = []
+    # -----------------------------------
+
     context = {
         'skills': user_skills,
         'stats': radar_data['stats'],
@@ -50,9 +85,10 @@ def dashboard(request):
         'target_xp': target_xp,
         'xp_percentage': xp_percentage,
         'user_guild': user_guild,
+        'github_repos': github_repos, # Pass the repos to the template!
     }
+    
     return render(request, 'core/dashboard.html', context)
-
 @login_required
 @never_cache
 def evaluation_room(request):

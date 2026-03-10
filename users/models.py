@@ -11,7 +11,7 @@ class Profile(models.Model):
     job_title = models.CharField(max_length=100, default="Novice Developer")
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=100, blank=True, default="Kerala, India")
-    
+    github_username = models.CharField(max_length=100, blank=True, null=True)    
 
     level = models.IntegerField(default=1)
     total_xp = models.IntegerField(default=0)

@@ -57,84 +57,90 @@
 <p class="text-[10px] text-primary font-mono uppercase tracking-widest opacity-80">System.Access.Granted</p>
 </div>
 </div>
+
 <div class="flex items-center gap-6">
-<div class="hidden md:flex items-center gap-4 px-4 py-2 rounded-full bg-white/5 border border-white/5">
-<div class="flex items-center gap-2">
-<span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-<span class="text-xs font-mono text-slate-400">SERVER_STABLE</span>
+    <div class="hidden md:flex items-center gap-4 px-4 py-2 rounded-full bg-white/5 border border-white/5">
+        <div class="flex items-center gap-2">
+            <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-mono text-slate-400">SERVER_STABLE</span>
+        </div>
+        <div class="h-4 w-px bg-white/10"></div>
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+            <span class="material-symbols-outlined text-sm">schedule</span>
+            <span id="live-uptime">UPTIME: 00:00:00</span>
+        </div>
+    </div>
+    
+    <div class="flex gap-3">
+        <a href="{% url 'admin:index' %}" title="Core Database Admin" class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+            <span class="material-symbols-outlined">settings</span>
+        </a>
+        
+        <button class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors relative">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 size-2 rounded-full bg-primary border border-background-dark"></span>
+        </button>
+        
+        <a href="{% url 'logout' %}" class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold hover:bg-red-500 hover:text-white transition-all">
+            <span class="truncate">EXIT PROTOCOL</span>
+        </a>
+    </div>
 </div>
-<div class="h-4 w-px bg-white/10"></div>
-<div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span>UPTIME: 142:54:12</span>
-</div>
-</div>
-<div class="flex gap-3">
-<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors relative">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 size-2 rounded-full bg-primary border border-background-dark"></span>
-</button>
-<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold hover:bg-red-500 hover:text-white transition-all">
-<span class="truncate">EXIT PROTOCOL</span>
-</button>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20 ring-offset-2 ring-offset-background-dark" data-alt="User avatar for The Overseer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBT-yt9l2Eg667YHu-yfoNCmIjIFUuYfbMSfDwQ0HzPLJ2W3dqWiu64bMWrnUedeieHrcnc2UpyQ5mzrFxwhoEWDSg_LqxFEvPcWfZGb1QIskXlCOLH_LlGR_hGdSPLG9TXjwSwGPqYOUFe7sJSSC7WRthUR-7cSxo7hh3osCqS18Sj5J07Ypgza2WK08PY7_OJeedgQOOBkFdIjwzg7fL-LzAaZW_LpGu4eMu_cu7Eh6xViUch94bnRbqc2hCH8gxvq0ccP6QJzjKc");'></div>
-</div>
-</div>
+
 </header>
 <main class="max-w-7xl mx-auto w-full p-6 space-y-6">
 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
-<div class="flex justify-between items-start mb-4">
-<p class="text-slate-400 text-sm font-medium">Total Mercenaries</p>
-<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">groups</span>
-</div>
-<p class="text-slate-100 font-mono text-3xl font-bold mb-1">12,842</p>
-<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
-<span class="material-symbols-outlined text-xs">trending_up</span>
-<span>+12.4%</span>
-<span class="text-slate-500 text-[10px] ml-1">VS PREV CYCLE</span>
-</div>
-</div>
-<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
-<div class="flex justify-between items-start mb-4">
-<p class="text-slate-400 text-sm font-medium">Active Guilds</p>
-<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">fort</span>
-</div>
-<p class="text-slate-100 font-mono text-3xl font-bold mb-1">428</p>
-<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
-<span class="material-symbols-outlined text-xs">trending_up</span>
-<span>+5.2%</span>
-<span class="text-slate-500 text-[10px] ml-1">SYNCED</span>
-</div>
-</div>
-<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-amber-500/40 transition-all">
-<div class="flex justify-between items-start mb-4">
-<p class="text-slate-400 text-sm font-medium">Quests Available</p>
-<span class="material-symbols-outlined text-amber-500/60 group-hover:text-amber-500 transition-colors">assignment</span>
-</div>
-<p class="text-slate-100 font-mono text-3xl font-bold mb-1">1,503</p>
-<div class="flex items-center gap-1.5 text-red-500 text-xs font-mono">
-<span class="material-symbols-outlined text-xs">trending_down</span>
-<span>-2.1%</span>
-<span class="text-slate-500 text-[10px] ml-1">DEPLETED</span>
-</div>
-</div>
-<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
-<div class="flex justify-between items-start mb-4">
-<p class="text-slate-400 text-sm font-medium">AI Evaluations</p>
-<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">memory</span>
-</div>
-<p class="text-slate-100 font-mono text-3xl font-bold mb-1">89,210</p>
-<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
-<span class="material-symbols-outlined text-xs">trending_up</span>
-<span>+24.8%</span>
-<span class="text-slate-500 text-[10px] ml-1">PROCESSING</span>
-</div>
-</div>
+    <div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+        <div class="flex justify-between items-start mb-4">
+            <p class="text-slate-400 text-sm font-medium">Total Mercenaries</p>
+            <span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">groups</span>
+        </div>
+        <p class="text-slate-100 font-mono text-3xl font-bold mb-1">{{ total_users }}</p>
+        <div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+            <span class="material-symbols-outlined text-xs">sync</span>
+            <span>LIVE</span>
+            <span class="text-slate-500 text-[10px] ml-1">SYNCED</span>
+        </div>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+        <div class="flex justify-between items-start mb-4">
+            <p class="text-slate-400 text-sm font-medium">Active Guilds</p>
+            <span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">fort</span>
+        </div>
+        <p class="text-slate-100 font-mono text-3xl font-bold mb-1">{{ total_guilds }}</p>
+        <div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+            <span class="material-symbols-outlined text-xs">sync</span>
+            <span>LIVE</span>
+            <span class="text-slate-500 text-[10px] ml-1">SYNCED</span>
+        </div>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl cyber-border group hover:border-amber-500/40 transition-all">
+        <div class="flex justify-between items-start mb-4">
+            <p class="text-slate-400 text-sm font-medium">Quests Available</p>
+            <span class="material-symbols-outlined text-amber-500/60 group-hover:text-amber-500 transition-colors">assignment</span>
+        </div>
+        <p class="text-slate-100 font-mono text-3xl font-bold mb-1">{{ total_quests }}</p>
+        <div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+            <span class="material-symbols-outlined text-xs">sync</span>
+            <span>LIVE</span>
+            <span class="text-slate-500 text-[10px] ml-1">SYNCED</span>
+        </div>
+    </div>
+
+    <div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+        <div class="flex justify-between items-start mb-4">
+            <p class="text-slate-400 text-sm font-medium">AI Evaluations</p>
+            <span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">memory</span>
+        </div>
+        <p class="text-slate-100 font-mono text-3xl font-bold mb-1">{{ total_evals }}</p>
+        <div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+            <span class="material-symbols-outlined text-xs">sync</span>
+            <span>LIVE</span>
+            <span class="text-slate-500 text-[10px] ml-1">PROCESSING</span>
+        </div>
+    </div>
 </section>
 <section class="glass-panel rounded-xl overflow-hidden">
 <div class="px-6 py-5 border-b border-white/10 flex items-center justify-between bg-white/5">
@@ -230,8 +236,7 @@
                 <span class="text-slate-100 font-medium">{{ p.username }}</span>
             </div>
         </td>
-        <td class="px-6 py-4 text-slate-300 font-mono">Lvl. {{ p.profile.level|default:"1" }}</td>
-        <td class="px-6 py-4 text-primary font-mono font-bold tracking-tight">{{ p.profile.total_xp|default:"0" }}</td>
+        
         <td class="px-6 py-4">
             <div class="flex items-center gap-2">
                 {% if p.is_active %}
@@ -287,4 +292,28 @@
 </div>
 </footer>
 </div>
-</body></html>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get the initial server uptime in seconds from Django
+        let uptimeSeconds = {{ uptime_seconds|default:0 }};
+        const uptimeDisplay = document.getElementById('live-uptime');
+
+        function formatUptime(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            return `UPTIME: ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        // Initialize the clock immediately, then tick every second
+        if (uptimeDisplay) {
+            uptimeDisplay.textContent = formatUptime(uptimeSeconds);
+            setInterval(() => {
+                uptimeSeconds++;
+                uptimeDisplay.textContent = formatUptime(uptimeSeconds);
+            }, 1000);
+        }
+    });
+</script>
+</html>

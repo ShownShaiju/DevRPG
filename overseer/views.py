@@ -1,29 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from guilds.models import Guild, Quest
 from core.models import EvaluationSession
+import time
+from datetime import timedelta
+from django.apps import apps
 
 User = get_user_model()
+SERVER_BOOT_TIME = time.time()
 
-    # Super uer validation
-def is_overseer(user):
-    return user.is_authenticated and user.is_superuser
+# --- THE CUSTOM SECURITY GATEWAY ---
+def overseer_clearance_required(view_func):
+    """Strictly blocks non-admins and handles redirects cleanly."""
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, "Authentication required to access the Overseer Nexus.")
+            return redirect('login') # Sends them to your custom DevRPG login page
+            
+        if not request.user.is_superuser:
+            messages.error(request, "ACCESS DENIED: Insufficient clearance level.")
+            return redirect('dashboard') # Kicks regular players back to their profile
+            
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
-@user_passes_test(is_overseer, login_url='/')
+@overseer_clearance_required
 def overseer_dashboard(request):
-    """The main command center for platform administrators."""
-    
-    # Analytics
     total_users = User.objects.count()
     total_guilds = Guild.objects.count()
     total_quests = Quest.objects.filter(is_active=True).count()
     total_evals = EvaluationSession.objects.filter(status='completed').count()
 
-    # Lists for the tables
     guilds = Guild.objects.all().select_related('founder').order_by('-created_at')
     players = User.objects.all().select_related('profile').order_by('-date_joined')
+
+    # Calculate the exact seconds since the file was loaded into memory
+    uptime_seconds = int(time.time() - SERVER_BOOT_TIME)
 
     context = {
         'total_users': total_users,
@@ -32,11 +45,11 @@ def overseer_dashboard(request):
         'total_evals': total_evals,
         'guilds': guilds,
         'players': players,
+        'uptime_seconds': uptime_seconds,
     }
     return render(request, 'overseer/dashboard.html', context)
 
-
-@user_passes_test(is_overseer, login_url='/')
+@overseer_clearance_required
 def toggle_guild_verification(request, guild_id):
     if request.method == 'POST':
         guild = get_object_or_404(Guild, id=guild_id)
@@ -46,8 +59,7 @@ def toggle_guild_verification(request, guild_id):
         messages.success(request, f"Guild '{guild.name}' is now {status}.")
     return redirect('overseer_dashboard')
 
-
-@user_passes_test(is_overseer, login_url='/')
+@overseer_clearance_required
 def dismiss_guild(request, guild_id):
     if request.method == 'POST':
         guild = get_object_or_404(Guild, id=guild_id)
@@ -56,8 +68,7 @@ def dismiss_guild(request, guild_id):
         messages.error(request, f"Guild '{name}' has been eradicated from the network.")
     return redirect('overseer_dashboard')
 
-
-@user_passes_test(is_overseer, login_url='/')
+@overseer_clearance_required
 def wipe_player_xp(request, user_id):
     if request.method == 'POST':
         player = get_object_or_404(User, id=user_id)
@@ -68,12 +79,10 @@ def wipe_player_xp(request, user_id):
             messages.warning(request, f"Player '{player.username}' stats have been reset to 0.")
     return redirect('overseer_dashboard')
 
-
-@user_passes_test(is_overseer, login_url='/')
+@overseer_clearance_required
 def toggle_player_ban(request, user_id):
     if request.method == 'POST':
         player = get_object_or_404(User, id=user_id)
-        # prevent accidential banning
         if player == request.user:
             messages.error(request, "You cannot ban yourself, Overseer.")
             return redirect('overseer_dashboard')

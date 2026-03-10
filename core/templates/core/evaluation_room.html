@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background-color: #212529; } /* Dark theme background */
+        .neon-border { box-shadow: 0 0 10px rgba(13, 202, 240, 0.3); border: 1px solid #0dcaf0; }
     </style>
 </head>
 <body>
@@ -15,6 +16,13 @@
 <form style="display:none;">{% csrf_token %}</form>
 
 <div class="container mt-5">
+    
+    <div class="mb-3">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-info btn-sm fw-bold neon-border">
+            <i class="fas fa-arrow-left"></i> ⟵ Return to Dashboard
+        </a>
+    </div>
+
     <div class="card shadow-lg border-0 bg-dark text-light">
         <div class="card-header bg-primary text-white border-bottom-0">
             <h3 class="mb-0"><i class="fas fa-robot"></i> The Evaluation Chamber</h3>
@@ -51,7 +59,11 @@
                 </div>
 
                 <textarea id="answer-input" class="form-control bg-dark text-light mb-3" rows="6" placeholder="Type your technical answer here..."></textarea>
-                <button id="submit-btn" class="btn btn-primary w-100 fw-bold">SUBMIT TO AI</button>
+                
+                <div class="d-flex gap-3">
+                    <button id="cancel-btn" class="btn btn-outline-danger w-50 fw-bold">CANCEL PROTOCOL</button>
+                    <button id="submit-btn" class="btn btn-primary w-50 fw-bold">SUBMIT TO AI</button>
+                </div>
             </div>
 
             <div id="loading-screen" style="display: none;" class="text-center py-5">
@@ -85,7 +97,7 @@
                 
                 <div class="text-center mt-4">
                     <h4 class="text-warning">Total XP: <span id="xp-display"></span></h4>
-                    <button class="btn btn-outline-light mt-3" onclick="location.href='/dashboard/'">Return to Dashboard</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-light mt-3">Return to Dashboard</a>
                 </div>
             </div>
 
@@ -132,7 +144,6 @@
             });
 
             if (!response.ok) {
-                // Safely handle server crash errors
                 const text = await response.text();
                 try {
                     const data = JSON.parse(text);
@@ -171,6 +182,21 @@
         } catch (error) {
             console.error("Fetch error:", error);
             alert("Network error occurred.");
+        }
+    });
+
+    // --- NEW: CANCEL PROTOCOL ---
+    document.getElementById('cancel-btn').addEventListener('click', () => {
+        if(confirm("Are you sure you want to abort? You will lose any code you have typed.")) {
+            // Stop the timer
+            clearInterval(timerInterval);
+            
+            // Clear the textarea
+            document.getElementById('answer-input').value = '';
+            
+            // Hide the question screen and show the setup screen again
+            document.getElementById('question-screen').style.display = 'none';
+            document.getElementById('setup-screen').style.display = 'block';
         }
     });
 

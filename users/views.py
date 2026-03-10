@@ -71,27 +71,33 @@ def register(request):
 
 def login_view(request):
     if request.method == "POST":
-        email = request.POST['email'] # We are using the 'email' input as the login ID
+        email = request.POST['email'] 
         password = request.POST['password']
         
-        # Check if a user with this email exists
         try:
             user_obj = User.objects.get(email=email)
-            username = user_obj.username # Get their actual username
+            username = user_obj.username 
         except User.DoesNotExist:
             messages.error(request, "No hero found with that email.")
-            return redirect('register') # Or login, but we are using the same page
+            return redirect('register') 
 
+        # 1. Prove the password is correct FIRST
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
+            # 2. Actually log the user into the session
             login(request, user)
+            
+            # 3. NOW check their clearance level and REDIRECT (do not render)
+            if user.is_superuser:
+                return redirect('overseer_dashboard')
+            
+            # If not a superuser, send to the normal player dashboard
             return redirect('dashboard')
         else:
             messages.error(request, "Invalid credentials.")
     
-    return render(request, 'users/register.html') # Render the same page
-
+    return render(request, 'users/register.html')
 
 def logout_view(request):
     # 1. Clear the session data (logs the user out)

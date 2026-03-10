@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Found a Guild | DevRPG</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { extend: { colors: { "primary": "#135bec", "background-dark": "#0f172a", "surface": "#1e293b" }, fontFamily: { "display": ["Space Grotesk"] } } }
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 min-h-screen flex items-center justify-center p-6">
+
+    <div class="w-full max-w-2xl glass-panel rounded-3xl p-8 border-t border-primary/30 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 size-48 bg-primary/20 blur-[80px] rounded-full"></div>
+        
+        <div class="flex items-center gap-4 mb-8">
+            <a href="{% url 'guild_dashboard' %}" class="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </a>
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tight">Found a Guild</h2>
+                <p class="text-slate-400 text-sm">Establish a new sovereign organization on the network.</p>
+            </div>
+        </div>
+
+        <form method="POST" action="{% url 'create_guild' %}" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Guild Name</label>
+                <input type="text" name="name" required class="w-full bg-background-dark/50 border border-white/10 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none" placeholder="e.g. Cyber Knights">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Industry Sector</label>
+                    <select name="industry" class="w-full bg-background-dark/50 border border-white/10 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                        <option value="Web3 & Crypto">Web3 & Crypto</option>
+                        <option value="Fintech">Fintech</option>
+                        <option value="AI & Machine Learning">AI & Machine Learning</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="GameDev">GameDev</option>
+                        <option value="General Software">General Software</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Minimum Level (To Join)</label>
+                    <input type="number" name="min_level" value="1" min="1" max="100" required class="w-full bg-background-dark/50 border border-white/10 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Guild Manifest (Description)</label>
+                <textarea name="description" rows="4" required class="w-full bg-background-dark/50 border border-white/10 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none" placeholder="What is your guild's mission?"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-primary hover:bg-primary/90 rounded-xl font-bold text-sm uppercase tracking-widest transition-all">
+                Initialize Guild Protocol
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'core',
     'guilds',
     'storages',
+    'overseer',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'VeriSkills.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

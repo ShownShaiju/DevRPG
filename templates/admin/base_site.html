@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+
+{% block userlinks %}
+    <a href="{% url 'overseer_dashboard' %}" style="color: #135bec; background-color: #1e293b; font-weight: bold; border: 1px solid #135bec; padding: 4px 10px; border-radius: 6px; text-decoration: none; margin-right: 15px; box-shadow: 0 0 8px rgba(19, 91, 236, 0.4);">
+        ⟵ BACK TO NEXUS
+    </a>
+    
+    {{ block.super }}
+{% endblock %}

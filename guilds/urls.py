@@ -6,4 +6,5 @@ urlpatterns = [
     path('join/<int:guild_id>/', views.join_guild, name='join_guild'),
     path('leave/', views.leave_guild, name='leave_guild'),
     path('create/', views.create_guild, name='create_guild'),
+    path('quests/', views.quest_board, name='quest_board'),
 ]

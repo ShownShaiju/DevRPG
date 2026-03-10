@@ -1,5 +1,24 @@
-# Create this new file: core/utils.py
 import math
+
+# --- THE TRANSLATION MAP ---
+# This maps your database categories to the 5 radar chart UI categories.
+CATEGORY_MAPPING = {
+    "Programming Language": "backend",
+    "Data & Databases": "backend",
+    "Web Framework": "backend",
+    
+    "Systems & Operations": "cloud",
+    "Containerization": "cloud",
+    "Container Orchestration": "cloud",
+    
+    "Version Control": "tools",
+    "Collaboration & DevOps": "tools",
+    
+    # Future-proofing in case you add these to the DB later:
+    "Frontend Framework": "frontend",
+    "Mobile Development": "mobile",
+    "Design": "frontend"
+}
 
 def calculate_radar_stats(user_skills):
     """
@@ -10,11 +29,16 @@ def calculate_radar_stats(user_skills):
         'mobile': 0, 'tools': 0
     }
     
-    # 1. Aggregate max levels
+    # 1. Aggregate max levels using the Translation Map
     for us in user_skills:
-        cat = us.skill.category
-        if cat in stats:
-            stats[cat] = max(stats[cat], us.level)
+        raw_category = us.skill.category
+        
+        # Translate the DB category to the Radar category. 
+        # If it doesn't exist in the map, default it to 'tools'.
+        mapped_category = CATEGORY_MAPPING.get(raw_category, "tools")
+        
+        if mapped_category in stats:
+            stats[mapped_category] = max(stats[mapped_category], us.level)
 
     # 2. Pentagon Math (5 points, starting at 12 o'clock and moving clockwise)
     angles = [
@@ -30,6 +54,7 @@ def calculate_radar_stats(user_skills):
     
     # 3. Calculate X,Y coordinates
     for i, cat in enumerate(categories):
+        # We enforce a minimum display score of 1 so the graph doesn't collapse to a single dot
         display_score = max(1, stats[cat]) 
         radius = (display_score / 10.0) * 40 # Max radius is 40
         x = 50 + radius * math.cos(angles[i])

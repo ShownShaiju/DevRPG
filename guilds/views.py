@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.text import slugify
 from .models import Guild, Quest
+from core.models import UserSkill
 
 @login_required
 def guild_dashboard(request):
@@ -84,3 +85,36 @@ def create_guild(request):
         return redirect('guild_dashboard')
 
     return render(request, 'guilds/create_guild.html')
+
+@login_required
+def quest_board(request):
+    """The global job board where players browse available bounties."""
+    
+    # 1. Map the user's current skills into a fast dictionary {skill_id: level}
+    user_skills_dict = {
+        us.skill.id: us.level 
+        for us in UserSkill.objects.filter(user=request.user).select_related('skill')
+    }
+
+    # 2. Fetch all active quests and their requirements
+    quests = Quest.objects.filter(is_active=True).select_related('guild').prefetch_related('requirements__skill').order_by('-created_at')
+    
+    # 3. Calculate Eligibility
+    for quest in quests:
+        quest.is_eligible = True
+        quest.missing_skills = [] 
+        
+        for req in quest.requirements.all():
+            user_level = user_skills_dict.get(req.skill.id, 0)
+            
+            req.user_level = user_level
+            req.is_met = user_level >= req.minimum_level
+            
+            if not req.is_met:
+                quest.is_eligible = False
+                quest.missing_skills.append(f"Lv.{req.minimum_level} {req.skill.name}")
+
+    context = {
+        'quests': quests,
+    }
+    return render(request, 'guilds/quest_board.html', context)

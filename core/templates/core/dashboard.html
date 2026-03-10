@@ -72,7 +72,7 @@
     </div>
     <nav class="hidden md:flex flex-1 justify-center gap-8">
         <a class="text-white neon-text text-sm font-bold uppercase tracking-widest border-b-2 border-primary" href="#">Hero Profile</a>
-        <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="#">Job Board</a>
+        <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'quest_board' %}">Job Board</a>
         <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="/guilds/">Guilds</a>
         <a class="text-slate-400 hover:text-white hover:neon-text transition-colors text-sm font-medium uppercase tracking-widest" href="/evaluate/">Evaluate</a>
     </nav>
@@ -228,29 +228,71 @@
                     
                     <div class="flex flex-wrap justify-center gap-10 relative z-10">
                         {% for user_skill in skills %}
-                        <div class="flex flex-col items-center group relative">
-                            <div class="relative">
-                                <div class="absolute inset-[-4px] rounded-full border border-dashed border-accent/40 animate-[spin_10s_linear_infinite]"></div>
-                                
-                                <div class="size-20 rounded-full bg-surface-dark border-2 {% if user_skill.level > 5 %}border-accent accent-shadow{% else %}border-primary neon-shadow{% endif %} flex items-center justify-center transition-all group-hover:scale-110 overflow-hidden relative">
-                                    {% if "devicon" in user_skill.skill.icon_class %}
-                                        <i class="{{ user_skill.skill.icon_class }} text-4xl {% if user_skill.level > 5 %}text-accent{% else %}text-primary{% endif %}"></i>
-                                    {% else %}
-                                        <span class="material-symbols-outlined text-4xl {% if user_skill.level > 5 %}text-accent{% else %}text-primary{% endif %}">
-                                            {{ user_skill.skill.icon_class|default:"terminal" }}
-                                        </span>
-                                    {% endif %}
-                                </div>
-                                <div class="absolute -bottom-1 -right-1 bg-white text-black font-black text-[10px] px-1.5 py-0.5 rounded shadow-lg border border-white">
-                                    L{{ user_skill.level }}
-                                </div>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <h4 class="text-white font-bold text-xs uppercase tracking-tighter">{{ user_skill.skill.name }}</h4>
-                                <span class="text-[8px] text-slate-500 font-bold uppercase mt-1 block tracking-widest">{{ user_skill.skill.get_category_display }}</span>
-                            </div>
-                        </div>
-                        {% endfor %}
+<div class="flex flex-col items-center group relative">
+    <div class="relative">
+        
+        <div class="absolute inset-[-4px] rounded-full border border-dashed 
+            {% if user_skill.xp > 0 %}
+                border-accent/40 animate-[spin_10s_linear_infinite]
+            {% else %}
+                border-white/10
+            {% endif %}">
+        </div>
+        
+        <div class="size-20 rounded-full bg-surface-dark border-2 
+            {% if user_skill.xp == 0 %}
+                border-slate-700
+            {% elif user_skill.level > 5 %}
+                border-accent accent-shadow
+            {% else %}
+                border-primary neon-shadow
+            {% endif %} 
+            flex items-center justify-center transition-all group-hover:scale-110 overflow-hidden relative">
+            
+            {% if "devicon" in user_skill.skill.icon_class %}
+                <i class="{{ user_skill.skill.icon_class }} text-4xl 
+                    {% if user_skill.xp == 0 %}text-slate-600 grayscale opacity-50
+                    {% elif user_skill.level > 5 %}text-accent
+                    {% else %}text-primary{% endif %}">
+                </i>
+            {% else %}
+                <span class="material-symbols-outlined text-4xl 
+                    {% if user_skill.xp == 0 %}text-slate-600 opacity-50
+                    {% elif user_skill.level > 5 %}text-accent
+                    {% else %}text-primary{% endif %}">
+                    {{ user_skill.skill.icon_class|default:"terminal" }}
+                </span>
+            {% endif %}
+            
+        </div>
+        
+        <div class="absolute -bottom-1 -right-1 font-black text-[10px] px-1.5 py-0.5 rounded shadow-lg border 
+            {% if user_skill.xp == 0 %}
+                bg-slate-800 text-slate-500 border-slate-700 tracking-tighter
+            {% else %}
+                bg-white text-black border-white
+            {% endif %}">
+            
+            {% if user_skill.xp == 0 %}
+                UNVERIFIED
+            {% else %}
+                L{{ user_skill.level }}
+            {% endif %}
+            
+        </div>
+    </div>
+    
+    <div class="mt-4 text-center">
+        <h4 class="font-bold text-xs uppercase tracking-tighter 
+            {% if user_skill.xp == 0 %}text-slate-500{% else %}text-white{% endif %}">
+            {{ user_skill.skill.name }}
+        </h4>
+        <span class="text-[8px] text-slate-600 font-bold uppercase mt-1 block tracking-widest">
+            {{ user_skill.skill.get_category_display|default:user_skill.skill.category }}
+        </span>
+    </div>
+</div>
+{% endfor %}
                     </div>
                 </div>
                 {% else %}

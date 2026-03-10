@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Quest Board | DevRPG</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { extend: { colors: { "primary": "#135bec", "background-dark": "#0f172a", "surface-dark": "#1e293b", "surface-darker": "#111827" }, fontFamily: { "display": ["Space Grotesk"] } } }
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .neon-text { text-shadow: 0 0 5px rgba(19, 91, 236, 0.5); }
+    </style>
+</head>
+<body class="bg-background-dark font-display text-slate-200 min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-white/10 bg-surface-darker/90 backdrop-blur-md px-6 py-3 lg:px-10">
+    <div class="flex items-center gap-4 text-white">
+        <div class="size-8 text-primary neon-text"><span class="material-symbols-outlined text-[32px]">swords</span></div>
+        <h2 class="text-white text-xl font-bold tracking-wider uppercase neon-text">DevRPG</h2>
+    </div>
+    <nav class="hidden md:flex flex-1 justify-center gap-8">
+        <a class="text-slate-400 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'dashboard' %}">Hero Profile</a>
+        <a class="text-white neon-text text-sm font-bold uppercase tracking-widest border-b-2 border-primary" href="{% url 'quest_board' %}">Job Board</a>
+        <a class="text-slate-400 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'guild_dashboard' %}">Guilds</a>
+    </nav>
+</header>
+
+<main class="w-full max-w-5xl mx-auto p-6 lg:p-8">
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl font-black uppercase tracking-tight italic mb-2">Active Quests</h1>
+        <p class="text-slate-400">Fulfill bounties posted by Guilds. You must possess the required AI-validated skills to apply.</p>
+    </div>
+
+    <div class="bg-surface-darker border border-white/10 p-4 rounded-xl flex gap-4 mb-8">
+        <input type="text" placeholder="Search bounties..." class="flex-1 bg-black/20 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary">
+        <select class="bg-black/20 border border-white/10 rounded-lg px-4 py-2 text-white outline-none">
+            <option>All Guilds</option>
+        </select>
+        <button class="bg-surface-dark border border-white/10 px-6 py-2 rounded-lg font-bold uppercase tracking-widest text-xs hover:bg-white/5 transition">Filter</button>
+    </div>
+
+    <div class="space-y-4">
+        {% for quest in quests %}
+        <div class="bg-surface-dark border border-white/10 rounded-xl overflow-hidden transition-all hover:border-primary/40">
+            <div class="p-6 flex flex-col md:flex-row items-center justify-between gap-6 cursor-pointer" onclick="toggleDetails('quest-{{ quest.id }}')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-1">
+                        <span class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-black rounded border border-primary/30 uppercase tracking-widest">{{ quest.guild.name }}</span>
+                        <span class="text-amber-500 font-bold text-sm italic">+{{ quest.xp_reward }} XP</span>
+                    </div>
+                    <h3 class="text-2xl font-bold">{{ quest.title }}</h3>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    {% if quest.is_eligible %}
+                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 rounded text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">lock_open</span> Eligible
+                        </span>
+                    {% else %}
+                        <span class="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 rounded text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">lock</span> Locked
+                        </span>
+                    {% endif %}
+                    <span class="material-symbols-outlined text-slate-500 transform transition-transform duration-300" id="icon-{{ quest.id }}">expand_more</span>
+                </div>
+            </div>
+
+            <div id="quest-{{ quest.id }}" class="hidden border-t border-white/5 bg-black/20 p-6">
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">{{ quest.description }}</p>
+                
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Skill Requirements:</h4>
+                <div class="flex flex-col gap-2 mb-6">
+                    {% for req in quest.requirements.all %}
+                        <div class="flex items-center justify-between bg-surface-darker border {% if req.is_met %}border-emerald-500/30{% else %}border-red-500/30{% endif %} rounded p-3">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined {% if req.is_met %}text-emerald-500{% else %}text-red-500{% endif %}">
+                                    {% if req.is_met %}check_circle{% else %}cancel{% endif %}
+                                </span>
+                                <span class="font-bold">{{ req.skill.name }}</span>
+                            </div>
+                            <div class="text-xs font-mono">
+                                <span class="text-slate-400">Required: Lv.{{ req.minimum_level }}</span>
+                                <span class="mx-2 text-white/20">|</span>
+                                <span class="{% if req.is_met %}text-emerald-500{% else %}text-red-500{% endif %}">Your Level: {{ req.user_level }}</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-slate-500 text-sm italic">No specific skills required.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="flex justify-end">
+                    {% if quest.is_eligible %}
+                        <button class="bg-primary hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg uppercase tracking-widest shadow-[0_0_15px_rgba(19,91,236,0.4)] transition-all">
+                            Submit Application
+                        </button>
+                    {% else %}
+                        <button class="bg-surface-dark text-slate-500 border border-slate-700 font-bold py-3 px-8 rounded-lg uppercase tracking-widest cursor-not-allowed" disabled title="You must level up your skills to apply.">
+                            Requirements Not Met
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-20 text-slate-500 border border-dashed border-white/10 rounded-xl">
+            <span class="material-symbols-outlined text-4xl mb-4">work_off</span>
+            <p>No active quests available on the network.</p>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<script>
+    function toggleDetails(questId) {
+        const detailsDiv = document.getElementById(questId);
+        const iconId = 'icon-' + questId.split('-')[1];
+        const icon = document.getElementById(iconId);
+        
+        if (detailsDiv.classList.contains('hidden')) {
+            detailsDiv.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            detailsDiv.classList.add('hidden');
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+
+</body>
+</html>

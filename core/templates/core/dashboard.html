@@ -123,10 +123,10 @@
                 <div class="w-full space-y-2">
                     <div class="flex justify-between text-xs text-slate-400 uppercase tracking-wider font-bold">
                         <span>XP Progress</span>
-                        <span>{{ user.profile.total_xp|default:"400" }} / 1000 XP</span>
+                        <span>{{ user.profile.total_xp }} / {{ target_xp }} XP</span>
                     </div>
                     <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden border border-white/5">
-                        <div class="h-full bg-gradient-to-r from-blue-600 to-purple-500 w-[60%] shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                        <div class="h-full bg-gradient-to-r from-blue-600 to-purple-500 shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-1000 ease-out" style="width: {{ xp_percentage }}%"></div>
                     </div>
                 </div>
             </div>
@@ -143,10 +143,17 @@
                         "No backstory recorded yet. The pages of history await your input..."
                     {% endif %}
                 </p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">Human</span>
-                    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">AP-South-1</span>
-                </div>
+<div class="flex flex-wrap gap-2 mt-4">
+    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">Human</span>
+    <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">AP-South-1</span>
+    
+    {% if user_guild %}
+        <span class="bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-1 rounded text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+            <span class="material-symbols-outlined text-[14px]">fort</span>
+            {{ user_guild.name }}
+        </span>
+    {% endif %}
+</div>
             </div>
         </section>
 

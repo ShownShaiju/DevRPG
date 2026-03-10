@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'core',
     'guilds',
     'storages',
+    'overseer',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',

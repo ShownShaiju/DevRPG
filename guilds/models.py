@@ -8,12 +8,12 @@ class Guild(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField(blank=True)
     
-    # --- NEW RPG FEATURES ---
+
     industry = models.CharField(max_length=100, default="Software Engineering", help_text="e.g., Fintech, Web3, Cybersec")
     minimum_level_to_join = models.PositiveIntegerField(default=1, help_text="Min player level required to apply/join")
     guild_xp = models.PositiveIntegerField(default=0, help_text="Total XP earned by members for the guild")
-    # ------------------------
-    
+    is_verified = models.BooleanField(default=False, help_text="Grants the 'Verified' badge to trusted recruiters.")
+        
     logo = models.ImageField(upload_to='guild_logos/', null=True, blank=True)
     founder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='founded_guilds')
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='guilds', blank=True)

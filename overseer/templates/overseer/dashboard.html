@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevRPG // Overseer Nexus</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0f172a",
+                        "surface": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cyber-border {
+            box-shadow: 0 0 15px rgba(19, 91, 236, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen selection:bg-primary/30">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10 px-6 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-4 text-primary">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 border border-primary/20">
+<span class="material-symbols-outlined text-2xl">terminal</span>
+</div>
+<div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">The Overseer Nexus // Admin Protocol</h2>
+<p class="text-[10px] text-primary font-mono uppercase tracking-widest opacity-80">System.Access.Granted</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-4 px-4 py-2 rounded-full bg-white/5 border border-white/5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-xs font-mono text-slate-400">SERVER_STABLE</span>
+</div>
+<div class="h-4 w-px bg-white/10"></div>
+<div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>UPTIME: 142:54:12</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 rounded-full bg-primary border border-background-dark"></span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold hover:bg-red-500 hover:text-white transition-all">
+<span class="truncate">EXIT PROTOCOL</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20 ring-offset-2 ring-offset-background-dark" data-alt="User avatar for The Overseer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBT-yt9l2Eg667YHu-yfoNCmIjIFUuYfbMSfDwQ0HzPLJ2W3dqWiu64bMWrnUedeieHrcnc2UpyQ5mzrFxwhoEWDSg_LqxFEvPcWfZGb1QIskXlCOLH_LlGR_hGdSPLG9TXjwSwGPqYOUFe7sJSSC7WRthUR-7cSxo7hh3osCqS18Sj5J07Ypgza2WK08PY7_OJeedgQOOBkFdIjwzg7fL-LzAaZW_LpGu4eMu_cu7Eh6xViUch94bnRbqc2hCH8gxvq0ccP6QJzjKc");'></div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto w-full p-6 space-y-6">
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-400 text-sm font-medium">Total Mercenaries</p>
+<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">groups</span>
+</div>
+<p class="text-slate-100 font-mono text-3xl font-bold mb-1">12,842</p>
+<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+12.4%</span>
+<span class="text-slate-500 text-[10px] ml-1">VS PREV CYCLE</span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-400 text-sm font-medium">Active Guilds</p>
+<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">fort</span>
+</div>
+<p class="text-slate-100 font-mono text-3xl font-bold mb-1">428</p>
+<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+5.2%</span>
+<span class="text-slate-500 text-[10px] ml-1">SYNCED</span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-amber-500/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-400 text-sm font-medium">Quests Available</p>
+<span class="material-symbols-outlined text-amber-500/60 group-hover:text-amber-500 transition-colors">assignment</span>
+</div>
+<p class="text-slate-100 font-mono text-3xl font-bold mb-1">1,503</p>
+<div class="flex items-center gap-1.5 text-red-500 text-xs font-mono">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+<span>-2.1%</span>
+<span class="text-slate-500 text-[10px] ml-1">DEPLETED</span>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl cyber-border group hover:border-primary/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-400 text-sm font-medium">AI Evaluations</p>
+<span class="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors">memory</span>
+</div>
+<p class="text-slate-100 font-mono text-3xl font-bold mb-1">89,210</p>
+<div class="flex items-center gap-1.5 text-emerald-500 text-xs font-mono">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+24.8%</span>
+<span class="text-slate-500 text-[10px] ml-1">PROCESSING</span>
+</div>
+</div>
+</section>
+<section class="glass-panel rounded-xl overflow-hidden">
+<div class="px-6 py-5 border-b border-white/10 flex items-center justify-between bg-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">security</span>
+<h2 class="text-xl font-bold text-slate-100">Guild Verification Queue</h2>
+</div>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-black/20 border-white/10 rounded-lg pl-9 pr-4 py-1.5 text-sm focus:ring-primary focus:border-primary w-64 text-slate-100" placeholder="Filter guilds..." type="text"/>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 z-10 bg-surface/90 backdrop-blur-md">
+<tr class="text-slate-400 text-xs uppercase tracking-widest font-mono">
+<th class="px-6 py-4 font-semibold border-b border-white/10">Guild Identity</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Founder Entity</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Sector / Industry</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Force Count</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10 text-right">Administrative Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+    {% for g in guilds %}
+    <tr class="hover:bg-white/5 transition-colors group">
+        <td class="px-6 py-4">
+            <div class="flex items-center gap-2">
+                <span class="text-slate-100 font-medium">{{ g.name }}</span>
+                {% if g.is_verified %}
+                    <span class="material-symbols-outlined text-amber-500 text-lg" style="font-variation-settings: 'FILL' 1">verified</span>
+                {% endif %}
+            </div>
+        </td>
+        <td class="px-6 py-4 text-slate-400 font-mono text-sm">{{ g.founder.username }}</td>
+        <td class="px-6 py-4">
+            <span class="px-2.5 py-1 rounded bg-primary/10 border border-primary/20 text-primary text-[10px] uppercase font-bold tracking-wider">{{ g.industry }}</span>
+        </td>
+        <td class="px-6 py-4 text-slate-300 font-mono">{{ g.members.count }}</td>
+        <td class="px-6 py-4 text-right">
+            <div class="flex justify-end gap-2">
+                <form method="POST" action="{% url 'overseer_verify_guild' g.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center gap-1 px-3 py-1.5 rounded {% if g.is_verified %}bg-slate-500/10 text-slate-400 border-slate-500/20 hover:bg-slate-500{% else %}bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500{% endif %} text-xs font-bold hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-sm">{% if g.is_verified %}cancel{% else %}check_circle{% endif %}</span>
+                        {% if g.is_verified %}REVOKE{% else %}VERIFY{% endif %}
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'overseer_dismiss_guild' g.id %}" style="display:inline;" onsubmit="return confirm('Are you sure you want to completely erase this Guild?');">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center gap-1 px-3 py-1.5 rounded bg-red-500/10 text-red-500 border border-red-500/20 text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                        DISMISS
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</section>
+<section class="glass-panel rounded-xl overflow-hidden">
+<div class="px-6 py-5 border-b border-white/10 flex items-center justify-between bg-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-500">gavel</span>
+<h2 class="text-xl font-bold text-slate-100">Player Moderation Console</h2>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 z-10 bg-surface/90 backdrop-blur-md">
+<tr class="text-slate-400 text-xs uppercase tracking-widest font-mono">
+<th class="px-6 py-4 font-semibold border-b border-white/10">Operator Alias</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Power Level</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Total Experience (XP)</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10">Network Status</th>
+<th class="px-6 py-4 font-semibold border-b border-white/10 text-right">Moderation Controls</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+    {% for p in players %}
+    <tr class="hover:bg-white/5 transition-colors group">
+        <td class="px-6 py-4">
+            <div class="flex items-center gap-3">
+                <div class="size-8 rounded bg-primary/20 border border-primary/30 flex items-center justify-center font-mono text-primary font-bold">
+                    {{ p.username|make_list|first|upper }}
+                </div>
+                <span class="text-slate-100 font-medium">{{ p.username }}</span>
+            </div>
+        </td>
+        <td class="px-6 py-4 text-slate-300 font-mono">Lvl. {{ p.profile.level|default:"1" }}</td>
+        <td class="px-6 py-4 text-primary font-mono font-bold tracking-tight">{{ p.profile.total_xp|default:"0" }}</td>
+        <td class="px-6 py-4">
+            <div class="flex items-center gap-2">
+                {% if p.is_active %}
+                    <span class="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                    <span class="text-emerald-500 text-xs font-bold uppercase">Active</span>
+                {% else %}
+                    <span class="size-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></span>
+                    <span class="text-red-500 text-xs font-bold uppercase">Banned</span>
+                {% endif %}
+            </div>
+        </td>
+        <td class="px-6 py-4 text-right">
+            <div class="flex justify-end gap-2">
+                <form method="POST" action="{% url 'overseer_wipe_xp' p.id %}" style="display:inline;" onsubmit="return confirm('Wipe all XP for {{ p.username }}?');">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center gap-1 px-3 py-1.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20 text-xs font-bold hover:bg-amber-500 hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-sm">history_edu</span>
+                        WIPE XP
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'overseer_ban_player' p.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    {% if p.is_active %}
+                        <button type="submit" class="flex items-center gap-1 px-3 py-1.5 rounded bg-red-500/10 text-red-500 border border-red-500/20 text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-sm">block</span> BAN PLAYER
+                        </button>
+                    {% else %}
+                        <button type="submit" class="flex items-center gap-1 px-3 py-1.5 rounded bg-red-600 text-white border border-red-500/20 text-xs font-bold hover:bg-red-700 transition-all">
+                            <span class="material-symbols-outlined text-sm">healing</span> UNBAN
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<footer class="max-w-7xl mx-auto w-full px-6 py-8 border-t border-white/5 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs font-mono uppercase tracking-widest">
+<div class="flex items-center gap-4">
+<span>Protocol v4.0.8-ALPHA</span>
+<span class="h-3 w-px bg-white/10"></span>
+<span>Overseer OS v22.9</span>
+</div>
+<div class="text-primary/60">
+                    © 2124 DevRPG Syndicate // Terminal 0192-A
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

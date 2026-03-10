@@ -148,10 +148,21 @@
     <span class="bg-slate-800 border border-white/5 text-slate-300 px-2 py-1 rounded text-xs">AP-South-1</span>
     
     {% if user_guild %}
-        <span class="bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-1 rounded text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+        <a href="{% url 'guild_dashboard' %}" title="Go to Guild Headquarters" 
+           class="px-2 py-1 rounded text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-all cursor-pointer hover:scale-105
+           {% if user_guild.is_verified %}
+               bg-amber-500/10 border border-amber-500/30 text-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.2)] hover:bg-amber-500/20
+           {% else %}
+               bg-slate-400/10 border border-slate-400/30 text-slate-300 shadow-[0_0_10px_rgba(148,163,184,0.1)] hover:bg-slate-400/20
+           {% endif %}">
+            
             <span class="material-symbols-outlined text-[14px]">fort</span>
             {{ user_guild.name }}
-        </span>
+            
+            {% if user_guild.is_verified %}
+                <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1">verified</span>
+            {% endif %}
+        </a>
     {% endif %}
 </div>
             </div>

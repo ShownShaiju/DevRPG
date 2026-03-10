@@ -32,10 +32,24 @@ def dashboard(request):
     user_skills = UserSkill.objects.filter(user=request.user)
     radar_data = calculate_radar_stats(user_skills)
     
+    profile = request.user.profile
+    target_xp = profile.level * 1000 
+    
+
+    if target_xp > 0:
+        xp_percentage = min(int((profile.total_xp / target_xp) * 100), 100)
+    else:
+        xp_percentage = 0
+    
+    user_guild = request.user.guilds.first()
+        
     context = {
         'skills': user_skills,
         'stats': radar_data['stats'],
         'polygon_points': radar_data['polygon_points'],
+        'target_xp': target_xp,
+        'xp_percentage': xp_percentage,
+        'user_guild': user_guild,
     }
     return render(request, 'core/dashboard.html', context)
 
@@ -133,7 +147,12 @@ class CheckEvaluationStatusView(APIView):
             
         if session.status == 'completed':
             result = get_object_or_404(EvaluationResult, session=session)
-            user_skill = UserSkill.objects.get(user=request.user, skill=session.skill)
+            
+            if result.level_awarded >= session.target_level:
+                xp_change = f"+{session.target_level * 100} XP"
+            else:
+                xp_change = f"-{session.target_level * 50} XP"
+          
             
             return Response({
                 "status": "completed",
@@ -141,7 +160,7 @@ class CheckEvaluationStatusView(APIView):
                 "reasoning": result.reasoning,
                 "strengths": result.strengths,
                 "gaps": result.gaps,
-                "new_total_xp": user_skill.xp
+                "new_total_xp": xp_change 
             }, status=status.HTTP_200_OK)
             
-        return Response({"status": session.status})        
+        return Response({"status": session.status})

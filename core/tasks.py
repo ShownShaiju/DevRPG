@@ -59,6 +59,11 @@ def process_evaluation_task(session_id, question_id, user_answer):
     user_skill.xp = max(0, user_skill.xp + xp_change)
     profile.total_xp = max(0, profile.total_xp + xp_change)
 
+    while profile.total_xp >= (profile.level * 1000):
+        
+            profile.total_xp -= (profile.level * 1000)
+            profile.level += 1
+            
     # 5. Handle Level Downgrades (If XP drops too low)
     # The required XP for their CURRENT level is (level * 1000)
     # If they drop below the requirement for the PREVIOUS level, they de-level.

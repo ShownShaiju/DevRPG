@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>DevRPG - Search</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "accent": "#a855f7",
+                        "background-dark": "#0f172a",
+                        "surface-dark": "#1e293b",
+                        "surface-darker": "#111827",
+                    },
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .neon-shadow { box-shadow: 0 0 10px rgba(19, 91, 236, 0.5); }
+        .bg-grid-fade { mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
+        .hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+    </style>
+</head>
+<body class="bg-background-dark font-display text-slate-200 min-h-screen flex flex-col relative">
+
+<div class="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-10 pointer-events-none bg-grid-fade z-0"></div>
+
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-white/10 bg-surface-darker/90 backdrop-blur-md px-6 py-4">
+    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 text-white hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span class="font-bold uppercase tracking-widest text-sm">Return to Base</span>
+    </a>
+</header>
+
+<main class="flex-1 w-full max-w-5xl mx-auto p-6 lg:p-10 relative z-10">
+    
+    <div class="mb-10 text-center">
+        <h1 class="text-3xl font-bold text-white uppercase tracking-widest mb-2 flex justify-center items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-4xl">radar</span>
+            Global Network Scan
+        </h1>
+        <p class="text-slate-400">Searching coordinates for: <span class="text-primary font-bold">"{{ query }}"</span></p>
+    </div>
+
+    <div class="mb-12">
+        <h2 class="text-xl font-bold text-white uppercase tracking-widest mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-accent">person</span> Found Heroes ({{ heroes.count }})
+        </h2>
+        
+        {% if heroes %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for hero in heroes %}
+                <a href="{% url 'public_profile' hero.username %}" class="bg-surface-darker border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-primary/50 hover:bg-surface-dark transition-all group">
+                    <div class="hexagon size-14 bg-surface-dark p-0.5 shrink-0 group-hover:neon-shadow transition-all">
+                        {% if hero.profile.avatar_image %}
+                            <img src="{{ hero.profile.avatar_image.url }}" class="hexagon w-full h-full object-cover">
+                        {% else %}
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ hero.username }}" class="hexagon w-full h-full object-cover">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold group-hover:text-primary transition-colors">{{ hero.username }}</h4>
+                        <p class="text-[10px] text-primary uppercase tracking-widest font-bold mt-1">LV. {{ hero.profile.level }} • {{ hero.profile.job_title }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-surface-darker border border-dashed border-white/10 rounded-xl p-8 text-center text-slate-500 italic text-sm">
+                No heroes match this signature.
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h2 class="text-xl font-bold text-white uppercase tracking-widest mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-yellow-500">fort</span> Found Guilds ({{ guilds.count }})
+        </h2>
+        
+        {% if guilds %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for guild in guilds %}
+                <a href="/guilds/" class="bg-surface-darker border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-yellow-500/50 hover:bg-surface-dark transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-yellow-500/10 to-transparent"></div>
+                    <div class="size-14 rounded-lg bg-surface-dark flex items-center justify-center shrink-0 border border-white/5">
+                        <span class="material-symbols-outlined text-yellow-500 text-3xl">shield</span>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold group-hover:text-yellow-500 transition-colors flex items-center gap-1">
+                            {{ guild.name }}
+                            {% if guild.is_verified %}
+                                <span class="material-symbols-outlined text-[14px] text-yellow-500" style="font-variation-settings: 'FILL' 1">verified</span>
+                            {% endif %}
+                        </h4>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1">Req. LV: {{ guild.minimum_level_to_join }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-surface-darker border border-dashed border-white/10 rounded-xl p-8 text-center text-slate-500 italic text-sm">
+                No guilds match this signature.
+            </div>
+        {% endif %}
+    </div>
+
+</main>
+</body>
+</html>

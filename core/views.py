@@ -3,10 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache 
 from django.utils import timezone
 from datetime import timedelta
-
-from .models import UserSkill, Skill, Question, EvaluationSession
-from .utils import calculate_radar_stats    
 from django.contrib.auth.models import User
+from django.core.cache import cache
+from django.contrib import messages
+import requests
+from django.db.models import Q
+
+from .models import UserSkill, Skill, Question, EvaluationSession, EvaluationResult
+from guilds.models import Guild
+from .utils import calculate_radar_stats    
+
 # DRF imports
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,10 +21,7 @@ from .serializers import EvaluationSessionSerializer, QuestionSerializer
 import random
 from .ai_evaluator import evaluate_answer
 from .tasks import process_evaluation_task
-from .models import EvaluationResult
-from django.contrib import messages
-import requests
-from django.core.cache import cache
+
 # ==========================================
 # UI VIEWS
 # ==========================================
@@ -84,7 +87,7 @@ def dashboard(request, username=None):
     following_count = target_user.following_profiles.count()
 
     context = {
-        'hero': target_user, 
+        'hero': target_user,
         'is_owner': is_owner,
         'is_following': is_following,
         'followers_count': followers_count,
@@ -100,38 +103,74 @@ def dashboard(request, username=None):
     
     return render(request, 'core/dashboard.html', context)
 
+
+@login_required
+@never_cache
+def search_view(request):
+    """Handles the Global Navbar Search"""
+    query = request.GET.get('q', '').strip()
+    
+    heroes = []
+    guilds = []
+    
+    if query:
+        # Search for players by username or first name
+        heroes = User.objects.filter(
+            Q(username__icontains=query) | Q(first_name__icontains=query)
+        ).select_related('profile').exclude(id=request.user.id)
+        
+        # Search for guilds by name
+        guilds = Guild.objects.filter(name__icontains=query)
+
+    context = {
+        'query': query,
+        'heroes': heroes,
+        'guilds': guilds,
+    }
+    return render(request, 'core/search_results.html', context)
+
+
+@login_required
+def follow_toggle(request, username):
+    """Allows users to follow and unfollow each other"""
+    if request.method == "POST":
+        target_user = get_object_or_404(User, username=username)
+        
+        if target_user != request.user: # Prevent following yourself
+            profile = target_user.profile
+            if profile.followers.filter(id=request.user.id).exists():
+                profile.followers.remove(request.user)
+                messages.info(request, f"You unfollowed {username}.")
+            else:
+                profile.followers.add(request.user)
+                messages.success(request, f"You are now following {username}!")
+                
+    return redirect('public_profile', username=username)
+
+
 @login_required
 @never_cache
 def evaluation_room(request):
     """Serves the frontend interface for the AI Evaluation engine."""
-    # Fetch the user's active skills so they can select what to test
     user_skills = UserSkill.objects.filter(user=request.user).select_related('skill')
-    
-    context = {
-        'user_skills': user_skills
-    }
+    context = {'user_skills': user_skills}
     return render(request, 'core/evaluation_room.html', context)
 
+# ==========================================
 # EVALUATION API VIEWS
+# ==========================================
 
 class StartEvaluationView(APIView):
-    """Creates a new session, sets a deadline, and returns a random question."""
-    
     def post(self, request):
         skill_id = request.data.get('skill_id')
         target_level = request.data.get('target_level', 1)
         
-        # 1. Validate the skill exists
         skill = get_object_or_404(Skill, id=skill_id)
-        
-        # 2. Fetch a matching question FIRST to get the time limit
         questions = Question.objects.filter(skill=skill, target_level=target_level)
         if not questions.exists():
             return Response({"error": "No questions found for this skill/level."}, status=status.HTTP_404_NOT_FOUND)
             
         selected_question = random.choice(questions)
-        
-        # 3. Calculate deadline and create Session
         deadline = timezone.now() + timedelta(seconds=selected_question.time_limit_seconds)
         
         session = EvaluationSession.objects.create(
@@ -142,7 +181,6 @@ class StartEvaluationView(APIView):
             expected_end=deadline
         )
         
-        # 4. Return the session ID and the question to the user
         return Response({
             "session_id": session.id,
             "question": QuestionSerializer(selected_question).data
@@ -150,42 +188,33 @@ class StartEvaluationView(APIView):
         
 
 class SubmitAnswerView(APIView):
-    """Receives the answer, enforces the timer, and dispatches a background task."""
-    
     def post(self, request, session_id):
         session = get_object_or_404(EvaluationSession, id=session_id, user=request.user)
         user_answer = request.data.get('answer_text')
         question_id = request.data.get('question_id') 
         
-        # 1. Timer Enforcement
         if session.expected_end and timezone.now() > session.expected_end:
             session.status = 'abandoned'
             session.save()
             return Response({"error": "Time limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
             
-        # 2. Validation
         if session.status != 'in_progress':
             return Response({"error": "Session is not active."}, status=status.HTTP_400_BAD_REQUEST)
             
         if not user_answer or not question_id:
             return Response({"error": "answer_text and question_id are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # 3. Update session status to indicate background processing
         session.status = 'evaluating'
         session.save()
         
-        # 4. Dispatch the Celery Task (.delay() makes it asynchronous)
         process_evaluation_task.delay(session.id, question_id, user_answer)
         
-        # 5. Instantly return a 202 Accepted (Processing)
         return Response({
             "message": "Answer received. AI evaluation in progress.",
             "status": session.status
         }, status=status.HTTP_202_ACCEPTED)
         
 class CheckEvaluationStatusView(APIView):
-    """Allows the client to check if the AI has finished grading."""
-    
     def get(self, request, session_id):
         session = get_object_or_404(EvaluationSession, id=session_id, user=request.user)
         
@@ -195,11 +224,11 @@ class CheckEvaluationStatusView(APIView):
         if session.status == 'completed':
             result = get_object_or_404(EvaluationResult, session=session)
             
+            # --- CALCULATED EXACT XP CHANGE ---
             if result.level_awarded >= session.target_level:
                 xp_change = f"+{session.target_level * 100} XP"
             else:
                 xp_change = f"-{session.target_level * 50} XP"
-          
             
             return Response({
                 "status": "completed",

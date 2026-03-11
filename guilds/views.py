@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.utils.text import slugify
 from .models import Guild, Quest
 from core.models import UserSkill
+from django.contrib import messages
+from users.models import Profile
+from .models import Quest, QuestSubmission
 
 @login_required
 def guild_dashboard(request):
@@ -118,3 +121,83 @@ def quest_board(request):
         'quests': quests,
     }
     return render(request, 'guilds/quest_board.html', context)
+
+@login_required
+def create_quest(request):
+    """Allows Guild Owners to post new bounties."""
+    if request.method == "POST":
+        guild = request.user.guilds.first()
+        if not guild or guild.founder != request.user:
+            messages.error(request, "Only Guild Founders can issue quests.")
+            return redirect('guild_dashboard')
+            
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        xp_reward = int(request.POST.get('xp_reward', 500))
+        
+        Quest.objects.create(guild=guild, title=title, description=description, xp_reward=xp_reward)
+        messages.success(request, f"Quest '{title}' has been posted to the bounty board!")
+        
+    return redirect('guild_dashboard')
+
+@login_required
+def accept_quest(request, quest_id):
+    """Player accepts a quest to work on it."""
+    quest = get_object_or_404(Quest, id=quest_id)
+    
+    # Check if they already took it
+    if QuestSubmission.objects.filter(quest=quest, user=request.user).exists():
+        messages.error(request, "You have already accepted this quest.")
+    else:
+        QuestSubmission.objects.create(quest=quest, user=request.user)
+        messages.success(request, "Quest Accepted! Good luck, hero.")
+        
+    return redirect('quest_board')
+
+@login_required
+def submit_quest(request, quest_id):
+    """Player submits their GitHub link for review."""
+    if request.method == "POST":
+        quest = get_object_or_404(Quest, id=quest_id)
+        submission = get_object_or_404(QuestSubmission, quest=quest, user=request.user)
+        
+        github_url = request.POST.get('github_url')
+        if github_url:
+            submission.github_url = github_url
+            submission.status = 'submitted'
+            submission.save()
+            messages.success(request, "Results submitted to the Guild Overseer for review.")
+            
+    return redirect('quest_board')
+
+@login_required
+def approve_submission(request, submission_id):
+    """Guild Owner approves the code, grants XP, and closes the quest."""
+    submission = get_object_or_404(QuestSubmission, id=submission_id)
+    quest = submission.quest
+    
+    # Security: Only the Guild Founder who issued the quest can approve it
+    if quest.guild.founder == request.user:
+        # 1. Update submission
+        submission.status = 'approved'
+        submission.save()
+        
+        # 2. Grant XP to the player who submitted it
+        profile = submission.user.profile
+        profile.total_xp += quest.xp_reward
+        
+        # Handle Level Ups!
+        while profile.total_xp >= (profile.level * 1000):
+            profile.total_xp -= (profile.level * 1000)
+            profile.level += 1
+        profile.save()
+        
+        # 3. Close the quest so no one else can submit
+        quest.is_active = False
+        quest.save()
+        
+        messages.success(request, f"Bounty Paid! {submission.user.username} was awarded {quest.xp_reward} XP.")
+    else:
+        messages.error(request, "You do not have authorization to approve this quest.")
+        
+    return redirect('guild_dashboard')

@@ -18,6 +18,7 @@
                         "background-light": "#f6f6f8",
                         "background-dark": "#0f172a",
                         "surface": "#1e293b",
+                        "surface-darker": "#111827",
                     },
                     fontFamily: {
                         "display": ["Space Grotesk"]
@@ -34,9 +35,26 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        
+        /* TOAST NOTIFICATION STYLES */
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 60; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(16, 22, 34, 0.95); border-left: 4px solid #0d59f2; color: white; padding: 16px 24px; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); transform: translateX(100%); transition: transform 0.3s ease-out; display: flex; align-items: center; gap: 12px; min-width: 300px; border: 1px solid rgba(255,255,255,0.1); }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #fbbf24; } 
+        .toast.error { border-left-color: #ef4444; }   
+        .toast.info { border-left-color: #0d59f2; }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+
+<div id="toast-container"></div>
+<div id="django-messages" style="display:none;">
+    {% if messages %}
+        {% for message in messages %}
+            <div data-tag="{{ message.tags }}" data-text="{{ message }}"></div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 <header class="sticky top-0 z-50 glass-panel border-b border-white/10 px-6 py-4">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -65,7 +83,7 @@
     </div>
 </header>
 
-<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-12">
 
 {% if not in_guild %}
     <section class="space-y-10" id="mercenary-hub">
@@ -84,36 +102,39 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for g in available_guilds %}
-            <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-primary/50 transition-all group">
-                <div class="flex items-start justify-between mb-6">
-                    <div class="size-16 rounded-xl bg-gradient-to-br from-primary to-blue-400 p-0.5">
-                        <div class="w-full h-full bg-background-dark rounded-[10px] flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary text-3xl">shield</span>
+            <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-primary/50 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="size-16 rounded-xl bg-gradient-to-br from-primary to-blue-400 p-0.5">
+                            <div class="w-full h-full bg-background-dark rounded-[10px] flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">shield</span>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20 uppercase">{{ g.industry }}</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+                        {{ g.name }}
+                        {% if g.is_verified %}
+                            <span class="material-symbols-outlined text-amber-500 text-xl drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" style="font-variation-settings: 'FILL' 1" title="Verified Network Guild">verified</span>
+                        {% endif %}
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">{{ g.description|truncatechars:80 }}</p>
+                    <div class="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-white/5">
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-slate-500">Members</p>
+                            <p class="font-bold">{{ g.members.count }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-slate-500">Min Level</p>
+                            <p class="font-bold">Lv. {{ g.minimum_level_to_join }}</p>
                         </div>
                     </div>
-                    <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20 uppercase">{{ g.industry }}</span>
                 </div>
-                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
-                    {{ g.name }}
-                    {% if g.is_verified %}
-                        <span class="material-symbols-outlined text-amber-500 text-xl drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" style="font-variation-settings: 'FILL' 1" title="Verified Network Guild">verified</span>
-                    {% endif %}
-                </h3>
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">{{ g.description|truncatechars:80 }}</p>
-                <div class="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-white/5">
-                    <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-500">Members</p>
-                        <p class="font-bold">{{ g.members.count }}</p>
-                    </div>
-                    <div>
-                        <p class="text-[10px] uppercase tracking-widest text-slate-500">Min Level</p>
-                        <p class="font-bold">Lv. {{ g.minimum_level_to_join }}</p>
-                    </div>
-                </div>
-                <div class="flex gap-3">
+                
+                <div class="flex gap-3 mt-auto">
                     <form method="POST" action="{% url 'join_guild' g.id %}" class="flex-1">
                         {% csrf_token %}
-                        <button type="submit" class="w-full py-2 rounded-lg bg-primary hover:bg-primary/90 font-bold text-sm transition-colors uppercase tracking-tight">Join Guild</button>
+                        <button type="submit" class="w-full py-2 rounded-lg bg-primary hover:bg-primary/90 font-bold text-sm transition-colors uppercase tracking-tight shadow-lg">Join Guild</button>
                     </form>
                 </div>
             </div>
@@ -160,6 +181,53 @@
             </div>
         </div>
 
+        {% if request.user == guild.founder %}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <div class="bg-surface-darker border border-primary/30 p-6 rounded-xl shadow-[0_0_20px_rgba(19,91,236,0.1)]">
+                <h3 class="text-white font-bold mb-4 uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">add_task</span> Issue New Bounty
+                </h3>
+                <form action="{% url 'create_quest' %}" method="POST" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="text" name="title" placeholder="Quest Title (e.g., Build API Endpoint)" class="w-full bg-surface border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-primary text-sm" required>
+                    <textarea name="description" placeholder="Describe the task and requirements..." class="w-full bg-surface border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-primary text-sm h-20" required></textarea>
+                    <div class="flex items-center gap-4">
+                        <input type="number" name="xp_reward" placeholder="XP Reward (e.g., 500)" class="w-32 bg-surface border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-primary text-sm" required>
+                        <button type="submit" class="flex-1 bg-primary hover:bg-blue-600 text-white font-bold py-2 rounded uppercase tracking-widest text-sm transition-all shadow-[0_0_10px_rgba(19,91,236,0.3)]">Post to Board</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-surface-darker border border-yellow-500/30 p-6 rounded-xl shadow-[0_0_20px_rgba(234,179,8,0.1)]">
+                <h3 class="text-white font-bold mb-4 uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-yellow-500">rate_review</span> Pending Reviews
+                </h3>
+                <div class="space-y-3 max-h-[250px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+                    {% for quest in guild.quests.all %}
+                        {% for sub in quest.submissions.all %}
+                            {% if sub.status == 'submitted' %}
+                            <div class="bg-surface border border-yellow-500/20 p-4 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="text-white text-sm font-bold">{{ sub.user.username }} <span class="text-slate-400 font-normal">submitted code for</span> "{{ quest.title }}"</p>
+                                    <a href="{{ sub.github_url }}" target="_blank" class="text-primary text-xs hover:text-blue-400 flex items-center gap-1 mt-1 transition-colors">
+                                        <span class="material-symbols-outlined text-[14px]">link</span> View Code Repository
+                                    </a>
+                                </div>
+                                <form action="{% url 'approve_submission' sub.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all">Approve & Pay</button>
+                                </form>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% empty %}
+                        <p class="text-slate-500 text-sm italic">You have not issued any quests yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
             <div class="lg:col-span-7 space-y-6">
                 <h3 class="text-xl font-bold flex items-center gap-2">
@@ -183,7 +251,7 @@
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <button class="w-full md:w-32 py-3 border border-primary text-primary hover:bg-primary/10 rounded-xl font-bold text-xs uppercase tracking-widest transition-all">Start Quest</button>
+                            <a href="{% url 'quest_board' %}" class="w-full md:w-32 py-3 border border-primary text-primary hover:bg-primary/10 rounded-xl font-bold text-xs uppercase tracking-widest transition-all text-center block">View on Board</a>
                         </div>
                     </div>
                     {% empty %}
@@ -220,5 +288,36 @@
 {% endif %}
 
 </main>
+
+<script>
+    // --- TOAST NOTIFICATION LOGIC ---
+    function showToast(message, tag) {
+        const toastContainer = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${tag}`; 
+        
+        let icon = 'info';
+        if (tag.includes('success')) icon = 'check_circle';
+        if (tag.includes('error')) icon = 'error';
+
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-xl">${icon}</span>
+            <span class="text-sm font-bold uppercase tracking-wide">${message}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+        setTimeout(() => { toast.classList.add('show'); }, 100);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => { toast.remove(); }, 300);
+        }, 3000);
+    }
+
+    const messageDivs = document.querySelectorAll('#django-messages div');
+    messageDivs.forEach(div => {
+        showToast(div.getAttribute('data-text'), div.getAttribute('data-tag'));
+    });
+</script>
+
 </body>
 </html>

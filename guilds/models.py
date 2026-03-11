@@ -42,3 +42,24 @@ class QuestRequirement(models.Model):
 
     def __str__(self):
         return f"Lv.{self.minimum_level} {self.skill.name} for {self.quest.title}"
+    
+class QuestSubmission(models.Model):
+    """Tracks players who accept a quest and their submitted code."""
+    STATUS_CHOICES = (
+        ('accepted', 'In Progress'),
+        ('submitted', 'Under Review'),
+        ('approved', 'Approved & Rewarded'),
+        ('rejected', 'Rejected')
+    )
+
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='submissions')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='quest_submissions')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='accepted')
+    github_url = models.URLField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('quest', 'user') # A player can only take a specific quest once
+
+    def __str__(self):
+        return f"{self.user.username} -> {self.quest.title} ({self.status})"

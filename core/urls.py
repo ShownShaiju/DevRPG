@@ -9,4 +9,6 @@ urlpatterns = [
     path('api/evaluation/session/<int:session_id>/status/', views.CheckEvaluationStatusView.as_view(), name='api-check-status'),
     path('evaluate/', views.evaluation_room, name='evaluation_room'),
     path('hero/<str:username>/', views.dashboard, name='public_profile'),
+    path('search/', views.search_view, name='search'),
+    path('follow/<str:username>/', views.follow_toggle, name='follow_toggle'),
 ]

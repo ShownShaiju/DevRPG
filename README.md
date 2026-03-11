@@ -41,6 +41,10 @@ Relying exclusively on external LLM APIs is accurate but inherently slow (3-8 se
 * **Skill Tree Manager:** A standalone relational database allowing users to sync programming languages, frameworks, and tools to their global profile.
 * **Custom Auth System:** Overridden Django authentication routing with a stylized, gamified registration portal.
 * **AI Evaluation Chamber:** A real-time, timed testing environment where users submit text answers to technical scenarios, graded instantly by the hybrid DistilBERT/Gemini backend.
+* **Guild & Quest System:** Users can create or join Guilds (companies/teams) with verification badges. Guild founders post Quests (job opportunities) with precise skill prerequisites, and developers apply with proven skill levels.
+* **Social Features:** Follow and unfollow other developers to track their progress. A search system lets users discover profiles across the platform.
+* **GitHub Integration:** Sync your GitHub username to your profile and display your activity directly on your dashboard.
+* **Overseer Admin Panel:** A dedicated moderation dashboard for administrators to verify guilds, manage player bans, and reset XP.
 ---
 
 ## 🚀 Getting Started
@@ -73,6 +77,14 @@ DB_PASSWORD=secure_password
 DB_HOST=postgres
 DB_PORT=5432
 
+# AI Evaluation (Required for the Two-Tier AI engine)
+# Get your key at https://aistudio.google.com/apikey
+GEMINI_API_KEY=your_google_gemini_api_key
+
+# Celery Configuration
+CELERY_BROKER_URL=redis://redis:6379/0
+CELERY_RESULT_BACKEND=redis://redis:6379/0
+
 # AWS S3 Configuration (Optional: If omitted, files store locally in /media)
 # AWS_ACCESS_KEY_ID=your_aws_key
 # AWS_SECRET_ACCESS_KEY=your_aws_secret
@@ -89,10 +101,25 @@ docker-compose up --build -d
 
 Note: The web container is configured to automatically collect static files and apply database migrations on startup.
 
-### 4. Access the Application
+### 4. Load Fixture Data (Optional)
+To seed the database with prebuilt skills and evaluation questions:
+```
+docker-compose exec web python manage.py loaddata fixtures/skills.json
+docker-compose exec web python manage.py loaddata fixtures/questions.json
+```
+
+### 5. Access the Application
 Once the containers are successfully running, open your browser and navigate to:
 
 http://localhost (served via Nginx)
+
+---
+## ☸️ Kubernetes Deployment
+The project includes Kubernetes manifests in the `k8s/` directory for deploying to a cluster (e.g., AWS EKS):
+```
+kubectl apply -f k8s/
+```
+This deploys the web application, Celery worker, PostgreSQL with persistent storage, and Redis, all behind a LoadBalancer service.
 
 ---
 ## 💻 Local Development (Without Docker)
@@ -127,7 +154,13 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-### 6. Start the Celery Worker (in a separate terminal):
+### 6. Load Fixture Data (Optional):
+```
+python manage.py loaddata fixtures/skills.json
+python manage.py loaddata fixtures/questions.json
+```
+
+### 7. Start the Celery Worker (in a separate terminal):
 
 ```
 celery -A VeriSkills worker --loglevel=info

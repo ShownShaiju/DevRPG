@@ -1,167 +1,217 @@
 # DevRPG ⚔️
 
-A gamified, interactive developer portfolio and skill-tracking dashboard built with Django. DevRPG transforms the traditional resume into an RPG-style character sheet, complete with skill trees, experience points, and class archetypes.
+> **A production-grade, gamified developer portfolio and skill verification platform built with Django, Celery, and a custom Two-Tier AI evaluation engine.**
 
-## 🛠️ Tech Stack
-* **Backend:** Python, Django (v5.2)
-* **Database:** PostgreSQL
-* **Async Task Queue:** Celery, Redis
-* **Frontend:** HTML5, Tailwind CSS, JavaScript
-* **Image Processing:** Pillow (PIL)
-* **Machine Learning:** PyTorch, HuggingFace Transformers (DistilBERT)
-* **AI API:** Google Gemini 1.5 Flash
-* **Infrastructure:** Docker, Nginx, Gunicorn
-* **Cloud Storage:** AWS S3 (Optional for media files)
+DevRPG transforms the traditional developer profile into an RPG-style experience — complete with verified skill trees, experience points, guild collaboration, and real open-source contribution quests. Built to showcase full-stack engineering, asynchronous system design, and applied machine learning in a single deployable platform.
 
-## 🧠 Core Architecture Focus 
-### A: Asynchronous Image Pipeline
-To ensure high performance and prevent HTTP request blocking, this project implements a production-grade asynchronous media processing pipeline. 
-
-When a user uploads a heavy, high-resolution profile avatar:
-1. **The Hand-off:** Django immediately accepts the file, locks the database state (`is_avatar_processing = True`), and offloads the heavy computation to a Redis message broker.
-2. **Optimistic UI:** The frontend leverages `sessionStorage` and the JavaScript FileReader API to instantly display a localized Base64 preview of the image, providing immediate visual feedback without waiting for the server.
-3. **Background Processing:** A Celery worker picks up the task, perfectly crops the image to a 1:1 aspect ratio using Lanczos resampling, compresses it, and unlocks the database state. 
-4. **Cache-Busting Polling:** A lightweight asynchronous JavaScript polling loop queries an API endpoint every 500ms. Once Celery completes the task, the DOM is dynamically updated with the compressed image using a cache-busting timestamp tag, requiring zero page reloads.
-
-This architecture drastically reduces outbound bandwidth costs, ensures sub-second page rendering times, and maintains a highly responsive user interface.
-
-### B: Two-Tier AI Evaluation Engine
-DevRPG evaluates developer skill levels by asking scenario-based technical questions and scoring the answers .To handle this at scale, the project implements a custom Two-Tier Cascade Architecture 
-
-Relying exclusively on external LLM APIs is accurate but inherently slow (3-8 seconds per evaluation) and expensive.To solve this, DevRPG utilizes a custom-trained local machine learning model to act as a high-speed pre-screening layer
-
-1. **The Fast Path (DistilBERT):** I fine-tuned a 66-million parameter DistilBERT model specifically for developer skill classification.The model was trained on 1080 synthetically generated answers covering 8 different technical skills, achieving a 98.1% validation accuracy. This model runs locally in CPU RAM inside my Celery workers, evaluating answers in approximately 50 milliseconds. 
-
-2. **Intelligent Routing:** If a user submits an obvious Novice or Apprentice answer (Level 1-2), DistilBERT recognizes the vocabulary markers and assigns a score instantly, entirely bypassing external APIs.
-
-3. **The Deep Evaluation Path (Gemini 1.5 Flash):** If the answer is complex, advanced (Level 3-5), or if the local model's confidence falls below 85%, the Celery router seamlessly falls back to the Gemini API for deep rubric-based evaluation.
-
-## ✨ Features
-* **Dynamic Radar Charts:** Automatically calculates max skill levels and dynamically generates SVG polygon coordinates to visualize a user's technical stack distribution.
-* **Skill Tree Manager:** A standalone relational database allowing users to sync programming languages, frameworks, and tools to their global profile.
-* **Custom Auth System:** Overridden Django authentication routing with a stylized, gamified registration portal.
-* **AI Evaluation Chamber:** A real-time, timed testing environment where users submit text answers to technical scenarios, graded instantly by the hybrid DistilBERT/Gemini backend.
-* **Guild & Quest System:** Users can create or join Guilds (companies/teams) with verification badges. Guild founders post Quests (job opportunities) with precise skill prerequisites, and developers apply with proven skill levels.
-* **Social Features:** Follow and unfollow other developers to track their progress. A search system lets users discover profiles across the platform.
-* **GitHub Integration:** Sync your GitHub username to your profile and display your activity directly on your dashboard.
-* **Overseer Admin Panel:** A dedicated moderation dashboard for administrators to verify guilds, manage player bans, and reset XP.
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech Stack
 
-The easiest way to run DevRPG is using Docker. The included `docker-compose.yml` orchestrates the entire stack (Nginx, Django web server, Celery worker, Redis, and PostgreSQL).
+| Layer | Technology |
+|---|---|
+| **Backend** | Python, Django 5.2, Django REST Framework |
+| **Database** | PostgreSQL |
+| **Async Queue** | Celery, Redis |
+| **Frontend** | HTML5, Tailwind CSS, Vanilla JavaScript |
+| **Machine Learning** | PyTorch, HuggingFace Transformers (DistilBERT) |
+| **AI API** | Google Gemini 1.5 Flash |
+| **Image Processing** | Pillow (PIL) |
+| **Infrastructure** | Docker, Nginx, Gunicorn |
+| **Orchestration** | Kubernetes (AWS EKS manifests included) |
+| **Cloud Storage** | AWS S3 (optional) |
+
+---
+
+## 🧠 Architecture Highlights
+
+### A — Asynchronous Avatar Processing Pipeline
+
+Profile picture uploads are handled entirely off the request thread to guarantee sub-second page response times.
+
+1. **Immediate Hand-off:** Django accepts the upload, sets `is_avatar_processing = True` in the database, and publishes the task to Redis — the HTTP response is returned instantly.
+2. **Optimistic UI:** The frontend uses the `FileReader` API to render a local Base64 preview immediately, with zero server round-trips.
+3. **Background Processing:** A Celery worker crops the image to a 1:1 aspect ratio using Lanczos resampling and compresses it, then clears the processing flag.
+4. **Cache-Busting Polling:** A lightweight JavaScript polling loop queries a status endpoint every 500ms and hot-swaps the DOM image using a timestamp query string — no page reload required.
+
+This pipeline eliminates HTTP blocking, reduces outbound bandwidth costs, and keeps the UI fully responsive regardless of upload size.
+
+---
+
+### B — Two-Tier Cascade AI Evaluation Engine
+
+Skill verification uses a hybrid local model + external API architecture designed to balance speed, cost, and accuracy.
+
+**The Problem:** Relying exclusively on LLM APIs introduces 3–8 second latency per evaluation and significant per-call cost at scale.
+
+**The Solution:**
+
+1. **Fast Path — DistilBERT (Local):** A 66M-parameter DistilBERT model fine-tuned on 1,080 synthetically generated technical Q&A pairs across 8 skill domains. Achieves **98.1% validation accuracy**. Runs locally in Celery worker CPU RAM, evaluating answers in approximately **50ms**.
+
+2. **Intelligent Routing:** For Level 1–2 submissions where vocabulary markers clearly indicate a Novice or Apprentice answer, DistilBERT scores instantly — no external API call is made.
+
+3. **Deep Path — Gemini 1.5 Flash (API):** For Level 3–5 submissions, or any evaluation where DistilBERT's confidence falls below **85%**, the router transparently falls back to Gemini for rubric-based deep evaluation. This covers both high-complexity answers and ambiguous edge cases.
+
+```
+User submits answer
+        │
+        ▼
+  DistilBERT inference (~50ms)
+        │
+  Confidence ≥ 85%?  ──No──▶  Gemini 1.5 Flash (deep eval)
+        │ Yes
+        ▼
+  Level 1-2? ──Yes──▶  Score instantly
+        │ No (Level 3-5)
+        ▼
+  Route to Gemini 1.5 Flash
+```
+
+---
+
+## ✨ Features
+
+- **Verified Skill Tree** — Skills are unverified by default. Users must pass the AI evaluation to earn a verified badge at each level (1–5).
+- **AI Evaluation Chamber** — Real-time, timed testing environment. Users submit text answers to technical scenarios, graded by the DistilBERT/Gemini backend asynchronously via Celery.
+- **XP & Level Progression** — Quest completions and skill verifications award XP. Level-ups are calculated server-side with threshold checks on every XP grant.
+- **Guild & Quest System** — Users create or join Guilds with founder-controlled verification. Founders post Quests (linked to real GitHub issues) with defined skill and minimum level prerequisites. Members accept, complete, and submit quests via GitHub URL. Founders review and approve submissions, triggering XP payouts.
+- **Leaderboard** — Global User and Guild leaderboards ranked by XP and level, providing a competitive, transparent view of platform-wide progression.
+- **GitHub Integration** — Sync a GitHub username to display live repository data, contribution graphs, and recent projects directly on the user dashboard via the GitHub API, with Redis caching to minimize rate limit exposure.
+- **Dynamic Radar Charts** — SVG-based skill radar charts auto-generated from verified skill levels, visualizing a user's full technical stack distribution.
+- **Social Graph** — Follow and unfollow other developers. Discover profiles via a global search across usernames and guild names.
+- **Asynchronous Avatar Pipeline** — Production-grade image processing via Celery (see Architecture above).
+- **Overseer Admin Panel** — Dedicated moderation dashboard for administrators to verify/dismiss guilds, ban/restore players, and wipe player XP.
+- **Custom Auth System** — Overridden Django authentication routing with email-based login and gamified registration portal.
+
+---
+
+## 🚀 Quick Start (Docker)
+
+The entire stack — Nginx, Django, Celery, Redis, PostgreSQL — is orchestrated via Docker Compose.
 
 ### Prerequisites
-* [Docker](https://docs.docker.com/get-docker/)
-* [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-### 1. Clone the repository
-```
+### 1. Clone
 
+```bash
 git clone https://github.com/ShownShaiju/DevRPG.git
 cd DevRPG
-
 ```
-### 2. Environment Variables
-Create a .env file in the root directory of the project and populate it with the necessary configuration variables:
 
-```
-# Django Settings
+### 2. Configure Environment
+
+Create a `.env` file in the project root:
+
+```env
+# Django
 SECRET_KEY=your_super_secret_django_key_here
 DEBUG=True
 
-# Database Configuration (Used by PostgreSQL container and Django)
+# PostgreSQL
 DB_NAME=devrpg_db
 DB_USER=devrpg_user
 DB_PASSWORD=secure_password
 DB_HOST=postgres
 DB_PORT=5432
 
-# AI Evaluation (Required for the Two-Tier AI engine)
-# Get your key at https://aistudio.google.com/apikey
+# Gemini AI (https://aistudio.google.com/apikey)
 GEMINI_API_KEY=your_google_gemini_api_key
 
-# Celery Configuration
+# Celery / Redis
 CELERY_BROKER_URL=redis://redis:6379/0
 CELERY_RESULT_BACKEND=redis://redis:6379/0
 
-# AWS S3 Configuration (Optional: If omitted, files store locally in /media)
-# AWS_ACCESS_KEY_ID=your_aws_key
-# AWS_SECRET_ACCESS_KEY=your_aws_secret
-# AWS_STORAGE_BUCKET_NAME=your_bucket_name
+# AWS S3 (optional — omit to store media locally)
+# AWS_ACCESS_KEY_ID=your_key
+# AWS_SECRET_ACCESS_KEY=your_secret
+# AWS_STORAGE_BUCKET_NAME=your_bucket
 # AWS_S3_REGION_NAME=ap-south-1
 ```
 
-### 3. Build and Run with Docker
-Spin up the entire application stack using Docker Compose:
+### 3. Build and Run
 
-```
+```bash
 docker-compose up --build -d
 ```
 
-Note: The web container is configured to automatically collect static files and apply database migrations on startup.
+> The web container automatically runs migrations and collects static files on startup.
 
-### 4. Load Fixture Data (Optional)
-To seed the database with prebuilt skills and evaluation questions:
-```
+### 4. Seed Data (Optional)
+
+```bash
 docker-compose exec web python manage.py loaddata fixtures/skills.json
 docker-compose exec web python manage.py loaddata fixtures/questions.json
 ```
 
-### 5. Access the Application
-Once the containers are successfully running, open your browser and navigate to:
+### 5. Open
 
-http://localhost (served via Nginx)
+Navigate to **http://localhost** (served via Nginx).
 
 ---
-## ☸️ Kubernetes Deployment
-The project includes Kubernetes manifests in the `k8s/` directory for deploying to a cluster (e.g., AWS EKS):
-```
+
+## ☸️ Kubernetes Deployment (AWS EKS)
+
+Kubernetes manifests are available in the `k8s/` directory. Deploys the full stack — web, Celery worker, PostgreSQL with persistent EBS storage, and Redis — behind an AWS LoadBalancer.
+
+```bash
 kubectl apply -f k8s/
 ```
-This deploys the web application, Celery worker, PostgreSQL with persistent storage, and Redis, all behind a LoadBalancer service.
 
 ---
+
 ## 💻 Local Development (Without Docker)
-If you prefer to run the application natively for development:
 
-### 1. Install Python 3.x and create a virtual environment:
-```
+```bash
+# 1. Create virtual environment
 python -m venv venv
-source venv/bin/activate  
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# On Windows: venv\Scripts\activate
-```
-
-### 2. Install Dependencies:
-```
+# 2. Install dependencies
 pip install -r requirements.txt
-```
 
-### 3. Setup Redis & PostgreSQL:
- Ensure you have instances of Redis and PostgreSQL running locally.
- Update your `.env` file so `DB_HOST` and `CELERY_BROKER_URL` point to localhost.
+# 3. Ensure Redis and PostgreSQL are running locally
+#    Update DB_HOST and CELERY_BROKER_URL in .env to point to localhost
 
-### 4. Run Migrations:
-
-```
+# 4. Run migrations
 python manage.py migrate
-```
 
-### 5. Start the Django Development Server:
-
-```
-python manage.py runserver
-```
-
-### 6. Load Fixture Data (Optional):
-```
+# 5. Seed data (optional)
 python manage.py loaddata fixtures/skills.json
 python manage.py loaddata fixtures/questions.json
+
+# 6. Start Django dev server
+python manage.py runserver
+
+# 7. Start Celery worker (separate terminal)
+celery -A VeriSkills worker --loglevel=info --pool=solo
 ```
 
-### 7. Start the Celery Worker (in a separate terminal):
+> **Note:** `--pool=solo` is recommended for local development on machines with limited RAM (< 16GB) when running alongside Docker Desktop, preventing multi-process RAM duplication from the DistilBERT model.
+
+---
+
+## 📁 Project Structure
 
 ```
-celery -A VeriSkills worker --loglevel=info
+DevRPG/
+├── core/          # Dashboard, evaluation engine, search, follow system
+├── users/         # Auth, profiles, skill manager, avatar pipeline
+├── guilds/        # Guild management, quest board, submissions, XP grants
+├── overseer/      # Admin moderation panel
+├── VeriSkills/    # Django settings, Celery config, root URLs
+├── k8s/           # Kubernetes manifests (EKS)
+├── fixtures/      # Seed data for skills and evaluation questions
+└── Dockerfile
 ```
+
+---
+
+## 🤝 Contributing
+
+DevRPG is open source. Pull requests are welcome — check the [Issues](https://github.com/ShownShaiju/DevRPG/issues) tab for open quests.
+
+---
+
+*Built by [Shown Shaiju](https://github.com/ShownShaiju)*

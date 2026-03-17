@@ -11,4 +11,5 @@ urlpatterns = [
     path('hero/<str:username>/', views.dashboard, name='public_profile'),
     path('search/', views.search_view, name='search'),
     path('follow/<str:username>/', views.follow_toggle, name='follow_toggle'),
+    path('leaderboard/', views.set_leaderboard, name='leaderboard'),
 ]

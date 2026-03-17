@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Hall of Fame | DevRPG</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { 
+                extend: { 
+                    colors: { 
+                        "primary": "#135bec", 
+                        "background-dark": "#0f172a", 
+                        "surface-dark": "#1e293b", 
+                        "surface-darker": "#111827" 
+                    }, 
+                    fontFamily: { "display": ["Space Grotesk"] } 
+                } 
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .neon-text { text-shadow: 0 0 5px rgba(19, 91, 236, 0.5); }
+        .rank-1 { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); } /* Gold */
+        .rank-2 { color: #94a3b8; text-shadow: 0 0 10px rgba(148, 163, 184, 0.5); } /* Silver */
+        .rank-3 { color: #b45309; text-shadow: 0 0 10px rgba(180, 83, 9, 0.5); } /* Bronze */
+    </style>
+</head>
+<body class="bg-background-dark font-display text-slate-200 min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-white/10 bg-surface-darker/90 backdrop-blur-md px-6 py-3 lg:px-10">
+    <div class="flex items-center gap-4 text-white">
+        <div class="size-8 text-primary neon-text"><span class="material-symbols-outlined text-[32px]">swords</span></div>
+        <h2 class="text-white text-xl font-bold tracking-wider uppercase neon-text">DevRPG</h2>
+    </div>
+    <nav class="hidden md:flex flex-1 justify-center gap-8">
+        <a class="text-slate-400 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'dashboard' %}">Hero Profile</a>
+        <a class="text-slate-400 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'quest_board' %}">Job Board</a>
+        <a class="text-slate-400 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest" href="{% url 'guild_dashboard' %}">Guilds</a>
+        <a class="text-white neon-text text-sm font-bold uppercase tracking-widest border-b-2 border-primary" href="{% url 'leaderboard' %}">Hall of Fame</a>
+    </nav>
+</header>
+
+<main class="w-full max-w-7xl mx-auto p-6 lg:p-8">
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl font-black uppercase tracking-tight italic mb-2 flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined text-amber-500 text-5xl">trophy</span> 
+            Global Rankings
+        </h1>
+        <p class="text-slate-400">The most elite developers and formidable guilds in the network.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <section class="bg-surface-darker border border-primary/20 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(19,91,236,0.1)]">
+            <div class="bg-primary/10 border-b border-primary/20 p-4">
+                <h2 class="text-xl font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">person</span> Top Heroes
+                </h2>
+            </div>
+            <div class="p-0">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-black/40 text-xs uppercase tracking-widest text-slate-500">
+                            <th class="p-4 font-bold">Rank</th>
+                            <th class="p-4 font-bold">Hero</th>
+                            <th class="p-4 font-bold text-right">Level</th>
+                            <th class="p-4 font-bold text-right">Total XP</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        {% for hero in top_players %}
+                        <tr class="hover:bg-white/[0.02] transition-colors group">
+                            <td class="p-4 font-black text-lg
+                                {% if forloop.counter == 1 %}rank-1
+                                {% elif forloop.counter == 2 %}rank-2
+                                {% elif forloop.counter == 3 %}rank-3
+                                {% else %}text-slate-500{% endif %}">
+                                #{{ forloop.counter }}
+                            </td>
+                            <td class="p-4 flex items-center gap-3">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed={{ hero.username }}" alt="Avatar" class="size-8 rounded bg-surface-dark border border-white/10"/>
+                                <div>
+                                    <p class="font-bold text-white group-hover:text-primary transition-colors">{{ hero.username }}</p>
+                                    <p class="text-[10px] uppercase text-slate-500 tracking-widest">{{ hero.profile.job_title|default:"Mercenary" }}</p>
+                                </div>
+                            </td>
+                            <td class="p-4 text-right font-bold text-primary">Lv. {{ hero.profile.level|default:"1" }}</td>
+                            <td class="p-4 text-right font-mono text-sm text-slate-300">{{ hero.profile.total_xp|default:"0" }} XP</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-slate-500 italic">No heroes recorded in the database.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="bg-surface-darker border border-amber-500/20 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+            <div class="bg-amber-500/10 border-b border-amber-500/20 p-4">
+                <h2 class="text-xl font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-500">shield</span> Top Guilds
+                </h2>
+            </div>
+            <div class="p-0">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-black/40 text-xs uppercase tracking-widest text-slate-500">
+                            <th class="p-4 font-bold">Rank</th>
+                            <th class="p-4 font-bold">Guild</th>
+                            <th class="p-4 font-bold text-center">Members</th>
+                            <th class="p-4 font-bold text-right">Guild XP</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        {% for guild in top_guilds %}
+                        <tr class="hover:bg-white/[0.02] transition-colors group">
+                            <td class="p-4 font-black text-lg
+                                {% if forloop.counter == 1 %}rank-1
+                                {% elif forloop.counter == 2 %}rank-2
+                                {% elif forloop.counter == 3 %}rank-3
+                                {% else %}text-slate-500{% endif %}">
+                                #{{ forloop.counter }}
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <p class="font-bold text-white group-hover:text-amber-500 transition-colors">{{ guild.name }}</p>
+                                    {% if guild.is_verified %}
+                                        <span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1">verified</span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-[10px] uppercase text-slate-500 tracking-widest">{{ guild.industry }}</p>
+                            </td>
+                            <td class="p-4 text-center font-bold text-slate-300">{{ guild.members.count }}</td>
+                            <td class="p-4 text-right font-mono text-sm text-amber-500 italic">+{{ guild.guild_xp|default:"0" }} XP</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-slate-500 italic">No guilds established yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</main>
+</body>
+</html>

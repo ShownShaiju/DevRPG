@@ -21,10 +21,8 @@ from .serializers import EvaluationSessionSerializer, QuestionSerializer
 import random
 from .ai_evaluator import evaluate_answer
 from .tasks import process_evaluation_task
+from .leaderboard import set_leaderboard
 
-# ==========================================
-# UI VIEWS
-# ==========================================
 
 def index_redirect(request):
     if request.user.is_authenticated:

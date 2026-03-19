@@ -15,7 +15,7 @@ DevRPG transforms the traditional developer profile into an RPG-style experience
 | **Async Queue** | Celery, Redis |
 | **Frontend** | HTML5, Tailwind CSS, Vanilla JavaScript |
 | **Machine Learning** | PyTorch, HuggingFace Transformers (DistilBERT) |
-| **AI API** | Google Gemini 1.5 Flash |
+| **AI API** | Google Gemini 2.5 Flash |
 | **Image Processing** | Pillow (PIL) |
 | **Infrastructure** | Docker, Nginx, Gunicorn |
 | **Orchestration** | Kubernetes (AWS EKS manifests included) |
@@ -50,7 +50,7 @@ Skill verification uses a hybrid local model + external API architecture designe
 
 2. **Intelligent Routing:** For Level 1–2 submissions where vocabulary markers clearly indicate a Novice or Apprentice answer, DistilBERT scores instantly — no external API call is made.
 
-3. **Deep Path — Gemini 1.5 Flash (API):** For Level 3–5 submissions, or any evaluation where DistilBERT's confidence falls below **85%**, the router transparently falls back to Gemini for rubric-based deep evaluation. This covers both high-complexity answers and ambiguous edge cases.
+3. **Deep Path — Gemini 2.5 Flash (API):** For Level 3–5 submissions, or any evaluation where DistilBERT's confidence falls below **85%**, the router transparently falls back to Gemini for rubric-based deep evaluation. This covers both high-complexity answers and ambiguous edge cases.
 
 ```
 User submits answer
@@ -58,13 +58,13 @@ User submits answer
         ▼
   DistilBERT inference (~50ms)
         │
-  Confidence ≥ 85%?  ──No──▶  Gemini 1.5 Flash (deep eval)
+  Confidence ≥ 85%?  ──No──▶  Gemini 2.5 Flash (deep eval)
         │ Yes
         ▼
-  Level 1-2? ──Yes──▶  Score instantly
-        │ No (Level 3-5)
+  Level 1-3? ──Yes──▶  Score instantly
+        │ No (Level 4-5)
         ▼
-  Route to Gemini 1.5 Flash
+  Route to Gemini 2.5 Flash
 ```
 
 ---
